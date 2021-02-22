@@ -1,4 +1,5 @@
 # TCHOU-TCHOU
+![Train](img/tchou.png "Train")
 Projet en Structure de Donnée. Gestion d'une compagnie de chemin de fer.
 
 Les explications du codes sont donnés dans documentation !
@@ -15,8 +16,8 @@ L'interface administrateur doit permettre de nombreuses choses. L'accès y est p
 L'administrateur doit pouvoir ajouter/enlever une gare. Ajouter ou enlever un trajet entre gare
 
 
-1. Si le choix du graphe pour les trajets (non orienté) : Dictionnaire à deux dimensions</li>
-2. Un ensemble de variable pour chaque gare, représentant chacune un trajet</li>    
+1. Si le choix du graphe pour les trajets (non orienté) : Dictionnaire à deux dimensions
+2. Un ensemble de variable pour chaque gare, représentant chacune un trajet   
 
 #### Exportation des Trajets + Passagers
 
