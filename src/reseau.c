@@ -32,9 +32,11 @@ Reseau initReseau(){
 	}
 	//Creation et remplissage du reseau en memoire
 	Reseau ensembleGare = (Reseau) malloc(sizeof(Reseau));
+	ensembleGare->size=0;
+
 
 	Gare g = (Gare) malloc(sizeof(Gare));
-	char nomGare[NB_CARAC_NOM_GARE+1];
+	char nomG[NB_CARAC_NOM_GARE+1];
 	int numIdGare;
 	int dizaine = 0;
 	int unite = 0;
@@ -43,15 +45,15 @@ Reseau initReseau(){
 	do {
 		caractere = fgetc(fichierReseau);
 		printf("%c\n",caractere);
-		nomGare[i] = caractere;
+		nomG[i] = caractere;
 		i++;
 	} while (caractere != ' ');
-	nomGare[i-1]='\0';
+	nomG[i-1]='\0';
 	caractere = fgetc(fichierReseau);
 	dizaine = caractere - '0';
 	caractere = fgetc(fichierReseau);
 	unite = caractere - '0';
 	numIdGare = dizaine*10 + unite;
-	printf("GO : %s %d\n",nomGare, numIdGare);
+	g->nomGare = nomG;
 	return EXIT_SUCCESS;
 }
