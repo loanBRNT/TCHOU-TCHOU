@@ -31,4 +31,4 @@ Une liste chainée semble être une bonne idée
 reseau.txt : un nom de gare par ligne
 
 trajet.txt : 
-![TRAJET](img/exempletrajet.png "TRAJET")
+![TRAJET](img/exempleTrajet.png "TRAJET")
