@@ -17,6 +17,6 @@ struct s_trajet{
 };
 
 struct s_reseau{
-	Gare head: //Indice de la premiere gare
+	Gare head; //Indice de la premiere gare
 	int size; //taille du reseau (nombe de gare)
 };

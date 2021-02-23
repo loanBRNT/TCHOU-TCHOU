@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
+#include "pwd.h"
 
 /* 
     Commande de compilation avec gcc :
@@ -11,6 +12,6 @@
 
 int main(int argc, char const *argv[])
 {
-	/* code */
+	verifierPwdAdmin();
 	return 0;
 }
