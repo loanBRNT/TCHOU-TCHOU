@@ -20,3 +20,38 @@ struct s_reseau{
 	Gare head; //Indice de la premiere gare
 	int size; //taille du reseau (nombe de gare)
 };
+
+Reseau initReseau(){
+	FILE* fichierReseau = NULL;
+	//Ouverture des fichiers de sauvegarde
+	fichierReseau = fopen("sauv/reseau.txt", "r");
+	//Verification de la bonne ouverture des fichiers de sauvegarde
+	if (fichierReseau == NULL) {
+		printf("Error 1 : PROBLEME OUVERTURE FICHIER RESEAU\n");
+		exit(EXIT_FAILURE);
+	}
+	//Creation et remplissage du reseau en memoire
+	Reseau ensembleGare = (Reseau) malloc(sizeof(Reseau));
+
+	Gare g = (Gare) malloc(sizeof(Gare));
+	char nomGare[NB_CARAC_NOM_GARE+1];
+	int numIdGare;
+	int dizaine = 0;
+	int unite = 0;
+	char caractere;
+	int i=0;
+	do {
+		caractere = fgetc(fichierReseau);
+		printf("%c\n",caractere);
+		nomGare[i] = caractere;
+		i++;
+	} while (caractere != ' ');
+	nomGare[i-1]='\0';
+	caractere = fgetc(fichierReseau);
+	dizaine = caractere - '0';
+	caractere = fgetc(fichierReseau);
+	unite = caractere - '0';
+	numIdGare = dizaine*10 + unite;
+	printf("GO : %s %d\n",nomGare, numIdGare);
+	return EXIT_SUCCESS;
+}
