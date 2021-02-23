@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "main.h"
 #include "reseau.h"
+#define EXIT_SUCESS 0
+#define EXIT_FAILURE 1
 
 /* 
     Commande de compilation avec gcc :
@@ -12,6 +15,7 @@
 
 int main(int argc, char const *argv[])
 {
-	initReseau();
+	Reseau reseau = initReseau();
+	closeReseau(reseau);
 	return 0;
 }

@@ -1,4 +1,4 @@
-Paris 01
-Orlean 02
-Limoges 03
-Lyon 04
+Paris
+Orlean
+Limoges
+Lyon
