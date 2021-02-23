@@ -29,7 +29,11 @@ int main(int argc, char const *argv[])
 	printf("#                                         #\n");
 	printf("###########################################\n");
 	printf("\n");
-	
+
+	/*demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
+	  si le numero n'est pas bon on redemande un numero de menu
+	  le choix numero 4 modifie la valeur de la variable event afin de sortir de la boucle et pouvoir arreter le programme
+	*/
 	while(event != -1){
 		printf("###########################################\n");
 		printf("#           choisissez un menu            #\n");
@@ -43,7 +47,7 @@ int main(int argc, char const *argv[])
 				printf("###########################################\n");
 				printf("# Vous avez choisi le menu ADMINISTRATEUR #\n");
 				printf("###########################################\n");
-				menuAdmin();
+				menuAdminVerification();
 				break;
 			case 2:
 				printf("###########################################\n");
