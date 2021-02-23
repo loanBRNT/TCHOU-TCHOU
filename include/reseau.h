@@ -13,6 +13,8 @@ int initGare(Reseau, FILE*, FILE*); //Ajoute une Gare au reseau à partir du fic
 
 Reseau initReseau(); //Initialisation a partir des fichiers reseau.txt et trajet.txt
 
-Reseau closeReseau(Reseau); //Sauvegarder le reseau dans le fichier reseau.txt et trajet.txt
+Reseau sauvReseau(Reseau); //Sauvegarder le reseau dans le fichier reseau.txt et trajet.t
+
+Reseau closeReseau(Reseau); //Liberer la memoire
 
 #endif

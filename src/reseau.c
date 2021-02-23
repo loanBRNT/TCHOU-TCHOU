@@ -25,11 +25,13 @@ struct s_reseau{
 };
 
 int initTrajet(Gare gareDepart, FILE* fichierTrajet){
+	//on cree de l'espace memoire pour un trajet
 	Trajet tr = (Trajet) malloc(sizeof(struct s_trajet));
 	if (tr==NULL) {
 		printf("ERREUR ALLOCATION ESPACE TRAJET\n");
 		return 1;
 	}
+	//on regarde si on avait deja mis ou non des trajets à cette gare
 	if (gareDepart->nbTrajet==0) {
 		gareDepart->headListeTrajet = tr;
 		gareDepart->tailListeTrajet = tr;
@@ -37,7 +39,8 @@ int initTrajet(Gare gareDepart, FILE* fichierTrajet){
 		gareDepart->tailListeTrajet->next = tr;
 		gareDepart->tailListeTrajet = tr;
 	}
-	char ligne[100] = "";
+	//systeme de lecture du format
+	//lecture du nom de la gare d'arrivee
 	char caractere;
 	int i=0;
 	int centaine;
@@ -51,6 +54,7 @@ int initTrajet(Gare gareDepart, FILE* fichierTrajet){
 		}
 	} while (caractere != '-');
 	tr->gareArrive[i-1] = '\0';
+	//calcul de la ponderation
 	caractere = fgetc(fichierTrajet);
 	centaine = caractere - '0';
 	caractere = fgetc(fichierTrajet);
@@ -144,10 +148,23 @@ Reseau initReseau(){
 	return ensembleGare;
 }
 
+Reseau sauvReseau(Reseau ensembleGare){
+	Gare gA = ensembleGare->head;
+	return ensembleGare;
+}
+
 Reseau closeReseau(Reseau ensembleGare){
 	Gare sauve;
+	Trajet tsauve;
 	while (ensembleGare->tail != NULL) {
 		sauve = (ensembleGare->tail);
+		if (sauve->nbTrajet != 0){
+			do {
+				tsauve=sauve->headListeTrajet;
+				sauve->headListeTrajet = sauve->headListeTrajet->next;
+				free(tsauve);
+			} while (sauve->headListeTrajet != NULL);
+		}
 		ensembleGare->tail = ensembleGare->tail->previous;
 		free(sauve);
 	}
