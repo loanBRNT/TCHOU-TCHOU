@@ -25,4 +25,5 @@ int retirerUneGare(Reseau, char*);
 
 int retirerUnTrajet(Reseau, Gare, char*);
 
+
 #endif

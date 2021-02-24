@@ -3,6 +3,7 @@
 #include <string.h>
 #include "reseau.h"
 #include "reseauAccesseur.h"
+#include "parcoursGraphe.h"
 
 /*
 On definit les 3 structures utiles pour manier le reseau routier ! 
@@ -226,9 +227,11 @@ Reseau sauvReseau(Reseau ensembleGare){
 	for (int i = 0; i < ensembleGare->size; ++i) {
 		fprintf(fichierReseau,"%s\n",gA->nomGARE);
 		tr = gA->headListeTrajet;
+		printf("\n%s : ",gA->nomGARE);
 		for (int j = 0; j < gA->nbTrajet; j++) {
 			fprintf(fichierTrajet, "\n");
 			fprintf(fichierTrajet, "%s-%d\n",tr->gareArrive, tr->ponderation);
+			printf("%s-",tr->gareArrive);
 			tr = tr->next;
 		}
 		fprintf(fichierTrajet, "/\n");
@@ -256,6 +259,10 @@ void closeReseau(Reseau ensembleGare){
 }
 
 int ajouterUneGare(Reseau r, char* nom){
+	if ((rechercheGare(r,nom)) != NULL){
+		printf("La Gare existe deja\n");
+		return 1;
+	}
 	//allocation de memoire
 	Gare g = (Gare) malloc(sizeof(struct s_gare));
 	if (g==NULL){
@@ -279,27 +286,47 @@ int ajouterUneGare(Reseau r, char* nom){
 }
 
 int ajouterUnTrajet(Reseau r, Gare g, char* arrive, int temps){
+	Gare gareExistante = rechercheGare(r,arrive);
+	if (gareExistante == NULL) {
+		printf("La gare d'arrivee n'existe pas\n");
+		return 1;
+	}
 	//allocation de memoire
-	Trajet tr = (Trajet) malloc(sizeof(struct s_trajet));
-	if (tr==NULL){
+	Trajet tr1 = (Trajet) malloc(sizeof(struct s_trajet));
+	Trajet tr2 = (Trajet) malloc(sizeof(struct s_trajet));
+	if (tr1==NULL || tr2==NULL){
 		printf("ERREUR ALLOCATION CREATION TRAJET\n");
 		return 1;
 	}
 	//On entre les informations du trajet
-	tr->ponderation = temps;
+	tr1->ponderation = temps;
+	tr2->ponderation = temps;
 	int i=-1;
 	do {
 		i++;
-		tr->gareArrive[i] = arrive[i];
+		tr1->gareArrive[i] = arrive[i];
 	} while (arrive[i] != '\0');
-	tr->next=NULL;
+	i=-1;
+	do {
+		i++;
+		tr2->gareArrive[i] = g->nomGARE[i];
+	} while (g->nomGARE[i] != '\n');
+	tr2->next = NULL;
+	tr1->next=NULL;
 	//On raccroche a la gare correspondante
 	if (g->nbTrajet == 0){
-		g->headListeTrajet = tr;
+		g->headListeTrajet = tr1;
 	} else {
-		g->tailListeTrajet->next = tr;
+		g->tailListeTrajet->next = tr1;
 	}
-	g->tailListeTrajet = tr;
+	if (gareExistante->nbTrajet == 0){
+		gareExistante->headListeTrajet = tr2;
+	} else {
+		gareExistante->tailListeTrajet->next = tr2;
+	}
+	gareExistante->tailListeTrajet = tr2;
+	g->tailListeTrajet = tr1;
+	gareExistante->nbTrajet++;
 	g->nbTrajet++;
 	return 0;
 }

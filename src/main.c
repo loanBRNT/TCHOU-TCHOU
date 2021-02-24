@@ -6,6 +6,7 @@
 #include "reseau.h"
 #include "menu.h"
 #include "reseauAccesseur.h"
+#include "parcoursGraphe.h"
 #define EXIT_SUCESS 0
 #define EXIT_FAILURE 1
 
@@ -20,6 +21,8 @@ int main(int argc, char const *argv[])
 {
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
+	// EN TEST ajouterUneGare(reseau,"Andore");
+	// EN TEST ajouterUnTrajet(reseau,gareTail(reseau),"Paris",90);
 	/* lance l'affichage du menu principale
 	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
 	  si le numero n'est pas bon on redemande un numero de menu
