@@ -5,6 +5,7 @@
 #include "pwd.h"
 #include "reseau.h"
 #include "menu.h"
+#include "reseauAccesseur.h"
 #define EXIT_SUCESS 0
 #define EXIT_FAILURE 1
 
@@ -51,7 +52,7 @@ int main(int argc, char const *argv[])
 		}
 	printf("\n");
 	}
-// sauvegarde et fermeture du reseau
+	//Sauvegarde et Fermeture du Reseau (liberation de la memoire)
 	sauvReseau(reseau);
 	closeReseau(reseau);
 	return 0;

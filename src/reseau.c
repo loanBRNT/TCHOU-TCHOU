@@ -2,6 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include "reseau.h"
+#include "reseauAccesseur.h"
+
+/*
+On definit les 3 structures utiles pour manier le reseau routier ! 
+
+s_reseau prend en charge la totalite du reseau et permet de lister des elements s_gare (des Gares) via une liste doublement chainée
+
+s_gare permet de gerer une gare et de gérer l'ensemble des trajets passant par cette derniere (elle les gére via une seconde liste chainée)
+
+s_trajet permet de gérer un trajet particulier il prend la gare d'arrivée et la pondération
+*/
 
 struct s_gare{
 	char nomGARE[30]; //Le nom de la Gare
@@ -23,6 +34,62 @@ struct s_reseau{
 	Gare tail;
 	int size; //taille du reseau (nombe de gare)
 };
+
+//ZONE DES ACCESSEURS (reseauAccesseur.h) 
+
+/*
+	Permet d'acceder aux parametres des structures hors des fichiers .c tout en maintenant la declaration opaque
+*/
+
+Gare gareHead(Reseau r){
+	return (r->head);
+}
+
+Gare gareTail(Reseau r){
+	return (r->tail);
+}
+
+int tailleReseau(Reseau r){
+	return (r->size);
+}
+
+char* nomDeGare(Gare g){
+	return (g->nomGARE);
+}
+
+int nbTrajetDeLaGare(Gare g){
+	return (g->nbTrajet);
+}
+
+Trajet trajetHeadDeLaGare(Gare g){
+	return (g->headListeTrajet);
+}
+
+Trajet trajetTailDeLaGare(Gare g){
+	return (g->tailListeTrajet);
+}
+
+Gare gareNext(Gare g){
+	return (g->next);
+}
+
+Gare garePrevious(Gare g){
+	return (g->previous);
+}
+
+int tempsDuTrajet(Trajet tr){
+	return (tr->ponderation);
+}
+
+char* gareArvDuTrajet(Trajet tr){
+	return (tr->gareArrive);
+}
+
+Trajet trajetNext(Trajet tr){
+	return (tr->next);
+}
+//Zone code gestion du reseau (reseau.h)
+
 
 int initTrajet(Gare gareDepart, FILE* fichierTrajet){
 	//on cree de l'espace memoire pour un trajet
@@ -125,40 +192,17 @@ Reseau initReseau(){
 		printf("Error 1 : PROBLEME OUVERTURE FICHIER RESEAU\n");
 		return ensembleGare;
 	}
-
 	//Creation et remplissage du reseau en memoire
 	ensembleGare->size=0;
 	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->next->gareArrive, ensembleGare->tail->headListeTrajet->next->ponderation);
 	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->next->gareArrive, ensembleGare->tail->headListeTrajet->next->ponderation);
 	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
 	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
 	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->next->gareArrive, ensembleGare->tail->headListeTrajet->next->ponderation);
 	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->next->gareArrive, ensembleGare->tail->headListeTrajet->next->ponderation);
 	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
 	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
 	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
-	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
 	//Fermeture des fichiers
 	fclose(fichierReseau);
 	fclose(fichierTrajet);
