@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
-<<<<<<< HEAD
 #include "pwd.h"
-=======
 #include "reseau.h"
->>>>>>> cd4b0ee987faa3f14ed7068bb38bca88cc6d0baf
+#include "menu.h"
 
 /* 
     Commande de compilation avec gcc :
@@ -16,10 +14,39 @@
 
 int main(int argc, char const *argv[])
 {
-<<<<<<< HEAD
-	verifierPwdAdmin();
-=======
+	/* initialisation du reseau*/
 	initReseau();
->>>>>>> cd4b0ee987faa3f14ed7068bb38bca88cc6d0baf
+	/* lance l'affichage du menu principale
+	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
+	  si le numero n'est pas bon on redemande un numero de menu
+	  le choix numero 4 modifie la valeur de la variable event afin de sortir de la boucle et pouvoir arreter le programme
+	*/
+	int event = 1 ;
+	int choixMenu;
+	while(event != -1){
+		afficheMenuPrincipal();
+		scanf("%d",&choixMenu);
+		printf("\n");
+		switch(choixMenu)
+		{
+			case 1:
+				menuAdminVerification();
+				break;
+			case 2:
+				menuControleurVerification();
+				break;
+			case 3:
+				menuClient();
+				break;
+			case 4:
+				afficheMessageQuitter();
+				event = -1;
+				break;
+			default:
+				afficheErreurMenu();
+				break;
+		}
+	printf("\n");
+	}
 	return 0;
 }
