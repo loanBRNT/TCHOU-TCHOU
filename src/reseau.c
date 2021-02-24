@@ -253,5 +253,53 @@ void closeReseau(Reseau ensembleGare){
 		free(sauve);
 	}
 	free(ensembleGare);
-	return EXIT_SUCCESS;
+}
+
+int ajouterUneGare(Reseau r, char* nom){
+	//allocation de memoire
+	Gare g = (Gare) malloc(sizeof(struct s_gare));
+	if (g==NULL){
+		printf("ERREUR ALLOCATION CREATION GARE\n");
+		return 1;
+	}
+	//On entre les informations de la gare
+	int i=-1;
+	do {
+		i++;
+		g->nomGARE[i] = nom[i];
+	} while (nom[i] != '\0');
+	g->nbTrajet = 0;
+	g->next = NULL;
+	//On raccroche a la fin de la liste de gare
+	g->previous = r->tail;
+	r->tail->next = g;
+	r->tail = g;
+	r->size++;
+	return 0;
+}
+
+int ajouterUnTrajet(Reseau r, Gare g, char* arrive, int temps){
+	//allocation de memoire
+	Trajet tr = (Trajet) malloc(sizeof(struct s_trajet));
+	if (tr==NULL){
+		printf("ERREUR ALLOCATION CREATION TRAJET\n");
+		return 1;
+	}
+	//On entre les informations du trajet
+	tr->ponderation = temps;
+	int i=-1;
+	do {
+		i++;
+		tr->gareArrive[i] = arrive[i];
+	} while (arrive[i] != '\0');
+	tr->next=NULL;
+	//On raccroche a la gare correspondante
+	if (g->nbTrajet == 0){
+		g->headListeTrajet = tr;
+	} else {
+		g->tailListeTrajet->next = tr;
+	}
+	g->tailListeTrajet = tr;
+	g->nbTrajet++;
+	return 0;
 }

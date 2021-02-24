@@ -1,5 +1,5 @@
 
-Orlean-60
+Orleans-60
 
 Lyon-90
 
@@ -11,7 +11,7 @@ Paris-60
 Limoges-150
 /
 
-Orlean-150
+Orleans-150
 
 Brive-60
 /

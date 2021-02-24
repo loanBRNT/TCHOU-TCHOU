@@ -17,4 +17,12 @@ Reseau sauvReseau(Reseau); //Sauvegarder le reseau dans le fichier reseau.txt et
 
 void closeReseau(Reseau); //Liberer la memoire
 
+int ajouterUneGare(Reseau, char*);
+
+int ajouterUnTrajet(Reseau, Gare, char*, int); //AJOUTER LA VERIFICATION DE GARE PAS EXISTANTE
+
+int retirerUneGare(Reseau, char*);
+
+int retirerUnTrajet(Reseau, Gare, char*);
+
 #endif
