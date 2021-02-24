@@ -150,6 +150,29 @@ Reseau initReseau(){
 
 Reseau sauvReseau(Reseau ensembleGare){
 	Gare gA = ensembleGare->head;
+	Trajet tr;
+	FILE* fichierReseau = fopen("sauv/reseau.txt","w+");
+	FILE* fichierTrajet = fopen("sauv/trajet.txt","w+");
+	if (fichierReseau == NULL) {
+		printf("Error 1 : PROBLEME OUVERTURE FICHIER RESEAU\n");
+		return ensembleGare;
+	}
+	if (fichierTrajet == NULL) {
+		printf("Error 1 : PROBLEME OUVERTURE FICHIER RESEAU\n");
+		return ensembleGare;
+	}
+	//ecriture dans le fichier reseau.txt (sauvegarde des noms de gare et de l'ordre)
+	for (int i = 0; i < ensembleGare->size; ++i) {
+		fprintf(fichierReseau,"%s\n",gA->nomGARE);
+		tr = gA->headListeTrajet;
+		for (int j = 0; j < gA->nbTrajet; j++) {
+			fprintf(fichierTrajet, "\n");
+			fprintf(fichierTrajet, "%s-%d\n",tr->gareArrive, tr->ponderation);
+			tr = tr->next;
+		}
+		fprintf(fichierTrajet, "/\n");
+		gA=gA->next;
+	}
 	return ensembleGare;
 }
 

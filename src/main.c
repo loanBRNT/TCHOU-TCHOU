@@ -16,6 +16,7 @@
 int main(int argc, char const *argv[])
 {
 	Reseau reseau = initReseau();
+	sauvReseau(reseau);
 	closeReseau(reseau);
 	return 0;
 }
