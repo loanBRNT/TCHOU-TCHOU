@@ -35,19 +35,19 @@ Pour sauvegarder et récupérer le réseau entre chaque utilisation du programme
 
 ### Fonction et structure de Gestion du reseau <a name="re"></a>
 
-- Reseau `typedef struct s_reseau* Reseau`
+**- Reseau** `typedef struct s_reseau* Reseau`
 
 C'est un pointeur sur la structure s_reseau, il va nous permettre d'utiliser de manière dynamique notre réseau !
 
-- Gare `typedef struct s_gare* Gare`
+**- Gare** `typedef struct s_gare* Gare`
 
 C'est un pointeur sur la structure s_gare. Il nous permet de gérer nos gares de manière dynamique.
 
-- Trajet `typedef struct s_trajet* Trajet`
+**- Trajet** `typedef struct s_trajet* Trajet`
 
 C'est un pointeur sur la structure s_trajet. Il nous permet de gérer l'ensemble des trajets de chaque gare de manière dynamique.
 
-- initReseau `Reseau initReseau()`
+**- initReseau** `Reseau initReseau()`
 
 Implémente en mémoire le réseau routier **complet** (avec les gares et les trajets initialisé) à partir de deux fichiers texte.
 
@@ -55,7 +55,7 @@ Implémente en mémoire le réseau routier **complet** (avec les gares et les tr
 
 **Retour** : _Reseau_ un pointeur vers l'emplacement de la racine du reseau en mémoire
 
-- initGare `int initGare(Reseau, FILE*, FILE*)`
+**- initGare** `int initGare(Reseau, FILE*, FILE*)`
 
 Implémente en mémoire une gare dans le réseau routier à partir de deux fichiers texte.
 
@@ -64,7 +64,7 @@ Implémente en mémoire une gare dans le réseau routier à partir de deux fichi
 **Retour** : 0 si la gare a pu être stockée en mémoire, 1 sinon.
 
 
-- initTrajet `int initTrajet(Gare, FILE*)`
+**- initTrajet** `int initTrajet(Gare, FILE*)`
 
 Implémente en mémoire le(s) trajet(s) d'une gare donné en paramètre à partir d'un fichier texte.
 
@@ -72,7 +72,7 @@ Implémente en mémoire le(s) trajet(s) d'une gare donné en paramètre à parti
 
 **Retour** : 0 si le trajet a pu être stocké en mémoire, 1 sinon.
 
-- sauvReseau `Reseau sauvReseau(Reseau)`
+**- sauvReseau** `Reseau sauvReseau(Reseau)`
 
 Sauvegarde dans les fichiers trajet.txt et reseau.txt le réseau routier.
 
@@ -80,7 +80,7 @@ Sauvegarde dans les fichiers trajet.txt et reseau.txt le réseau routier.
 
 **Retour** : _Reseau_ un pointeur vers l'emplacement de la racine du reseau en mémoire
 
-- closeReseau `void closeReseau(Reseau)`
+**- closeReseau** `void closeReseau(Reseau)`
 
 libère la mémoire prise par le réseau.
 
