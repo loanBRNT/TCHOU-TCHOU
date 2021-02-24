@@ -142,6 +142,23 @@ Reseau initReseau(){
 	initGare(ensembleGare, fichierReseau, fichierTrajet);
 	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
 	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
+	initGare(ensembleGare, fichierReseau, fichierTrajet);
+	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
+	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
+	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->next->gareArrive, ensembleGare->tail->headListeTrajet->next->ponderation);
+	initGare(ensembleGare, fichierReseau, fichierTrajet);
+	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
+	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
+	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->next->gareArrive, ensembleGare->tail->headListeTrajet->next->ponderation);
+	initGare(ensembleGare, fichierReseau, fichierTrajet);
+	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
+	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
+	initGare(ensembleGare, fichierReseau, fichierTrajet);
+	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
+	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
+	initGare(ensembleGare, fichierReseau, fichierTrajet);
+	printf("Nom de la Gare : %s;\n",ensembleGare->tail->nomGARE);
+	printf("Le trajet va jusqu'a %s en %d minutes\n",ensembleGare->tail->headListeTrajet->gareArrive, ensembleGare->tail->headListeTrajet->ponderation);
 	//Fermeture des fichiers
 	fclose(fichierReseau);
 	fclose(fichierTrajet);

@@ -2,6 +2,8 @@
 Orlean-60
 
 Lyon-90
+
+Tours-60
 /
 
 Paris-60
@@ -10,7 +12,34 @@ Limoges-150
 /
 
 Orlean-150
+
+Brive-60
 /
 
 Paris-90
+/
+
+Limoges-60
+
+Montauban-60
+/
+
+Paris-60
+
+Bordeaux-60
+/
+
+Tours-60
+
+Agen-60
+/
+
+Bordeaux-60
+
+Montauban-40
+/
+
+Agen-40
+
+Brive-60
 /
