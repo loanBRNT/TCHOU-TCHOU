@@ -25,3 +25,10 @@ Structure Trajet
 - A chaque debut de programme le reseau s'initialise via "reseau.txt" et "trajet.txt" ecris sous ce format : 
 
 Une liste chainée semble être une bonne idée
+
+## Sauvegarde dans les fichiers .txt
+
+reseau.txt : un nom de gare par ligne
+
+trajet.txt : 
+![TRAJET](img/exempleTrajet.png "TRAJET")

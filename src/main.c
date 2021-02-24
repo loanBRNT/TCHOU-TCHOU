@@ -1,9 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "main.h"
 #include "pwd.h"
 #include "reseau.h"
+<<<<<<< HEAD
 #include "menu.h"
+=======
+#define EXIT_SUCESS 0
+#define EXIT_FAILURE 1
+>>>>>>> f109105fd06bb79b9c8d77c5f9c95f4f323a78a6
 
 /* 
     Commande de compilation avec gcc :
@@ -14,6 +20,7 @@
 
 int main(int argc, char const *argv[])
 {
+<<<<<<< HEAD
 	/* initialisation du reseau*/
 	initReseau();
 	/* lance l'affichage du menu principale
@@ -48,5 +55,10 @@ int main(int argc, char const *argv[])
 		}
 	printf("\n");
 	}
+=======
+	Reseau reseau = initReseau();
+	sauvReseau(reseau);
+	closeReseau(reseau);
+>>>>>>> f109105fd06bb79b9c8d77c5f9c95f4f323a78a6
 	return 0;
 }
