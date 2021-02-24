@@ -15,6 +15,6 @@ Reseau initReseau(); //Initialisation a partir des fichiers reseau.txt et trajet
 
 Reseau sauvReseau(Reseau); //Sauvegarder le reseau dans le fichier reseau.txt et trajet.t
 
-Reseau closeReseau(Reseau); //Liberer la memoire
+void closeReseau(Reseau); //Liberer la memoire
 
 #endif

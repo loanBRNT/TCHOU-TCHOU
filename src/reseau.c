@@ -237,7 +237,7 @@ Reseau sauvReseau(Reseau ensembleGare){
 	return ensembleGare;
 }
 
-Reseau closeReseau(Reseau ensembleGare){
+void closeReseau(Reseau ensembleGare){
 	Gare sauve;
 	Trajet tsauve;
 	while (ensembleGare->tail != NULL) {
