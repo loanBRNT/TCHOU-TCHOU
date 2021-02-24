@@ -2,8 +2,15 @@
 #define MENU_H
 //prototype des fonctions de gestion de chaque menu
 
+//fonction afffichage des differents menus
+void afficheMenuPrincipal();
+void afficheMenuAdmin();
+void afficheMenuControleur();
+void afficheMenuClient();
+void afficheErreurMenu();
+void afficheMessageQuitter();
 
-
+//fonctions des menus de la partie administrateur
 // pre-menu administrateur verifie si la personne a accès au menu administrateur
 int menuAdminVerification();
 // interface du menu administrateur
@@ -18,7 +25,7 @@ int menuExportationJSON();
 int menuGestionAdministration();
 
 
-
+//fonctions des menus de la partie controleur
 // pre-menu controleur verifie si la personne a accès au menu controleur
 int menuControleurVerification();
 // interface du menu Controleur
@@ -31,7 +38,7 @@ int menuRechercheControleur();
 int menuAdministrationControleur();
 
 
-
+//fonctions des menus de la partie client
 //interface du menu voyageurs
 int menuClient();
 /*interface des 2 menus accessibles depuis le menu client

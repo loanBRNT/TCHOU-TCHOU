@@ -5,7 +5,10 @@
 //fonction de verification du mot de passe admin
 int verifierPwdAdmin();
 //fonction verification d'un controleur par son identifiant et son mot de passe
-int verifierIdentiteControlleur();
+int verifierLogControleur();
+//fonction similiaire a fgets qui remplace le \n par \0 afin de comparer une ligne avec une chaine de caractere
+int lire(char*,int,FILE*);
+
 
 
 #endif
