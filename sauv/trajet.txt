@@ -4,6 +4,8 @@ Orleans-60
 Lyon-90
 
 Tours-60
+
+Andore-90
 /
 
 Paris-60
@@ -42,4 +44,7 @@ Montauban-40
 Agen-40
 
 Brive-60
+/
+
+Paris-90
 /

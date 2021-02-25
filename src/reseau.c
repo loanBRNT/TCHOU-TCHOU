@@ -286,32 +286,28 @@ int ajouterUneGare(Reseau r, char* nom){
 }
 
 int ajouterUnTrajet(Reseau r, Gare g, char* arrive, int temps){
-	Gare gareExistante = rechercheGare(r,arrive);
-	if (gareExistante == NULL) {
+	if (rechercheGare(r,arrive) == NULL) {
 		printf("La gare d'arrivee n'existe pas\n");
+		return 1;
+	}
+	if (rechercheTrajet(g,arrive) != NULL) {
+		printf("Le trajet existe deja !\n");
 		return 1;
 	}
 	//allocation de memoire
 	Trajet tr1 = (Trajet) malloc(sizeof(struct s_trajet));
-	Trajet tr2 = (Trajet) malloc(sizeof(struct s_trajet));
-	if (tr1==NULL || tr2==NULL){
+	if (tr1==NULL){
 		printf("ERREUR ALLOCATION CREATION TRAJET\n");
 		return 1;
 	}
 	//On entre les informations du trajet
 	tr1->ponderation = temps;
-	tr2->ponderation = temps;
 	int i=-1;
 	do {
 		i++;
 		tr1->gareArrive[i] = arrive[i];
 	} while (arrive[i] != '\0');
 	i=-1;
-	do {
-		i++;
-		tr2->gareArrive[i] = g->nomGARE[i];
-	} while (g->nomGARE[i] != '\n');
-	tr2->next = NULL;
 	tr1->next=NULL;
 	//On raccroche a la gare correspondante
 	if (g->nbTrajet == 0){
@@ -319,14 +315,7 @@ int ajouterUnTrajet(Reseau r, Gare g, char* arrive, int temps){
 	} else {
 		g->tailListeTrajet->next = tr1;
 	}
-	if (gareExistante->nbTrajet == 0){
-		gareExistante->headListeTrajet = tr2;
-	} else {
-		gareExistante->tailListeTrajet->next = tr2;
-	}
-	gareExistante->tailListeTrajet = tr2;
 	g->tailListeTrajet = tr1;
-	gareExistante->nbTrajet++;
 	g->nbTrajet++;
 	return 0;
 }

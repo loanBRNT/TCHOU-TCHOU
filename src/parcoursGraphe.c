@@ -17,3 +17,20 @@ Gare rechercheGare(Reseau r, char* nom){
 	}
 	return sauv;
 }
+
+
+Trajet rechercheTrajet(Gare g, char* nom){
+	if (nbTrajetDeLaGare(g) == 0){
+		return NULL;
+	}
+	Trajet act = trajetHeadDeLaGare(g);
+	Trajet sauv = NULL;
+	for (int i = 0; i < nbTrajetDeLaGare(g); ++i)
+	{
+		if (!strcmp(gareArvDuTrajet(act),nom)){
+			sauv = act;
+		}
+		act = trajetNext(act);
+	}
+	return sauv;
+}

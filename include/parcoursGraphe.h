@@ -4,7 +4,7 @@
 
 Gare rechercheGare(Reseau, char*); //retourne la gare ou NULL si lle n'existe pas
 
-Trajet rechercheTrajet(Reseau, char*);
+Trajet rechercheTrajet(Gare, char*);
 
 
 
