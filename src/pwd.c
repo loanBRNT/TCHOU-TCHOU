@@ -34,10 +34,10 @@ void lire_donnee ( FILE * f , char * format , void * res )
             c = getc ( f ) ;
             if ( ! isspace ( c ) )
                 count ++ ;
-        } while (! feof(f) && ( c != '\n' )) ;
+        } while ( c != '\n' ) ;
         
     }
-    while ( ( ! feof(f))  &&( (lu != 1) || (count > 0))  );
+    while ( (lu != 1) || (count > 0) );
   
 }
   
