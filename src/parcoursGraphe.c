@@ -5,7 +5,6 @@
 #include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
 
-
 Gare rechercheGare(Reseau r, char* nom){
 	Gare act = gareHead(r);
 	Gare sauv=NULL;
@@ -34,3 +33,4 @@ Trajet rechercheTrajet(Gare g, char* nom){
 	}
 	return sauv;
 }
+
