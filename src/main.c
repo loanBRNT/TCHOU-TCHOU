@@ -21,9 +21,6 @@ int main(int argc, char const *argv[])
 {
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
-	ajouterUneGare(reseau,"Andore");
-	ajouterUnTrajet(reseau,gareTail(reseau),"Paris",90);
-	ajouterUnTrajet(reseau,rechercheGare(reseau,"Paris"),nomDeGare(gareTail(reseau)),90);
 	/* lance l'affichage du menu principale
 	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
 	  si le numero n'est pas bon on redemande un numero de menu

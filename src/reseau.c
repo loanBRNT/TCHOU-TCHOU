@@ -193,17 +193,22 @@ Reseau initReseau(){
 		printf("Error 1 : PROBLEME OUVERTURE FICHIER RESEAU\n");
 		return ensembleGare;
 	}
+	//On compte le nombre de ligne
+	char c;
+	int nbGare = 0;
+	c=fgetc(fichierReseau);
+	while (c != EOF){
+		if (c == '\n') {
+			nbGare++;
+		}
+		c = fgetc(fichierReseau);
+	}
+	rewind(fichierReseau);
 	//Creation et remplissage du reseau en memoire
 	ensembleGare->size=0;
-	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	initGare(ensembleGare, fichierReseau, fichierTrajet);
-	initGare(ensembleGare, fichierReseau, fichierTrajet);
+	for (int i=0; i < nbGare ; i++) {
+		initGare(ensembleGare, fichierReseau, fichierTrajet);
+	}
 	//Fermeture des fichiers
 	fclose(fichierReseau);
 	fclose(fichierTrajet);
@@ -317,5 +322,65 @@ int ajouterUnTrajet(Reseau r, Gare g, char* arrive, int temps){
 	}
 	g->tailListeTrajet = tr1;
 	g->nbTrajet++;
+	return 0;
+}
+int retirerUnTrajet(Gare act, char* nom){
+	Trajet tr = rechercheTrajet(act, nom);
+	if (tr == NULL) {
+		printf("Le trajet n'existe pas !\n");
+		return 1;
+	}
+	Trajet sauv = tr;
+	int compteur=0;
+	int rangInf = 0;
+	while (sauv->next != NULL) {
+		compteur++;
+		sauv = sauv->next;
+	}
+	rangInf = (act->nbTrajet - compteur) - 1;
+	sauv = act->headListeTrajet;
+	for (int i = 0 ; i < rangInf ; i++) {
+		sauv = sauv->next;
+	}
+	sauv->next = tr->next;
+	free(tr);
+	act->nbTrajet--;
+	return 0;
+}
+
+int retirerUneGare(Reseau r, char* nom){
+	//On retire la gare et ses trajets
+	Gare g = rechercheGare(r,nom);
+	if (g == NULL) {
+		printf("LA gare n'existe pas !\n");
+		return 1;
+	}
+	if (r->size == 2){
+		printf("Vous ne pouvez avoir moins de 2 gares dans votre réseau !\n");
+		return 1;
+	}
+	(g->previous)->next= g->next;
+	if ( r->tail != g) {
+		g->next->previous=g->previous;
+	}
+	Trajet tr = g->headListeTrajet;
+	while (g->nbTrajet > 0) {
+		g->headListeTrajet = g->headListeTrajet->next;
+		free(tr);
+		tr = g->headListeTrajet;
+		g->nbTrajet--;
+	}
+	r->size--;
+	free(g);
+	//On retirer les trajets qui amenaient a la gare qui vient d'etre retire
+	Gare act = r->head;
+	Trajet t;
+	for (int i=0; i<r->size; i++){
+		t = rechercheTrajet(act,nom);
+		if (t != NULL) {
+			retirerUnTrajet(act, nom);
+		}
+		act = act->next;
+	}
 	return 0;
 }

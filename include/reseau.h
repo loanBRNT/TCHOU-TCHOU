@@ -23,7 +23,7 @@ int ajouterUnTrajet(Reseau, Gare, char*, int); //AJOUTER LA VERIFICATION DE GARE
 
 int retirerUneGare(Reseau, char*);
 
-int retirerUnTrajet(Reseau, Gare, char*);
+int retirerUnTrajet(Gare, char*); 
 
 
 #endif
