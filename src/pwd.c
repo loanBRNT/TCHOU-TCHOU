@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "pwd.h"
 
 int lire(char* chaine, int longueur ,FILE* fichier){
@@ -20,6 +21,31 @@ int lire(char* chaine, int longueur ,FILE* fichier){
     {
         return 0; // On renvoie 0 s'il y a eu une erreur
     }
+}
+void lire_donnee ( FILE * f , char * format , void * res )
+{
+    int lu = 0 ;
+    int count = 0 ;
+    char c ;
+    do
+    {
+        lu = fscanf (f,format , res ) ;
+        do {
+            c = getc ( f ) ;
+            if ( ! isspace ( c ) )
+                count ++ ;
+        } while (! feof(f) && ( c != '\n' )) ;
+        
+    }
+    while ( ( ! feof(f))  &&( (lu != 1) || (count > 0))  );
+  
+}
+  
+int lire_entier ( FILE * f )
+{
+  int res ;
+  lire_donnee(f,"%d", &res) ;
+  return res ;
 }
 
 int verifierPwdAdmin(){
