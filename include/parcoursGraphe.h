@@ -2,9 +2,9 @@
 #define PARCOURS_GRAPHE_H
 
 
-Gare rechercheGare(Reseau, char*); //retourne la gare ou NULL si lle n'existe pas
+Gare rechercheGare(Reseau, char*); //retourne la gare avec le nom correspondant au char* passé en parametre ou NULL si elle n'existe pas
 
-Trajet rechercheTrajet(Gare, char*);
+Trajet rechercheTrajet(Gare, char*); //retourne le trajet qui va de la Gare passé en parametre au char*. Ou NULL s'il n'exsite pas
 
 
 
