@@ -14,7 +14,7 @@ struct s_itineraire{
 
 struct s_sommet{
 	Gare gare; //A quelle gare correspond le sommet
-	Trajet chemin; //le chemin qui amene à cette gare depuis la gare precedente
+	Gare pere; //la gare precedente
 	int etat; //0 si jamais fait, 1 si deja fait,
 	int distance; //distance a la gare de depart
 	Sommet next;
@@ -27,13 +27,61 @@ struct s_ensemble{
 	Sommet tail; //sommet en queue de liste
 };
 
+int ajoutSommet(Ensemble graphe, Trajet tr, Gare g){
+	return 0;
+}
+
+int majDistance(Ensemble graphe, Trajet tr, Sommet s){
+	return 0;
+}
+
+int testVoisin(Ensemble graphe, Gare g){
+	Trajet tr = trajetHeadDeLaGare(g);
+	int trouve;
+	// on parcourt tout les trajets partant de la gare passe en param
+	for (int i=0; i<nbTrajetDeLaGare(g); i++) {
+		Sommet s = graphe->head;
+		trouve = 0;
+		//pour chacun d'entre eux on regarde si la gare d'arrive du trajet fait partie du graphe en parcourant chaque sommet du graphe
+		for (int j=0; j<graphe->nbSommets; j++){
+			//si c'est le cas, on met a jour la distance entre la gare init et le sommet trouve
+			if (!strcmp(nomDeGare(gareArvDuTrajet(tr)),nomDeGare(s->gare))) {
+				trouve = 1;
+				majDistance(graphe,tr,s);
+			}
+			s = s->next;
+		}
+		//si aucun sommet ne correspond alors on l'ajoute
+		if (trouve == 0) {
+			Sommet sommet = (Sommet) malloc(sizeof(struct s_sommet));
+			if ( sommet==NULL) {
+				printf("ERREUR ALLOCATION MEMOIRE GRAPHE/RACINE\n");
+				return 1;
+			}
+			ajoutSommet(graphe, tr, g);
+		}
+		tr = trajetNext(tr);
+	}
+	return 0;	
+}
+
+
 Ensemble initialisationGraphe(Reseau r, Gare gDep){
+	//alloc memoire
 	Ensemble graphe = (Ensemble) malloc(sizeof(struct s_ensemble));
 	Sommet racine = (Sommet) malloc(sizeof(struct s_sommet));
+	if ( graphe == NULL || racine==NULL) {
+		printf("ERREUR ALLOCATION MEMOIRE GRAPHE/RACINE\n");
+		return NULL;
+	}
+	//init du sommet racine et du graphe de recherche
 	racine->gare = gDep;
 	racine->distance = 0;
 	racine->etat = 1;
-	Trajet tr;
+	graphe->head = racine;
+	graphe->nbSommets = 1;
+	//on init les premiers voisins
+	testVoisin(graphe,gDep);
 }
 
 
@@ -101,17 +149,17 @@ Gare rechercheGare(Reseau r, char* nom){
 }
 
 
-Trajet rechercheTrajet(Gare g, char* nom){
+Trajet rechercheTrajet(Gare gDep, Gare gArv){
 	//on verifie que le nb de trajet de la gare soit >0
-	if (nbTrajetDeLaGare(g) == 0){
+	if (nbTrajetDeLaGare(gDep) == 0){
 		return NULL;
 	}
-	Trajet act = trajetHeadDeLaGare(g);
+	Trajet act = trajetHeadDeLaGare(gDep);
 	Trajet sauv = NULL;
 	//on parcourt l'ensemble des trajets de la gare pour voir s'il y en a qui arrive à la gare donné en param
-	for (int i = 0; i < nbTrajetDeLaGare(g); ++i)
+	for (int i = 0; i < nbTrajetDeLaGare(gDep); ++i)
 	{
-		if (!strcmp(gareArvDuTrajet(act),nom)){
+		if (!strcmp(nomDeGare(gareArvDuTrajet(act)), nomDeGare(gArv))){
 			sauv = act;
 		}
 		act = trajetNext(act);

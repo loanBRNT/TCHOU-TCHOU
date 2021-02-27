@@ -26,7 +26,7 @@ struct s_gare{
 
 struct s_trajet{
 	int ponderation; //le temps de transport
-	char gareArrive[30]; //La gare d'arrivee du trajet
+	Gare gArrive; //La gare d'arrivee du trajet
 	Trajet next; //Indique le trajet suivant de la même gare. Par convention le dernier pointe sur NULL
 };
 
@@ -82,8 +82,8 @@ int tempsDuTrajet(Trajet tr){
 	return (tr->ponderation);
 }
 
-char* gareArvDuTrajet(Trajet tr){
-	return (tr->gareArrive);
+Gare gareArvDuTrajet(Trajet tr){
+	return (tr->gArrive);
 }
 
 Trajet trajetNext(Trajet tr){
@@ -92,7 +92,7 @@ Trajet trajetNext(Trajet tr){
 //Zone code gestion du reseau (reseau.h)
 
 
-int initTrajet(Gare gareDepart, FILE* fichierTrajet){
+int initTrajet(Reseau r,Gare gareDepart, FILE* fichierTrajet){
 	//on cree de l'espace memoire pour un trajet
 	Trajet tr = (Trajet) malloc(sizeof(struct s_trajet));
 	if (tr==NULL) {
@@ -114,14 +114,16 @@ int initTrajet(Gare gareDepart, FILE* fichierTrajet){
 	int centaine;
 	int dizaine;
 	int unite;
+	char* nom;
 	do {
 		caractere = fgetc(fichierTrajet);
 		if (caractere !='\n') {
-			tr->gareArrive[i] = caractere;
+			nom[i] = caractere;
 			i++;
 		}
 	} while (caractere != '-');
-	tr->gareArrive[i-1] = '\0';
+	nom[i-1] = '\0';
+	tr->gArrive = rechercheGare(r, nom);
 	//calcul de la ponderation
 	caractere = fgetc(fichierTrajet);
 	centaine = caractere - '0';
@@ -144,7 +146,7 @@ int initTrajet(Gare gareDepart, FILE* fichierTrajet){
 	return 0;
 }
 
-int initGare(Reseau ensembleGare, FILE* fichierReseau, FILE* fichierTrajet){
+int initGare(Reseau ensembleGare, FILE* fichierReseau){
 	//allocation memoire
 	Gare g = (Gare) malloc(sizeof(struct s_gare));
 	if (g==NULL) {
@@ -173,12 +175,6 @@ int initGare(Reseau ensembleGare, FILE* fichierReseau, FILE* fichierTrajet){
 	g->next = NULL;
 	ensembleGare->size++;
 	g->nbTrajet = 0;
-	char cr;
-	// on initialise les trajets de cette nouvelle gare
-	do {
-		initTrajet(g,fichierTrajet);
-		cr = fgetc(fichierTrajet);
-	} while (cr != '/');
 	return 0;
 }
 
@@ -213,7 +209,16 @@ Reseau initReseau(){
 	//Creation et remplissage du reseau en memoire
 	ensembleGare->size=0;
 	for (int i=0; i < nbGare ; i++) {
-		initGare(ensembleGare, fichierReseau, fichierTrajet);
+		initGare(ensembleGare, fichierReseau);
+	}
+	// on initialise les trajets des gares
+	Gare g = ensembleGare->head;
+	for (int i=0; i < ensembleGare->size ; i++) {
+		do {
+			initTrajet(ensembleGare, g, fichierTrajet);
+			c = fgetc(fichierTrajet);
+		} while (c != '/');
+		g = g->next;
 	}
 	//Fermeture des fichiers
 	fclose(fichierReseau);
@@ -239,12 +244,10 @@ Reseau sauvReseau(Reseau ensembleGare){
 	for (int i = 0; i < ensembleGare->size; ++i) {
 		fprintf(fichierReseau,"%s\n",gA->nomGARE);
 		tr = gA->headListeTrajet;
-		printf("\n%s : ",gA->nomGARE);
 		for (int j = 0; j < gA->nbTrajet; j++) {
 			//ecriture des trajets de la gare dans trajets.txt
 			fprintf(fichierTrajet, "\n");
-			fprintf(fichierTrajet, "%s-%d\n",tr->gareArrive, tr->ponderation);
-			printf("%s-",tr->gareArrive);
+			fprintf(fichierTrajet, "%s-%d\n",tr->gArrive->nomGARE, tr->ponderation);
 			tr = tr->next;
 		}
 		fprintf(fichierTrajet, "/\n");
@@ -300,13 +303,9 @@ int ajouterUneGare(Reseau r, char* nom){
 	return 0;
 }
 
-int ajouterUnTrajet(Reseau r, Gare g, char* arrive, int temps){
-	//on verifie que le char* correspond bien à une gare et que le trajet ne soit pas déjà existant
-	if (rechercheGare(r,arrive) == NULL) {
-		printf("La gare d'arrivee n'existe pas\n");
-		return 1;
-	}
-	if (rechercheTrajet(g,arrive) != NULL) {
+int ajouterUnTrajet(Reseau r, Gare gDep, Gare gArv, int temps){
+	//on verifie que le trajet ne soit pas déjà existant
+	if (rechercheTrajet(gDep,gArv) != NULL) {
 		printf("Le trajet existe deja !\n");
 		return 1;
 	}
@@ -318,26 +317,24 @@ int ajouterUnTrajet(Reseau r, Gare g, char* arrive, int temps){
 	}
 	//On entre les informations du trajet
 	tr1->ponderation = temps;
-	int i=-1;
-	do {
-		i++;
-		tr1->gareArrive[i] = arrive[i];
-	} while (arrive[i] != '\0');
-	i=-1;
-	tr1->next=NULL;
+	tr1->gArrive = gDep;
+	tr1->next= NULL;
 	//On raccroche a la gare correspondante
-	if (g->nbTrajet == 0){
-		g->headListeTrajet = tr1;
+	if (gDep->nbTrajet == 0){
+		gDep->headListeTrajet = tr1;
 	} else {
-		g->tailListeTrajet->next = tr1;
+		gDep->tailListeTrajet->next = tr1;
 	}
-	g->tailListeTrajet = tr1;
-	g->nbTrajet++;
+	gDep->tailListeTrajet = tr1;
+	gDep->nbTrajet++;
+	if (rechercheTrajet(gArv,gDep) == NULL) {
+		ajouterUnTrajet(r,gArv,gDep,temps);
+	}
 	return 0;
 }
-int retirerUnTrajet(Gare act, char* nom){
+int retirerUnTrajet(Gare gDep, Gare gArv){
 	//on verifie que le trajet existe bien
-	Trajet tr = rechercheTrajet(act, nom);
+	Trajet tr = rechercheTrajet(gDep, gArv);
 	if (tr == NULL) {
 		printf("Le trajet n'existe pas !\n");
 		return 1;
@@ -351,8 +348,8 @@ int retirerUnTrajet(Gare act, char* nom){
 		sauv = sauv->next;
 	}
 	// on calcule le rang du trajet juste avant le notre
-	rangInf = (act->nbTrajet - compteur) - 1;
-	sauv = act->headListeTrajet;
+	rangInf = (gDep->nbTrajet - compteur) - 1;
+	sauv = gDep->headListeTrajet;
 	// on re parcours la liste pour se placer au trajet juste avant celui à retirer
 	for (int i = 0 ; i < rangInf ; i++) {
 		sauv = sauv->next;
@@ -361,13 +358,15 @@ int retirerUnTrajet(Gare act, char* nom){
 	sauv->next = tr->next;
 	//on libere la memoire
 	free(tr);
-	act->nbTrajet--;
+	gDep->nbTrajet--;
+	if (rechercheTrajet(gArv,gDep) != NULL){
+		retirerUnTrajet(gArv,gDep);
+	}
 	return 0;
 }
 
-int retirerUneGare(Reseau r, char* nom){
+int retirerUneGare(Reseau r, Gare g){
 	//On verifie que la gare existe et qu'il y en a au moins 3
-	Gare g = rechercheGare(r,nom);
 	if (g == NULL) {
 		printf("LA gare n'existe pas !\n");
 		return 1;
@@ -396,9 +395,9 @@ int retirerUneGare(Reseau r, char* nom){
 	Gare act = r->head;
 	Trajet t;
 	for (int i=0; i<r->size; i++){
-		t = rechercheTrajet(act,nom);
+		t = rechercheTrajet(act,g);
 		if (t != NULL) {
-			retirerUnTrajet(act, nom);
+			retirerUnTrajet(act, g);
 		}
 		act = act->next;
 	}

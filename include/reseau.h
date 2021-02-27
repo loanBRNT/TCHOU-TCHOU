@@ -19,9 +19,9 @@ typedef struct s_trajet* Trajet;
 
 
 
-int initTrajet(Gare, FILE*); //Initialise les chemins qui partent de la gare en parametre à partir de trajets.txt
+int initTrajet(Reseau, Gare, FILE*); //Initialise les chemins qui partent de la gare en parametre à partir de trajets.txt
 
-int initGare(Reseau, FILE*, FILE*); //Initialise les Gares au reseau à partir des fichiers trajets.txt et reseau.txt
+int initGare(Reseau, FILE*); //Initialise les Gares au reseau à partir du fichier reseau.txt
 
 Reseau initReseau(); //Initialisation a partir des fichiers reseau.txt et trajet.txt
 
@@ -31,15 +31,15 @@ void closeReseau(Reseau); //Liberer la memoire
 
 int ajouterUneGare(Reseau, char*); //ajoute une gare au réseau !
 
-int ajouterUnTrajet(Reseau, Gare, char*, int); 
+int ajouterUnTrajet(Reseau, Gare, Gare, int); 
 /*
 ajoute un trajet de la Gare passé en paramètre vers le char*. ATTENTION elle ne fait que dans le sens DEPART->ARRIVE, 
 Lors de l'appel dans le programme, penser à echanger les gares en parametres pour réaliser un second appel
 */
 
-int retirerUneGare(Reseau, char*); //retire une gare ainsi que ses trajets (DEPART + ARRIVE) du reseau
+int retirerUneGare(Reseau, Gare); //retire une gare ainsi que ses trajets (DEPART + ARRIVE) du reseau
 
-int retirerUnTrajet(Gare, char*);  //retire un trajet . ATTENTION cela ne retire que dans le sens DEPART->ARRIVE
+int retirerUnTrajet(Gare,Gare);  
 
 
 #endif
