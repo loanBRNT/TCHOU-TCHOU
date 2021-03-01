@@ -1,29 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "main.h"
 #include "pwd.h"
 #include "reseau.h"
 #include "menu.h"
 #include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
+#include "main.h"
 #define EXIT_SUCESS 0
 #define EXIT_FAILURE 1
 
 /* 
     Commande de compilation avec gcc :
-    gcc src/main.c -o bin/prog -I include -L lib -lmingw32
     gcc src/* -o prog -I include -L lib -lmingw32
 */ 
+
+void testReseau(Reseau reseau){
+	Gare pt = gareHead(reseau);
+	Trajet tr;
+	for (int i=0; i<tailleReseau(reseau); i++){
+		printf("%s : ",nomDeGare(pt));
+		tr = trajetHeadDeLaGare(pt);
+		for (int j=0; j<nbTrajetDeLaGare(pt); j++){
+			printf("%s-",nomDeGare(gareArvDuTrajet(tr)));
+			tr = trajetNext(tr);
+		}
+		pt = gareNext(pt);
+		printf("\n");
+	}
+}
 
 
 int main(int argc, char const *argv[])
 {
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
-	ajouterUneGare(reseau,"Andore");
-	ajouterUnTrajet(reseau,gareTail(reseau),"Paris",90);
-	ajouterUnTrajet(reseau,rechercheGare(reseau,"Paris"),nomDeGare(gareTail(reseau)),90);
 	/* lance l'affichage du menu principale
 	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
 	  si le numero n'est pas bon on redemande un numero de menu

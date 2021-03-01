@@ -2,7 +2,7 @@
 #define MAIN_H
 
 
-
+void testReseau(Reseau r);
 
 
 

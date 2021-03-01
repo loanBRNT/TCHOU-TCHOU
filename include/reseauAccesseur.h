@@ -22,7 +22,7 @@ Gare garePrevious(Gare g);
 
 int tempsDuTrajet(Trajet tr);
 
-char* gareArvDuTrajet(Trajet tr);
+Gare gareArvDuTrajet(Trajet tr);
 
 Trajet trajetNext(Trajet tr);
 
