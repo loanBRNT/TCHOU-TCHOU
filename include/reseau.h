@@ -33,13 +33,12 @@ int ajouterUneGare(Reseau, char*); //ajoute une gare au réseau !
 
 int ajouterUnTrajet(Reseau, Gare, Gare, int); 
 /*
-ajoute un trajet de la Gare passé en paramètre vers le char*. ATTENTION elle ne fait que dans le sens DEPART->ARRIVE, 
-Lors de l'appel dans le programme, penser à echanger les gares en parametres pour réaliser un second appel
+ajoute un trajet entre les deux gares
 */
 
 int retirerUneGare(Reseau, Gare); //retire une gare ainsi que ses trajets (DEPART + ARRIVE) du reseau
 
-int retirerUnTrajet(Gare,Gare);  
+int retirerUnTrajet(Gare,Gare);  //retire un trajet entre deux gares (dans les deux sens)
 
 
 #endif
