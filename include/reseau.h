@@ -31,7 +31,7 @@ void closeReseau(Reseau); //Liberer la memoire
 
 int ajouterUneGare(Reseau, char*); //ajoute une gare au réseau !
 
-int ajouterUnTrajet(Reseau, Gare, Gare, int); 
+int ajouterUnTrajet(Gare, Gare, int); 
 /*
 ajoute un trajet entre les deux gares
 */
