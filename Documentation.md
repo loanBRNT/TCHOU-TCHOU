@@ -18,6 +18,10 @@ Projet et documentation entièrement rédigé par Bernat Loan et Gaudillat Eliot
 
 ## Introduction et présentation générale <a name="intro"></a>
 
+A la manière d'une javadoc, ce document recense la totalité des fonctions déclarées et utilisées du programme TCHOU-TCHOU. Nous vous conseillons d'utiliser `CTRL + F` pour taper la fonction que vous recherchez. Pour le fonctionnement INTERNE des fonctions, se référrer aux codes sources directement ! Le document explique uniquement : "Pourquoi ? Avec quoi ? Pour donner quoi ?" de chaque fonction. Si besoin, chaque partie est légerement expliqué en introduction de ces dernières (structures, fonctions particulière...).
+
+**Bonne lecture !**
+
 ## Representation du reseau routier <a name="reseau"></a>
 
 Nous avons choisis de representer le réseau avec un graphe **non orienté**. Une gare représente un sommet, un "chemin" entre deux gares représente une arrête.
