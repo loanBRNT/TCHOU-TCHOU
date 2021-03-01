@@ -35,19 +35,19 @@ Pour sauvegarder et récupérer le réseau entre chaque utilisation du programme
 
 ### Fonction et structure de Gestion du reseau <a name="re"></a>
 
-**- Reseau** `typedef struct s_reseau* Reseau`
+**----- Reseau -----** `typedef struct s_reseau* Reseau`
 
 C'est un pointeur sur la structure s_reseau, il va nous permettre d'utiliser de manière dynamique notre réseau !
 
-**- Gare** `typedef struct s_gare* Gare`
+**----- Gare -----** `typedef struct s_gare* Gare`
 
 C'est un pointeur sur la structure s_gare. Il nous permet de gérer nos gares de manière dynamique.
 
-**- Trajet** `typedef struct s_trajet* Trajet`
+**----- Trajet -----** `typedef struct s_trajet* Trajet`
 
 C'est un pointeur sur la structure s_trajet. Il nous permet de gérer l'ensemble des trajets de chaque gare de manière dynamique.
 
-**- initReseau** `Reseau initReseau()`
+**----- initReseau -----** `Reseau initReseau()`
 
 Implémente en mémoire le réseau routier **complet** (avec les gares et les trajets initialisé) à partir de deux fichiers texte.
 
@@ -55,7 +55,7 @@ Implémente en mémoire le réseau routier **complet** (avec les gares et les tr
 
 ***Retour*** : _Reseau_ un pointeur vers l'emplacement du reseau en mémoire
 
-**- initGare** `int initGare(Reseau, FILE*)`
+**----- initGare -----** `int initGare(Reseau, FILE*)`
 
 Implémente en mémoire une gare dans le réseau routier à partir d'un fichier texte (sauvegarde précédente).
 
@@ -64,7 +64,7 @@ Implémente en mémoire une gare dans le réseau routier à partir d'un fichier 
 ***Retour*** : 0 si la gare a pu être stockée en mémoire, 1 sinon.
 
 
-**- initTrajet** `int initTrajet(Gare, FILE*)`
+**----- initTrajet -----** `int initTrajet(Gare, FILE*)`
 
 Implémente en mémoire le(s) trajet(s) d'une gare donné en paramètre à partir d'un fichier texte (sauvegarde précédente).
 
@@ -72,7 +72,7 @@ Implémente en mémoire le(s) trajet(s) d'une gare donné en paramètre à parti
 
 ***Retour*** : 0 si le trajet a pu être stocké en mémoire, 1 sinon.
 
-**- sauvReseau** `Reseau sauvReseau(Reseau)`
+**----- sauvReseau -----** `Reseau sauvReseau(Reseau)`
 
 Sauvegarde dans les fichiers trajet.txt et reseau.txt le réseau routier.
 
@@ -80,7 +80,7 @@ Sauvegarde dans les fichiers trajet.txt et reseau.txt le réseau routier.
 
 ***Retour*** : _Reseau_ un pointeur vers l'emplacement du reseau en mémoire
 
-**- closeReseau** `void closeReseau(Reseau)`
+**----- closeReseau -----** `void closeReseau(Reseau)`
 
 libère la mémoire prise par le réseau.
 
@@ -88,7 +88,7 @@ libère la mémoire prise par le réseau.
 
 ___Retour___ : _void_
 
-**- ajouterUneGare** `(int ajouterUneGare(Reseau, char*)`
+**----- ajouterUneGare -----** `(int ajouterUneGare(Reseau, char*)`
 
 Ajoute une gare, dont le nom est passé en parametre, au réseau routier.
 
@@ -96,14 +96,88 @@ Ajoute une gare, dont le nom est passé en parametre, au réseau routier.
 
 ***Retour*** :  0 si la gare a été ajouté avec succès, 1 sinon
 
-**- ajouterUnTrajet** `int ajouterUnTrajet(Gare, Gare, int)`
+**----- ajouterUnTrajet -----** `int ajouterUnTrajet(Gare, Gare, int)`
 
 Ajoute un trajet entre deux gares (aller-retour) avec un temps donné dans le réseau routier.
 
-***Parametre*** : _Gare_ Une des deux gares du trajet,  _Gare_ la seconde gare du trajet, _int_ le temps en minute de trajet entre les deux gares
+***Parametre*** : _Gare_ Un pointeur vers une des deux gares du trajet,  _Gare_ Un pointeur vers la seconde gare du trajet, _int_ le temps en minute de trajet entre les deux gares
 
 ***Retour*** : 0 si le trajet a pu être implémenté au réseau, 1 sinon
 
 ### Accesseurs sur les structures du reseau<a name="reAc"></a>
+
+Afin de pouvoir accéder aux paramètres des 3 structures s_gare, s_reseau et s_trajets dans tous le programme, nous avons besoin d'utiliser des accesseurs sur ces paramètres.
+
+**----- gareHead -----** `Gare gareHead(Reseau)`
+
+***Parametre*** : _Reseau_ un pointeur vers l'emplacement du reseau en memoire
+
+***Retour*** : _Gare_ un pointeur vers la Gare en tête de la liste doublement chainée de gare du réseau
+
+**----- gareTail -----** `Gare gareHead(Reseau)`
+
+***Parametre*** : _Reseau_ un pointeur vers l'emplacement du reseau en memoire
+
+***Retour*** : _Gare_ un pointeur vers la Gare en queue de la liste doublement chainée de gare du réseau
+
+**----- tailleReseau -----** `int tailleReseau(Reseau)`
+
+***Parametre*** : _Reseau_ un pointeur vers l'emplacement du reseau en memoire
+
+***Retour*** : _int_ le nombre de gare dans le réseau.
+
+**----- nomDeGare -----** `char* nomDeGare(Gare)`
+
+***Parametre*** :  _Gare_ un pointeur vers une Gare du reseau
+
+***Retour*** : _char*_ le nom de la gare passé en parametre
+
+**----- nnTrajetDeLaGare -----** `int nbTrajetDeLaGare(Gare)`
+
+***Parametre*** :  _Gare_ un pointeur vers une Gare du reseau
+
+***Retour*** : _int_ le nombre de trajets amenant à la Gare passé en parametre (son nombre de "voisin")
+
+**----- trajetHeadDeLaGare -----** `Trajet trajetHeadDeLaGare(Gare)`
+
+***Parametre*** :  _Gare_ un pointeur vers une Gare du reseau
+
+***Retour*** : _Trajet_ Un pointeur vers l'emplacement du trajet en tête de la liste chainée des trajets de la Gare
+
+**----- trajetTailDeLaGare -----** `Trajet trajetTailDeLaGare(Gare)`
+
+***Parametre*** :  _Gare_ un pointeur vers une Gare du reseau
+
+***Retour*** : _Trajet_ un pointeur vers l'emplacement du trajet en queue de la liste chainée des trajets de la Gare
+
+**----- gareNext -----** `Gare gareNext(Gare)`
+
+***Parametre*** :  _Gare_ un pointeur vers une Gare du reseau
+
+***Retour*** : _Gare_ un pointeur vers la Gare suivante du réseau (suivante au sens de la liste chainée, pas de lien avec les itinireraires, trajets, chemin entre les gares)
+
+**----- garePrevious -----** `Gare garePrevious(Gare)`
+
+***Parametre*** :  _Gare_ un pointeur vers une Gare du reseau
+
+***Retour*** : _Gare_ un pointeur vers la Gare précédente du réseau (précédente au sens de la liste chainée, pas de lien avec les itinireraires, trajets, chemin entre les gares)
+
+**----- tempsDuTrajet -----** `int tempsDuTrajet(Trajet tr);`
+
+***Parametre*** :  _Trajet_ un pointeur vers l'emplacement d'un trajet entre deux gares en mémoire.
+
+***Retour*** : _int_ le temps de trajet en minute du trajet passé en paramètre
+
+**----- gareArvDuTrajet -----** `Gare gareArvDuTrajet(Trajet tr);`
+
+***Parametre*** :  _Trajet_ un pointeur vers l'emplacement d'un trajet entre deux gares en mémoire.
+
+***Retour*** : _Gare_ un pointeur vers la gare d'arrivee du trajet donne en parametre
+
+**----- trajetNext -----** `Trajet trajetNext(Trajet tr);`
+
+***Parametre*** :  _Trajet_ un pointeur vers l'emplacement d'un trajet entre deux gares en mémoire.
+
+***Retour*** : __Trajet__ un pointeur vers l'emplacement du trajet suivant en mémoire de la Gare (suivante au sens de la liste chainée)
 
 ## Naviguation dans le menu <a name="menu"></a>
