@@ -10,9 +10,9 @@ typedef struct s_ensemble* Ensemble;
 
 int ajoutSommet(Ensemble, Trajet, Gare);
 
-int majDistance(Ensemble, Trajet, Sommet);
+int majDistance(Gare, Trajet, Sommet);
 
-int testVoisin(Ensemble, Gare);
+int testVoisin(Ensemble, Sommet);
 
 Gare rechercheGare(Reseau, char*); //retourne la gare avec le nom correspondant au char* passé en parametre ou NULL si elle n'existe pas
 

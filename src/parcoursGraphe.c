@@ -16,7 +16,7 @@ struct s_sommet{
 	Gare gare; //A quelle gare correspond le sommet
 	Gare pere; //la gare precedente
 	int etat; //0 si jamais fait, 1 si deja fait,
-	int distance; //distance a la gare de depart
+	int distance; //distance a la gare de depart (-1) si infini
 	Sommet next;
 	Sommet previous;
 };
@@ -28,14 +28,32 @@ struct s_ensemble{
 };
 
 int ajoutSommet(Ensemble graphe, Trajet tr, Gare g){
+	//allocation d'espace
+	Sommet sommet = (Sommet) malloc(sizeof(struct s_sommet));
+	if ( sommet==NULL) {
+		printf("ERREUR ALLOCATION MEMOIRE GRAPHE/RACINE\n");
+		return 1;
+	}
+	//ajout des informations du sommet
+	sommet->gare = gareArvDuTrajet(tr);
+	sommet->pere = g;
+	sommet->etat = 0;
+	sommet->distance = tempsDuTrajet(tr);
+	sommet->previous = graphe->tail;
+	graphe->nbSommets++;
 	return 0;
 }
 
-int majDistance(Ensemble graphe, Trajet tr, Sommet s){
+int majDistance(Gare g, Trajet tr, Sommet s){
+	if (s->distance > tempsDuTrajet(tr)){
+		s->distance = tempsDuTrajet(tr);
+		s->pere = g;
+	}
 	return 0;
 }
 
-int testVoisin(Ensemble graphe, Gare g){
+int testVoisin(Ensemble graphe, Sommet sommet){
+	Gare g = sommet->gare;
 	Trajet tr = trajetHeadDeLaGare(g);
 	int trouve;
 	// on parcourt tout les trajets partant de la gare passe en param
@@ -47,17 +65,12 @@ int testVoisin(Ensemble graphe, Gare g){
 			//si c'est le cas, on met a jour la distance entre la gare init et le sommet trouve
 			if (!strcmp(nomDeGare(gareArvDuTrajet(tr)),nomDeGare(s->gare))) {
 				trouve = 1;
-				majDistance(graphe,tr,s);
+				majDistance(g,tr,s);
 			}
 			s = s->next;
 		}
 		//si aucun sommet ne correspond alors on l'ajoute
 		if (trouve == 0) {
-			Sommet sommet = (Sommet) malloc(sizeof(struct s_sommet));
-			if ( sommet==NULL) {
-				printf("ERREUR ALLOCATION MEMOIRE GRAPHE/RACINE\n");
-				return 1;
-			}
 			ajoutSommet(graphe, tr, g);
 		}
 		tr = trajetNext(tr);
@@ -79,9 +92,11 @@ Ensemble initialisationGraphe(Reseau r, Gare gDep){
 	racine->distance = 0;
 	racine->etat = 1;
 	graphe->head = racine;
+	graphe->tail = racine;
 	graphe->nbSommets = 1;
 	//on init les premiers voisins
-	testVoisin(graphe,gDep);
+	testVoisin(graphe,racine);
+	return graphe;
 }
 
 
