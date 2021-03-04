@@ -8,11 +8,11 @@ typedef struct s_sommet* Sommet;
 typedef struct s_ensemble* Ensemble;
 
 
-int ajoutSommet(Ensemble, Trajet, Gare);
+int ajoutSommet(Ensemble, Trajet, Gare); //ajout d'un sommet dans l'algo de recherche
 
-int majDistance(Gare, Trajet, Sommet);
+int majDistance(Gare, Trajet, Sommet); //mis a jour de la distance entre la gare de depart et le sommet
 
-int testVoisin(Ensemble, Sommet);
+int testVoisin(Ensemble, Sommet); //on reharde les voisins du sommet donné en parametre
 
 Gare rechercheGare(Reseau, char*); //retourne la gare avec le nom correspondant au char* passé en parametre ou NULL si elle n'existe pas
 
