@@ -40,7 +40,10 @@ int ajoutSommet(Ensemble graphe, Trajet tr, Gare g){
 	sommet->etat = 0;
 	sommet->distance = tempsDuTrajet(tr);
 	sommet->previous = graphe->tail;
+	graphe->tail->next = sommet; 
+	graphe->tail = sommet;
 	graphe->nbSommets++;
+	printf("gare pere : %s, gare arrive, %s en %d min\n",nomDeGare(sommet->pere), nomDeGare(sommet->gare), sommet->distance);
 	return 0;
 }
 
@@ -55,10 +58,11 @@ int majDistance(Gare g, Trajet tr, Sommet s){
 int testVoisin(Ensemble graphe, Sommet sommet){
 	Gare g = sommet->gare;
 	Trajet tr = trajetHeadDeLaGare(g);
+	Sommet s;
 	int trouve;
 	// on parcourt tout les trajets partant de la gare passe en param
 	for (int i=0; i<nbTrajetDeLaGare(g); i++) {
-		Sommet s = graphe->head;
+		s = graphe->head;
 		trouve = 0;
 		//pour chacun d'entre eux on regarde si la gare d'arrive du trajet fait partie du graphe en parcourant chaque sommet du graphe
 		for (int j=0; j<graphe->nbSommets; j++){
@@ -107,9 +111,11 @@ Itineraire rechercheItinireraire(Reseau r, Gare gDep, Gare gArv){
 		printf("Au moins une des gares n'exsitent pas\n");
 		return NULL;
 	}
+	//init de l'itinieraire
 	Itineraire itineraire = (Itineraire) malloc(sizeof(struct s_itineraire));
 	itineraire->depart = gDep;
 	itineraire->arrive = gArv;
+	//on init le graphe
 	Ensemble graphe = initialisationGraphe(r, gDep);
 }
 

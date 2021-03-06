@@ -18,5 +18,8 @@ Gare rechercheGare(Reseau, char*); //retourne la gare avec le nom correspondant 
 
 Trajet rechercheTrajet(Gare, Gare); //retourne le trajet qui va de la 1ere Gare passé en parametre au 2nd. Ou NULL s'il n'exsite pas
 
+Itineraire rechercheItinireraire(Reseau, Gare, Gare);
+
+Ensemble initialisationGraphe(Reseau, Gare);
 
 #endif
