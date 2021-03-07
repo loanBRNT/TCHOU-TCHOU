@@ -14,7 +14,7 @@ struct s_itineraire{
 
 struct s_sommet{
 	Gare gare; //A quelle gare correspond le sommet
-	Gare pere; //la gare precedente
+	Sommet pere; //la gare precedente
 	int etat; //0 si jamais fait, 1 si deja fait,
 	int distance; //distance a la gare de depart (-1) si infini
 	Sommet next;
@@ -27,7 +27,7 @@ struct s_ensemble{
 	Sommet tail; //sommet en queue de liste
 };
 
-int ajoutSommet(Ensemble graphe, Trajet tr, Gare g, Sommet sPere){
+int ajoutSommet(Ensemble graphe, Trajet tr, Sommet sPere){
 	//allocation d'espace
 	Sommet sommet = (Sommet) malloc(sizeof(struct s_sommet));
 	if ( sommet==NULL) {
@@ -36,7 +36,7 @@ int ajoutSommet(Ensemble graphe, Trajet tr, Gare g, Sommet sPere){
 	}
 	//ajout des informations du sommet
 	sommet->gare = gareArvDuTrajet(tr);
-	sommet->pere = g;
+	sommet->pere = sPere;
 	sommet->etat = 0;
 	sommet->distance = tempsDuTrajet(tr) + sPere->distance;
 	sommet->previous = graphe->tail;
@@ -50,7 +50,7 @@ int ajoutSommet(Ensemble graphe, Trajet tr, Gare g, Sommet sPere){
 int majDistance(Trajet tr, Sommet s, Sommet sPere){
 	if (s->distance > tempsDuTrajet(tr)+ sPere->distance){
 		s->distance = tempsDuTrajet(tr) + sPere->distance;
-		s->pere = sPere->gare;
+		s->pere = sPere;
 	}
 	return 0;
 }
@@ -79,7 +79,7 @@ int testVoisin(Ensemble graphe, Sommet sommet){
 		}
 		//si aucun sommet ne correspond au trajet, alors on l'ajoute
 		if (trouve == 0) {
-			ajoutSommet(graphe, tr, g, sommet);
+			ajoutSommet(graphe, tr, sommet);
 		}
 		tr = trajetNext(tr);
 	}
@@ -99,6 +99,7 @@ Ensemble initialisationGraphe(Reseau r, Gare gDep){
 	racine->gare = gDep;
 	racine->distance = 0;
 	racine->etat = 1;
+	racine->pere = NULL;
 	graphe->head = racine;
 	graphe->tail = racine;
 	graphe->nbSommets = 1;
@@ -125,8 +126,9 @@ Itineraire rechercheItinireraire(Reseau r, Gare gDep, Gare gArv){
 	Sommet sSauv;
 	int min;
 	int compteur;
+	int trouve=0;
 	//on fait 7 rep (a modif une fois que je saurais quand art le boucle)
-	for (int i = 0; i < 7; ++i){
+	while (trouve ==0){
 		sTest = graphe->head;
 		compteur = 0;
 		while (sTest->etat == 1){ //on prend le premier sommet dont tous les voisins n'ont pas etait teste
@@ -145,8 +147,25 @@ Itineraire rechercheItinireraire(Reseau r, Gare gDep, Gare gArv){
 				}
 			}
 		}
+		if (!strcmp(nomDeGare(sSauv->gare),nomDeGare(gArv))){
+			trouve = 1;
+		}
 		testVoisin(graphe, sSauv); //on teste les voisins du sommet a la distance minimum qui n'a pas deja ete teste
 	}
+	printf("LE CHEMIN FINAL ENTRE %s et %s met %d \n",nomDeGare(gDep), nomDeGare(gArv), sSauv->distance);
+	itineraire->temps = sSauv->distance;
+	int i = 0;
+	sTest = sSauv;
+	while (sTest->pere != NULL){
+		i++;
+		sTest = sTest->pere;
+	}
+	for (int j = i; j > 0; j--)
+	{
+		itineraire->liste[j-1] = rechercheTrajet(sSauv->pere->gare, sSauv->gare);
+		sSauv = sSauv->pere;
+	}
+	return itineraire;
 }
 
 

@@ -35,7 +35,7 @@ int main(int argc, char const *argv[])
 {
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
-	rechercheItinireraire(reseau, gareHead(reseau), gareTail(reseau));
+	Itineraire it = rechercheItinireraire(reseau, gareHead(reseau), garePrevious(gareTail(reseau)));
 	/* lance l'affichage du menu principale
 	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
 	  si le numero n'est pas bon on redemande un numero de menu

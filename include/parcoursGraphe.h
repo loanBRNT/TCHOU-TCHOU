@@ -8,7 +8,7 @@ typedef struct s_sommet* Sommet;
 typedef struct s_ensemble* Ensemble;
 
 
-int ajoutSommet(Ensemble, Trajet, Gare, Sommet); //ajout d'un sommet dans l'algo de recherche
+int ajoutSommet(Ensemble, Trajet, Sommet); //ajout d'un sommet dans l'algo de recherche
 
 int majDistance(Trajet, Sommet, Sommet); //mis a jour de la distance entre la gare de depart et le sommet
 
