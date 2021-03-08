@@ -47,7 +47,7 @@ int ajoutSommet(Ensemble graphe, Trajet tr, Sommet sPere){
 	return 0;
 }
 
-int majDistance(Trajet tr, Sommet s, Sommet sPere){
+int majDistance(Trajet tr, Sommet s, Sommet sPere){ //on met a jour la distance si la nouvelle facon d'attenindre le sommet est plus rapide que l'ancienne
 	if (s->distance > tempsDuTrajet(tr)+ sPere->distance){
 		s->distance = tempsDuTrajet(tr) + sPere->distance;
 		s->pere = sPere;
@@ -87,7 +87,7 @@ int testVoisin(Ensemble graphe, Sommet sommet){
 }
 
 
-Ensemble initialisationGraphe(Reseau r, Gare gDep){
+Ensemble initialisationGraphe(Gare gDep){
 	//alloc memoire
 	Ensemble graphe = (Ensemble) malloc(sizeof(struct s_ensemble));
 	Sommet racine = (Sommet) malloc(sizeof(struct s_sommet));
@@ -108,7 +108,16 @@ Ensemble initialisationGraphe(Reseau r, Gare gDep){
 	return graphe;
 }
 
-
+void freeGrapheRecherche(Ensemble graphe){
+	Sommet sSup = graphe->head;
+	Sommet sSauv;
+	for (int i = 0 ; i < graphe->nbSommets ; i++ ){
+		sSauv = sSup->next;
+		free(sSup);
+		sSup = sSauv;
+	}
+	free(graphe);
+}
 
 Itineraire rechercheItinireraire(Reseau r, Gare gDep, Gare gArv){ 
 //Pour l'appeller on peut passer en parametre rechercheItineraire(reseau, rechercheGare(reseau, char* nom),rechercheGare(reseau, char* nom) )
@@ -121,7 +130,7 @@ Itineraire rechercheItinireraire(Reseau r, Gare gDep, Gare gArv){
 	itineraire->depart = gDep;
 	itineraire->arrive = gArv;
 	//on init le graphe
-	Ensemble graphe = initialisationGraphe(r, gDep);
+	Ensemble graphe = initialisationGraphe(gDep);
 	Sommet sTest;
 	Sommet sSauv;
 	int min;
@@ -153,57 +162,24 @@ Itineraire rechercheItinireraire(Reseau r, Gare gDep, Gare gArv){
 		testVoisin(graphe, sSauv); //on teste les voisins du sommet a la distance minimum qui n'a pas deja ete teste
 	}
 	printf("LE CHEMIN FINAL ENTRE %s et %s met %d \n",nomDeGare(gDep), nomDeGare(gArv), sSauv->distance);
+	//on sauvegarde les infos dans notre structure itineraire
 	itineraire->temps = sSauv->distance;
 	int i = 0;
 	sTest = sSauv;
+	//on parcorut une fois pour savoir le nombre d'etape dans l'itineraire
 	while (sTest->pere != NULL){
 		i++;
 		sTest = sTest->pere;
 	}
+	//on remplit la liste des trajets, en faisant attention a l'ordre dep -> arv
 	for (int j = i; j > 0; j--)
 	{
 		itineraire->liste[j-1] = rechercheTrajet(sSauv->pere->gare, sSauv->gare);
 		sSauv = sSauv->pere;
 	}
+	freeGrapheRecherche(graphe); //On libere la memoire du graphe et des sommets
 	return itineraire;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Gare rechercheGare(Reseau r, char* nom){
 	Gare act = gareHead(r);

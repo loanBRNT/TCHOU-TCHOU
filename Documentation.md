@@ -8,10 +8,7 @@ Projet et documentation entièrement rédigé par Bernat Loan et Gaudillat Eliot
     1. [reseau.h](#re)
     2. [reseauAcesseur.h](#reAc)
 3. [Naviguation dans le menu](#menu)
-
-
-
-
+4. [L'algorithme de recherche du plus court chemin](#recherche)
 
 
 
@@ -185,3 +182,10 @@ Afin de pouvoir accéder aux paramètres des 3 structures s_gare, s_reseau et s_
 ***Retour*** : __Trajet__ un pointeur vers l'emplacement du trajet suivant en mémoire de la Gare (suivante au sens de la liste chainée)
 
 ## Naviguation dans le menu <a name="menu"></a>
+
+
+## L'algorithme de recherche du plus court chemin <a name="recherche"></a>
+
+Notre algorithme de recherche du plus court chemin est fondé autour de l'algorithme de Dijkstra.
+
+![Schema Dijkstra](img/Dijkstra_Animation.gif "Schema Dijkstra")
