@@ -188,4 +188,4 @@ Afin de pouvoir accéder aux paramètres des 3 structures s_gare, s_reseau et s_
 
 Notre algorithme de recherche du plus court chemin est fondé autour de l'algorithme de Dijkstra.
 
-![Schema Dijkstra](img/Dijkstra_Animation.gif "Schema Dijkstra")
+![SchemaDijkstra](https://upload.wikimedia.org/wikipedia/commons/5/57/Dijkstra_Animation.gif)
