@@ -186,6 +186,62 @@ Afin de pouvoir accéder aux paramètres des 3 structures s_gare, s_reseau et s_
 
 ## L'algorithme de recherche du plus court chemin <a name="recherche"></a>
 
-Notre algorithme de recherche du plus court chemin est fondé autour de l'algorithme de Dijkstra.
+Notre algorithme de recherche du plus court chemin est fondé autour de l'algorithme de Dijkstra. Dont voici un gif exemple du principe :
 
 ![SchemaDijkstra](https://upload.wikimedia.org/wikipedia/commons/5/57/Dijkstra_Animation.gif)
+
+Grossièrement, on part de la gare principale, on teste la distance à ces voisins, puis dans l'ordre du sommet qui a la plus petite distance, on teste les voisins de ce commet et etc... jusqu'a obtenir la distance la plus courte à la Gare d'arrivée. Quant à nous, nous utilisons 3 nouvelles structures pour cette recherche : s_sommet, s_itineraire et s_ensemble. La structure s_itineraire permet de stocker notre itineraire (liste de trajet, et autres informations..), tandis que s_sommet et s_ensemble permettent de gérer l'algo de recherche (la memoire est libérés à l'issu de la recherche pour s_ensemble et s_sommet)
+
+### Fonction et structure de la recherche dans le reseau routier <a name="re"></a>
+
+**----- Itineraire -----** `typedef struct s_itineraire* Itineraire`
+
+C'est un pointeur sur la structure s_itineraire, il va nous permettre d'utiliser de manière dynamique notre itineraire !
+
+**----- Ensemble -----** `typedef struct s_ensemble* Ensemble`
+
+C'est un pointeur sur la structure s_ensemble, il va nous permettre d'utiliser de manière dynamique notre graphe !
+
+**----- Sommet -----** `typedef struct s_sommet* Sommet`
+
+C'est un pointeur sur la structure s_sommet, il va nous permettre d'utiliser de manière dynamique nos sommets !
+
+**----- rechercheItineraire -----** `Itineraire rechercheItineraire(Reseau, Gare, Gare)`
+
+Cette fonction lance la recherche d'un chemin le plus court entre deux gares dans le réseau.
+
+***Parametre*** : _Reseau_ un pointeur vers l'emplacement du reseau en mémoire, __Gare__ un pointeur vers la Gare de départ du trajet, __Gare__ un pointeur vers la Gare d'arrivée du trajet.
+
+***Retour*** : _Itineraire_ un pointeur vers l'emplacement de notre intineraire comprenant nore liste de trajet ainsi que les informations de base (temps, depart,...)
+
+**----- initialisationGraphe -----** `Ensemble initialisationGraphe(Gare)`
+
+Cette fonction initialise l'ensemble (appelé "graphe") en partant de la gare de depart et en y ajoutant les premiers voisins de la gare de Depart.
+
+***Parametre*** : __Gare__ un pointeur vers la Gare de départ du trajet
+
+***Retour*** : _Ensemble_ un pointeur vers le graphe de recherche
+
+**----- testVoisin -----** `int testVoisin(Ensemble, Sommet)`
+
+Cette fonction lance la recherche d'un chemin le plus court entre deux gares dans le réseau.
+
+***Parametre*** : 
+
+***Retour*** : 
+
+**----- ajoutSommet -----** `int ajoutSommet(Ensemble, Trajet, Sommet)`
+
+Cette fonction lance la recherche d'un chemin le plus court entre deux gares dans le réseau.
+
+***Parametre*** : 
+
+***Retour*** : 
+
+**----- majDistance -----** `int majDistance(Trajet, Sommet, Sommet)`
+
+Cette fonction lance la recherche d'un chemin le plus court entre deux gares dans le réseau.
+
+***Parametre*** : 
+
+***Retour*** : 
