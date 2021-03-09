@@ -38,25 +38,6 @@ long lireLong()
  
     if (lire(nombreTexte, 100,stdin))
     {
-<<<<<<< HEAD
-        lu = fscanf (f,format , res ) ;
-        do {
-            c = getc ( f ) ;
-            if ( ! isspace ( c ) )
-                count ++ ;
-        } while ( c != '\n' ) ;
-        
-    }
-    while ( (lu != 1) || (count > 0) );
-  
-}
-  
-int lire_entier ( FILE * f )
-{
-  int res ;
-  lire_donnee(f,"%d", &res) ;
-  return res ;
-=======
         // Si lecture du texte ok, convertir le nombre en long et le retourner
         return strtol(nombreTexte, NULL, 10);
     }
@@ -65,7 +46,6 @@ int lire_entier ( FILE * f )
         // Si problème de lecture, renvoyer 0
         return 0;
     }
->>>>>>> pwd
 }
 
 int verifierPwdAdmin(){

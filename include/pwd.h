@@ -8,9 +8,9 @@ int verifierPwdAdmin();
 int verifierLogControleur();
 //fonction similiaire a fgets qui remplace le \n par \0 afin de comparer une ligne avec une chaine de caractere
 int lire(char*,int,FILE*);
-
+//fonction qui vide le buffer afin de sécurisé les saisie
 void viderBuffer();
-
+// fonction dérivée de lire afin de lire un long
 long lireLong();
 
 
