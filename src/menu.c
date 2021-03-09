@@ -104,14 +104,14 @@ int menuAdminVerification(){
  		{
  			int choix =0;
  			while(choix != 1){
-				int option =0 ;
+				long option =0 ;
  				printf("###########################################\n");
  				printf("#          voulez vous reessayer ?        #\n");
  				printf("#                 1- OUI                  #\n");
  				printf("#                 2- NON                  #\n");
  				printf("###########################################\n");
 				printf("\n");
- 				scanf("%d",&option);
+ 				option=lireLong();
 				printf("\n");
 
 				/* si l'utilisateur ne choisit pas un choix propose on lui repose la question 
@@ -150,10 +150,10 @@ int menuAdminVerification(){
 
 int menuAdmin(){
 	int event = 1 ;
-	int choixMenu;
+	long choixMenu;
 	while(event != -1){
 		afficheMenuAdmin();
-		scanf("%d",&choixMenu);
+		choixMenu=lireLong();
 		printf("\n");
 		switch(choixMenu)
 		{
@@ -211,14 +211,14 @@ int menuControleurVerification(){
  		{
  			int choix =0;
  			while(choix != 1){
-				int option =0 ;
+				long option  ;
  				printf("###########################################\n");
  				printf("#          voulez vous reessayer ?        #\n");
  				printf("#                 1- OUI                  #\n");
  				printf("#                 2- NON                  #\n");
  				printf("###########################################\n");
 				printf("\n");
- 				scanf("%d",&option);
+ 				option=lireLong();
 				printf("\n");
 
 				/* si l'utilisateur ne choisit pas un choix propose on lui repose la question 
@@ -257,10 +257,10 @@ int menuControleurVerification(){
 }
 int menuControleur(){
 	int event = 1 ;
-	int choixMenu;
+	long choixMenu;
 	while(event != -1){
 		afficheMenuControleur();
-		scanf("%d",&choixMenu);
+		choixMenu=lireLong();
 		printf("\n");
 		switch(choixMenu)
 		{
@@ -295,10 +295,10 @@ int menuAdministrationControleur(){
 
 int menuClient(){
 	int event = 1 ;
-	int choixMenu;
+	long choixMenu;
 	while(event != -1){
 		afficheMenuClient();
-		scanf("%d",&choixMenu);
+		choixMenu=lireLong();
 		printf("\n");
 		switch(choixMenu)
 		{

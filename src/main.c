@@ -42,10 +42,10 @@ int main(int argc, char const *argv[])
 	  le choix numero 4 modifie la valeur de la variable event afin de sortir de la boucle et pouvoir arreter le programme
 	*/
 	int event = 1 ;
-	int choixMenu;
+	long choixMenu;
 	while(event != -1){
 		afficheMenuPrincipal();
-		scanf("%d",&choixMenu);
+		choixMenu=lireLong();
 		printf("\n");
 		switch(choixMenu)
 		{

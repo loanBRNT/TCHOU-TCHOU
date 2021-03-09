@@ -8,9 +8,10 @@ int verifierPwdAdmin();
 int verifierLogControleur();
 //fonction similiaire a fgets qui remplace le \n par \0 afin de comparer une ligne avec une chaine de caractere
 int lire(char*,int,FILE*);
-void lire_donnee ( FILE * f , char * format , void * res );
-int lire_entier ( FILE * f );
 
+void viderBuffer();
+
+long lireLong();
 
 
 #endif

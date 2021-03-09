@@ -4,6 +4,12 @@
 #include <ctype.h>
 #include "pwd.h"
 
+void viderBuffer(){
+	int c=0;
+	while (c!= '\n' && c != EOF)
+		c = getchar();
+}
+
 int lire(char* chaine, int longueur ,FILE* fichier){
     char *positionEntree = NULL;
  
@@ -15,20 +21,24 @@ int lire(char* chaine, int longueur ,FILE* fichier){
         {
             *positionEntree = '\0'; // On remplace ce caractère par \0
         }
+        else
+        	viderBuffer();
         return 1; // On renvoie 1 si la fonction s'est déroulée sans erreur
     }
     else
     {
+    	viderBuffer();
         return 0; // On renvoie 0 s'il y a eu une erreur
     }
 }
-void lire_donnee ( FILE * f , char * format , void * res )
+
+long lireLong()
 {
-    int lu = 0 ;
-    int count = 0 ;
-    char c ;
-    do
+    char nombreTexte[100] = {0}; // 100 cases devraient suffire
+ 
+    if (lire(nombreTexte, 100,stdin))
     {
+<<<<<<< HEAD
         lu = fscanf (f,format , res ) ;
         do {
             c = getc ( f ) ;
@@ -46,6 +56,16 @@ int lire_entier ( FILE * f )
   int res ;
   lire_donnee(f,"%d", &res) ;
   return res ;
+=======
+        // Si lecture du texte ok, convertir le nombre en long et le retourner
+        return strtol(nombreTexte, NULL, 10);
+    }
+    else
+    {
+        // Si problème de lecture, renvoyer 0
+        return 0;
+    }
+>>>>>>> pwd
 }
 
 int verifierPwdAdmin(){
@@ -57,7 +77,7 @@ int verifierPwdAdmin(){
 	printf("# veuillez saisir le mot de passe administrateur : #\n");
 	printf("####################################################\n");
 	printf("\n");
-	scanf("%s",pwdPropose);
+	lire(pwdPropose,20,stdin);
 	printf("\n");
 	id=fopen("sauv/admin.txt","r");
 	// verification du l'ouverture du fichier admin.txt qui contient le mot de passe de l administrateur
@@ -110,7 +130,7 @@ int verifierLogControleur(){
 	printf("#       veuillez saisir votre identifiant  :       #\n");
 	printf("####################################################\n");
 	printf("\n");
-	scanf("%s",loginPropose);
+	lire(loginPropose,20,stdin);
 	printf("\n");
 
 	if(loginPropose[0]=='a'){
@@ -178,7 +198,7 @@ int verifierLogControleur(){
 		printf("#       veuillez saisir votre mot de passe :       #\n");
 		printf("####################################################\n");
 		printf("\n");
-		scanf("%s",pwdPropose);
+		lire(pwdPropose,20,stdin);
 		printf("\n");
 		// on recupere le mot de passe dans le fichier controleur.txt correspondant au controleur qui se connecte
 		lire(pwd,20,id);
