@@ -303,7 +303,7 @@ int ajouterUneGare(Reseau r, char* nom){
 	return 0;
 }
 
-int ajouterUnTrajet(Reseau r, Gare gDep, Gare gArv, int temps){
+int ajouterUnTrajet(Gare gDep, Gare gArv, int temps){
 	//on verifie que le trajet ne soit pas déjà existant
 	if (rechercheTrajet(gDep,gArv) != NULL) {
 		printf("Le trajet existe deja !\n");
@@ -328,7 +328,7 @@ int ajouterUnTrajet(Reseau r, Gare gDep, Gare gArv, int temps){
 	gDep->tailListeTrajet = tr1;
 	gDep->nbTrajet++;
 	if (rechercheTrajet(gArv,gDep) == NULL) {
-		ajouterUnTrajet(r,gArv,gDep,temps);
+		ajouterUnTrajet(gArv,gDep,temps);
 	}
 	return 0;
 }

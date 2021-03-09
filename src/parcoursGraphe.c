@@ -14,9 +14,9 @@ struct s_itineraire{
 
 struct s_sommet{
 	Gare gare; //A quelle gare correspond le sommet
-	Gare pere; //la gare precedente
+	Sommet pere; //la gare precedente
 	int etat; //0 si jamais fait, 1 si deja fait,
-	int distance; //distance a la gare de depart
+	int distance; //distance a la gare de depart (-1) si infini
 	Sommet next;
 	Sommet previous;
 };
@@ -27,38 +27,59 @@ struct s_ensemble{
 	Sommet tail; //sommet en queue de liste
 };
 
-int ajoutSommet(Ensemble graphe, Trajet tr, Gare g){
+int ajoutSommet(Ensemble graphe, Trajet tr, Sommet sPere){
+	//allocation d'espace
+	Sommet sommet = (Sommet) malloc(sizeof(struct s_sommet));
+	if ( sommet==NULL) {
+		printf("ERREUR ALLOCATION MEMOIRE GRAPHE/RACINE\n");
+		return 1;
+	}
+	//ajout des informations du sommet
+	sommet->gare = gareArvDuTrajet(tr);
+	sommet->pere = sPere;
+	sommet->etat = 0;
+	sommet->distance = tempsDuTrajet(tr) + sPere->distance;
+	sommet->previous = graphe->tail;
+	graphe->tail->next = sommet; 
+	graphe->tail = sommet;
+	graphe->nbSommets++;
+	printf("On ajoute le sommet %s en %d min\n",nomDeGare(sommet->gare), sommet->distance);
 	return 0;
 }
 
-int majDistance(Ensemble graphe, Trajet tr, Sommet s){
+int majDistance(Trajet tr, Sommet s, Sommet sPere){ //on met a jour la distance si la nouvelle facon d'attenindre le sommet est plus rapide que l'ancienne
+	if (s->distance > tempsDuTrajet(tr)+ sPere->distance){
+		s->distance = tempsDuTrajet(tr) + sPere->distance;
+		s->pere = sPere;
+	}
 	return 0;
 }
 
-int testVoisin(Ensemble graphe, Gare g){
+int testVoisin(Ensemble graphe, Sommet sommet){
+	sommet->etat = 1;
+	Gare g = sommet->gare;
 	Trajet tr = trajetHeadDeLaGare(g);
+	Sommet s;
 	int trouve;
-	// on parcourt tout les trajets partant de la gare passe en param
+	// on parcourt tout les trajets partant du sommet a tester
 	for (int i=0; i<nbTrajetDeLaGare(g); i++) {
-		Sommet s = graphe->head;
+		s = graphe->head;
 		trouve = 0;
-		//pour chacun d'entre eux on regarde si la gare d'arrive du trajet fait partie du graphe en parcourant chaque sommet du graphe
+		//pour chacun d'entre eux, on regarde si le trajet relie deux sommets existant en parcourant chaque sommet du graphe
 		for (int j=0; j<graphe->nbSommets; j++){
-			//si c'est le cas, on met a jour la distance entre la gare init et le sommet trouve
+			//si c'est le cas, on met a jour la distance entre le sommet trouve et la gare Gdep
 			if (!strcmp(nomDeGare(gareArvDuTrajet(tr)),nomDeGare(s->gare))) {
 				trouve = 1;
-				majDistance(graphe,tr,s);
+				if (s->etat == 0){ //on verif que le sommet na pas deja ete entierement fait (pour eviter de mettre a jour la distance de gdep)
+					majDistance(tr,s,sommet);
+					printf("On met a jour la distance de %s qui vaut mtn %d \n", nomDeGare(s->gare), s->distance);
+				}
 			}
 			s = s->next;
 		}
-		//si aucun sommet ne correspond alors on l'ajoute
+		//si aucun sommet ne correspond au trajet, alors on l'ajoute
 		if (trouve == 0) {
-			Sommet sommet = (Sommet) malloc(sizeof(struct s_sommet));
-			if ( sommet==NULL) {
-				printf("ERREUR ALLOCATION MEMOIRE GRAPHE/RACINE\n");
-				return 1;
-			}
-			ajoutSommet(graphe, tr, g);
+			ajoutSommet(graphe, tr, sommet);
 		}
 		tr = trajetNext(tr);
 	}
@@ -66,7 +87,7 @@ int testVoisin(Ensemble graphe, Gare g){
 }
 
 
-Ensemble initialisationGraphe(Reseau r, Gare gDep){
+Ensemble initialisationGraphe(Gare gDep){
 	//alloc memoire
 	Ensemble graphe = (Ensemble) malloc(sizeof(struct s_ensemble));
 	Sommet racine = (Sommet) malloc(sizeof(struct s_sommet));
@@ -78,13 +99,25 @@ Ensemble initialisationGraphe(Reseau r, Gare gDep){
 	racine->gare = gDep;
 	racine->distance = 0;
 	racine->etat = 1;
+	racine->pere = NULL;
 	graphe->head = racine;
+	graphe->tail = racine;
 	graphe->nbSommets = 1;
 	//on init les premiers voisins
-	testVoisin(graphe,gDep);
+	testVoisin(graphe,racine);
+	return graphe;
 }
 
-
+void freeGrapheRecherche(Ensemble graphe){
+	Sommet sSup = graphe->head;
+	Sommet sSauv;
+	for (int i = 0 ; i < graphe->nbSommets ; i++ ){
+		sSauv = sSup->next;
+		free(sSup);
+		sSup = sSauv;
+	}
+	free(graphe);
+}
 
 Itineraire rechercheItinireraire(Reseau r, Gare gDep, Gare gArv){ 
 //Pour l'appeller on peut passer en parametre rechercheItineraire(reseau, rechercheGare(reseau, char* nom),rechercheGare(reseau, char* nom) )
@@ -92,48 +125,61 @@ Itineraire rechercheItinireraire(Reseau r, Gare gDep, Gare gArv){
 		printf("Au moins une des gares n'exsitent pas\n");
 		return NULL;
 	}
+	//init de l'itinieraire
 	Itineraire itineraire = (Itineraire) malloc(sizeof(struct s_itineraire));
 	itineraire->depart = gDep;
 	itineraire->arrive = gArv;
-	Ensemble graphe = initialisationGraphe(r, gDep);
+	//on init le graphe
+	Ensemble graphe = initialisationGraphe(gDep);
+	Sommet sTest;
+	Sommet sSauv;
+	int min;
+	int compteur;
+	int trouve=0;
+	//on fait 7 rep (a modif une fois que je saurais quand art le boucle)
+	while (trouve ==0){
+		sTest = graphe->head;
+		compteur = 0;
+		while (sTest->etat == 1){ //on prend le premier sommet dont tous les voisins n'ont pas etait teste
+			sTest = sTest->next;
+			compteur++;
+		}
+		sSauv = sTest; //une fois fait, on stocke sa distance a la gare de Dep dans min et son adresse dans sSauv
+		min = sTest->distance;
+		//on compare la distance de chaque sommet à la gare Dep, on prend le minimum pur lui verifier ses voisins
+		for (int j = compteur+1 ; j < graphe->nbSommets ; j++){
+			sTest = sTest->next;
+			if ((min > sTest->distance)){
+				if (sTest->etat == 0) { //on regarde si ce minimum n'a pas deja ete verifie
+					min = sTest->distance;
+					sSauv = sTest; //si c'est ok, on stocke sa valeur de distance dans min, et son adresse dans sSauv
+				}
+			}
+		}
+		if (!strcmp(nomDeGare(sSauv->gare),nomDeGare(gArv))){
+			trouve = 1;
+		}
+		testVoisin(graphe, sSauv); //on teste les voisins du sommet a la distance minimum qui n'a pas deja ete teste
+	}
+	printf("LE CHEMIN FINAL ENTRE %s et %s met %d \n",nomDeGare(gDep), nomDeGare(gArv), sSauv->distance);
+	//on sauvegarde les infos dans notre structure itineraire
+	itineraire->temps = sSauv->distance;
+	int i = 0;
+	sTest = sSauv;
+	//on parcorut une fois pour savoir le nombre d'etape dans l'itineraire
+	while (sTest->pere != NULL){
+		i++;
+		sTest = sTest->pere;
+	}
+	//on remplit la liste des trajets, en faisant attention a l'ordre dep -> arv
+	for (int j = i; j > 0; j--)
+	{
+		itineraire->liste[j-1] = rechercheTrajet(sSauv->pere->gare, sSauv->gare);
+		sSauv = sSauv->pere;
+	}
+	freeGrapheRecherche(graphe); //On libere la memoire du graphe et des sommets
+	return itineraire;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Gare rechercheGare(Reseau r, char* nom){
 	Gare act = gareHead(r);
