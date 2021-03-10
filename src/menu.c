@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "menu.h"
 #include "pwd.h"
+#include "reseau.h"
+#include "parcoursGraphe.h"
 //########## FONCTIONS DE GESTION DES MENUS ###############
 //########## FONCTIONS D AFFICHAGE DES MENUS ##############
 void afficheMenuPrincipal(){
@@ -86,7 +88,7 @@ void afficheMessageQuitter(){
 
 /* fonction du menu adminverification
   cette fonction ca utiliser verifierpwdAdmin pour autoriser a l'acces au menu administrateur a l'utilisateur */
-int menuAdminVerification(){
+int menuAdminVerification(Reseau r){
 	//on informe l'utilisateur qui rentre sur un menu prive
 	int cpt = 0;
 	printf("\n");
@@ -140,7 +142,7 @@ int menuAdminVerification(){
  		 lorsque la fonction menuAdmin ce termine on sort de la boucle
  		 pour finir la fonction menuAdminVerification ce qui nous ramene dans la fonction main du programme */
  		else{
- 			menuAdmin();
+ 			menuAdmin(r);
  			cpt=-1;
  		}
 	}
@@ -148,7 +150,7 @@ int menuAdminVerification(){
 	return 0;
 }
 
-int menuAdmin(){
+int menuAdmin(Reseau r){
 	int event = 1 ;
 	long choixMenu;
 	while(event != -1){
@@ -158,7 +160,7 @@ int menuAdmin(){
 		switch(choixMenu)
 		{
 			case 1:
-				menuGestionTrajet();
+				menuGestionTrajet(r);
 				break;
 			case 2:
 				menuExportationJSON();
@@ -178,8 +180,63 @@ int menuAdmin(){
 	return 0;
 }
 
-int menuGestionTrajet(){
+int menuGestionTrajet(Reseau r){
+	printf("\n");
+	printf("################################################\n");
+	printf("#            Que voulez vous faire ?           #\n");
+	printf("#                                              #\n");
+	printf("#       1- Ajouter une Gare                    #\n");
+	printf("#       2- Suprimer une Gare                   #\n");
+	printf("#       3- Ajouter un trajet aller-retour      #\n");
+	printf("#       4- Suprimer un trajet aller-retour     #\n");
+	printf("#       5- RETOUR                              #\n");
+	printf("################################################\n");
+	printf("\n");
+	int choixMenu = lireLong();
+	switch(choixMenu) {
+		case 1:
+			menuAjouteGare(r);
+			break;
+		default:
+			menuGestionTrajet(r);
+			break;
+	}
+	printf("\n");
 	return 0;
+}
+
+int menuAjouteGare(Reseau r){
+	int cpt = 0;
+	char* nom;
+	while (cpt !=1) {
+		nom="";
+		printf("\n");
+		printf("################################################\n");
+		printf("#            Indiquez le nom de la Gare        #\n");
+		printf("#              que vous voulez ajouter         #\n");
+		printf("################################################\n");
+		printf("\n");
+		lire(nom,30,stdin); //Pb avec lire
+		printf("Voulez vous vraiment creer la gare : '%s' ? \n 1- OUI \n 2- NON \n", nom);
+		cpt = lireLong();
+		printf("\n");
+	}
+	ajouterUneGare(r, nom);
+	printf("\n");
+	printf("################################################\n");
+	printf("#          Votre gare a bien ete ajoute        #\n");
+	printf("#           1- Ajouter une autre gare          #\n");
+	printf("#           2- RETOUR                          #\n");
+	printf("################################################\n");
+	printf("\n");
+	cpt = lireLong();
+	switch (cpt) {
+		case 1:
+			menuAjouteGare(r);
+			break;
+		default :
+			menuGestionTrajet(r);
+	}
 }
 
 int menuExportationJSON(){

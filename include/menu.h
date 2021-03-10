@@ -12,15 +12,15 @@ void afficheMessageQuitter();
 
 //fonctions des menus de la partie administrateur
 // pre-menu administrateur verifie si la personne a accès au menu administrateur
-int menuAdminVerification();
+int menuAdminVerification(Reseau r);
 // interface du menu administrateur
-int menuAdmin();
+int menuAdmin(Reseau r);
 /* interface des 3 menus accessibles depuis le menu administrateur 
 menuGestionTrajet  est l'interface pour la gestion des trajets
 menuExportationJSON est celui pour l'exportation des donnees
 et menuGestionAdministration est celui pour gerer les mot de passe des personnes
 */
-int menuGestionTrajet();
+int menuGestionTrajet(Reseau r);
 int menuExportationJSON();
 int menuGestionAdministration();
 
@@ -48,6 +48,11 @@ int menuClient();
 int menuRechercheEtChoix();
 int menuReservationEtModification();
 
+
+
+
+
+int menuAjouteGare(Reseau r);
 
 
 

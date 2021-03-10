@@ -7,6 +7,7 @@
 #include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
 #include "main.h"
+
 #define EXIT_SUCESS 0
 #define EXIT_FAILURE 1
 
@@ -35,7 +36,6 @@ int main(int argc, char const *argv[])
 {
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
-	Itineraire it = rechercheItinireraire(reseau, gareHead(reseau), garePrevious(gareTail(reseau)));
 	/* lance l'affichage du menu principale
 	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
 	  si le numero n'est pas bon on redemande un numero de menu
@@ -50,7 +50,7 @@ int main(int argc, char const *argv[])
 		switch(choixMenu)
 		{
 			case 1:
-				menuAdminVerification();
+				menuAdminVerification(reseau);
 				break;
 			case 2:
 				menuControleurVerification();

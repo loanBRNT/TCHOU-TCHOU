@@ -136,7 +136,6 @@ Itineraire rechercheItinireraire(Reseau r, Gare gDep, Gare gArv){
 	int min;
 	int compteur;
 	int trouve=0;
-	//on fait 7 rep (a modif une fois que je saurais quand art le boucle)
 	while (trouve ==0){
 		sTest = graphe->head;
 		compteur = 0;
