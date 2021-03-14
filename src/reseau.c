@@ -107,6 +107,7 @@ int initTrajet(Reseau r,Gare gareDepart, FILE* fichierTrajet){
 		gareDepart->tailListeTrajet->next = tr;
 		gareDepart->tailListeTrajet = tr;
 	}
+
 	//systeme de lecture du format
 	//lecture du nom de la gare d'arrivee
 	char caractere;
@@ -213,13 +214,21 @@ Reseau initReseau(){
 	}
 	// on initialise les trajets des gares
 	Gare g = ensembleGare->head;
+	printf("%d\n",ensembleGare->size );
 	for (int i=0; i < ensembleGare->size ; i++) {
 		do {
+			//on verifie que la gare a des trajets a ajouter
+			fgetc(fichierTrajet);
+			if (fgetc(fichierTrajet) == '/'){
+				continue;
+			}
+			fseek(fichierTrajet, -2, SEEK_CUR);
 			initTrajet(ensembleGare, g, fichierTrajet);
 			c = fgetc(fichierTrajet);
 		} while (c != '/');
 		g = g->next;
 	}
+	printf("yo\n");
 	//Fermeture des fichiers
 	fclose(fichierReseau);
 	fclose(fichierTrajet);

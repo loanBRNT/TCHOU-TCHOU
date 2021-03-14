@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "reseau.h"
+#include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
 #include "menu.h"
 #include "pwd.h"
@@ -197,38 +198,46 @@ int menuGestionTrajet(Reseau r){
 		case 1:
 			menuAjouteGare(r);
 			break;
+		case 2:
+			menuSupGare(r);
+			break;
 		default:
-			menuGestionTrajet(r);
+			menuAdmin(r);
 			break;
 	}
 	printf("\n");
 	return 0;
 }
 
-int menuAjouteGare(Reseau r){
-	int cpt = 0;
-	char* nom;
-	while (cpt !=1) {
-		nom="";
+int menuAjouteGare(Reseau r){ //saisie sans espace et avec chiffre
+	int cpt;
+	char nom[30] = {0};
+	printf("\n");
+	printf("################################################\n");
+	printf("#            Indiquez le nom de la Gare        #\n");
+	printf("#              que vous voulez ajouter         #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s", nom);
+	fflush(stdin);
+	cpt = ajouterUneGare(r, nom);
+	if ( cpt == 0){
 		printf("\n");
 		printf("################################################\n");
-		printf("#            Indiquez le nom de la Gare        #\n");
-		printf("#              que vous voulez ajouter         #\n");
+		printf("#          Votre gare a bien ete ajoute        #\n");
+		printf("#           1- Ajouter une autre gare          #\n");
+		printf("#           2- RETOUR                          #\n");
 		printf("################################################\n");
 		printf("\n");
-		lire(nom,30,stdin); //Pb avec lire
-		printf("Voulez vous vraiment creer la gare : '%s' ? \n 1- OUI \n 2- NON \n", nom);
-		cpt = lireLong();
+	} else {
+		printf("\n");
+		printf("################################################\n");
+		printf("#          La gare n'a pas etait ajoute        #\n");
+		printf("#           1- Ajouter une autre gare          #\n");
+		printf("#           2- RETOUR                          #\n");
+		printf("################################################\n");
 		printf("\n");
 	}
-	ajouterUneGare(r, nom);
-	printf("\n");
-	printf("################################################\n");
-	printf("#          Votre gare a bien ete ajoute        #\n");
-	printf("#           1- Ajouter une autre gare          #\n");
-	printf("#           2- RETOUR                          #\n");
-	printf("################################################\n");
-	printf("\n");
 	cpt = lireLong();
 	switch (cpt) {
 		case 1:
@@ -237,7 +246,56 @@ int menuAjouteGare(Reseau r){
 		default :
 			menuGestionTrajet(r);
 	}
+	return 0;
 }
+
+int menuSupGare(Reseau r){
+	int cpt;
+	char nom[30] = {0};
+	printf("\n");
+	printf("################################################\n");
+	printf("#            Voici la liste des Gares          #\n");
+	printf("################################################\n");
+	printf("\n");
+	Gare g = gareHead(r);
+	for (int i=0; i<tailleReseau(r); i++){
+		printf("%s | ",nomDeGare(g));
+		g=gareNext(g);
+	}
+	printf("\n\n");
+	printf("################################################\n");
+	printf("#      Tapez le nom de la Gare a Suprimer      #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s",nom);
+	fflush(stdin);
+	g = rechercheGare(r, nom);
+	if (g == NULL){
+		printf("\n");
+		printf("################################################\n");
+		printf("#             La Gare n'existe pas !           #\n");
+		return 1;
+	} else {
+		retirerUneGare(r, g);
+		printf("\n");
+		printf("################################################\n");
+		printf("#         La Gare a bien etait retire !        #\n");
+	}
+	printf("#         1- Supprimmer une autre Gare         #\n");
+	printf("#         2- RETOUR                            #\n");
+	printf("################################################\n");
+	printf("\n");
+	cpt = lireLong();
+	switch (cpt) {
+		case 1:
+			menuSupGare(r);
+			break;
+		default :
+			menuGestionTrajet(r);
+	}
+	return 0;
+}
+
 
 int menuExportationJSON(){
 	return 0;
