@@ -326,7 +326,7 @@ int ajouterUnTrajet(Gare gDep, Gare gArv, int temps){
 	}
 	//On entre les informations du trajet
 	tr1->ponderation = temps;
-	tr1->gArrive = gDep;
+	tr1->gArrive = gArv;
 	tr1->next= NULL;
 	//On raccroche a la gare correspondante
 	if (gDep->nbTrajet == 0){
