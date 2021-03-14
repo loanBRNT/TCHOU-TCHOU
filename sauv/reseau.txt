@@ -7,3 +7,9 @@ Tours
 Bordeaux
 Agen
 Montauban
+Toulouse
+Narbonne
+Montpellier
+Marseille
+Nice
+Biarritz

@@ -17,6 +17,8 @@ Brive-60
 /
 
 Paris-90
+
+Marseille-90
 /
 
 Limoges-60
@@ -32,6 +34,8 @@ Bordeaux-60
 Tours-60
 
 Agen-60
+
+Biarritz-90
 /
 
 Bordeaux-60
@@ -42,4 +46,38 @@ Montauban-40
 Agen-40
 
 Brive-60
+
+Toulouse-20
+
+Toulouse-30
+/
+
+Montauban-20
+
+Montauban-30
+
+Narbonne-90
+/
+
+Toulouse-90
+
+Montpellier-60
+/
+
+Narbonne-60
+
+Marseille-60
+/
+
+Montpellier-60
+
+Lyon-90
+
+Nice-150
+/
+
+Marseille-150
+/
+
+Bordeaux-90
 /
