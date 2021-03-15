@@ -11,3 +11,7 @@ struct s_voyageur {
 	char prenom[20]; //le prenom du voyageur
 	Itineraire voyage; //l'itineraire du voyageur
 };
+
+int initVoyageur() {
+	return 0;
+}

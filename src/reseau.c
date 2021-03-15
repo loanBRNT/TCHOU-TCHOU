@@ -4,6 +4,8 @@
 #include "reseau.h"
 #include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
+#include "train.h"
+#include "voyageur.h"
 
 /*
 On definit les 3 structures utiles pour manier le reseau routier ! 
@@ -34,6 +36,9 @@ struct s_reseau{
 	Gare head; //Indice de la premiere gare
 	Gare tail;
 	int size; //taille du reseau (nombe de gare)
+	Train headTrain; //Indice du premier train
+	Train tailTrain;
+	int nbTrain; //nb de train dans le reseau
 };
 
 //ZONE DES ACCESSEURS (reseauAccesseur.h) 
@@ -230,6 +235,7 @@ Reseau initReseau(){
 	//Fermeture des fichiers
 	fclose(fichierReseau);
 	fclose(fichierTrajet);
+	initTrain(ensembleGare);
 	return ensembleGare;
 }
 

@@ -5,7 +5,7 @@
 typedef struct s_voyageur* Voyageur;
 
 
-
+int initVoyageur();
 
 
 

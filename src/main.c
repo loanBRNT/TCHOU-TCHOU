@@ -6,6 +6,8 @@
 #include "menu.h"
 #include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
+#include "train.h"
+#include "voyageur.h"
 #include "main.h"
 
 #define EXIT_SUCESS 0
