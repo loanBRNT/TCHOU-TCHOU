@@ -203,8 +203,12 @@ int menuGestionTrajet(Reseau r){
 			break;
 		case 3:
 			menuAjouteTrajet(r);
+			break;
+		case 4:
+			menuSupTrajet(r);
+			break;
 		default:
-			menuAdmin(r);
+			return 0;
 			break;
 	}
 	printf("\n");
@@ -382,6 +386,92 @@ int menuAjouteTrajet(Reseau r){
 	return 0;
 }
 
+int menuSupTrajet(Reseau r){
+	char nomDep[30] = {0};
+	char nomArv[30] = {0};
+	printf("\n");
+	printf("################################################\n");
+	printf("#            Voici la liste des Gares          #\n");
+	printf("################################################\n");
+	printf("\n");
+	Gare g = gareHead(r);
+	for (int i=0; i<tailleReseau(r); i++){
+		printf("%s | ",nomDeGare(g));
+		g=gareNext(g);
+	}
+	printf("\n\n");
+	printf("################################################\n");
+	printf("#      Tapez le nom de la Gare de Depart       #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s",nomDep);
+	fflush(stdin);
+	g = rechercheGare(r, nomDep);
+	if (g == NULL){
+		printf("\n");
+		printf("################################################\n");
+		printf("#             La Gare n'existe pas !           #\n");
+		printf("################################################\n");
+		printf("\n");
+		menuGestionTrajet(r);
+		return 1;
+	}
+	if (nbTrajetDeLaGare(g) == 0 ) {
+		printf("\n");
+		printf("################################################\n");
+		printf("#          La Gare n'a pas de Trajets          #\n");
+		printf("################################################\n");
+		printf("\n");
+		menuGestionTrajet(r);
+		return 1;
+	}
+	printf("################################################\n");
+	printf("#    Voici la liste des Trajets de la Gare     #\n");
+	printf("################################################\n");
+	Trajet tr = trajetHeadDeLaGare(g);
+	for (int i=0; i < nbTrajetDeLaGare(g) ; i++){
+		printf("%s-%s en %d minutes\n",nomDeGare(g), nomDeGare(gareArvDuTrajet(tr)), tempsDuTrajet(tr));
+		tr = trajetNext(tr);
+	}
+	printf("\n\n");
+	printf("################################################\n");
+	printf("#      Tapez le nom de la Gare d'arrivee       #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s",nomArv);
+	fflush(stdin);
+	Gare g2 = rechercheGare(r, nomArv);
+	if (g2 == NULL){
+		printf("\n");
+		printf("################################################\n");
+		printf("#             La Gare n'existe pas !           #\n");
+		printf("################################################\n");
+		printf("\n");
+		menuGestionTrajet(r);
+		return 1;
+	}
+	if (retirerUnTrajet(g,g2) == 1){
+		menuGestionTrajet(r);
+		return 1;
+	}
+	printf("\n");
+	printf("################################################\n");
+	printf("#         Le trajet a bien ete Supprime        #\n");
+	printf("#          1- Supprimer un autre trajet        #\n");
+	printf("#          2- RETOUR                           #\n");
+	printf("################################################\n");
+	printf("\n");
+	int cpt = lireLong();
+	switch (cpt) {
+		case 1:
+			menuSupTrajet(r);
+			break;
+		default :
+			menuGestionTrajet(r);
+			break;
+	}
+	return 0;
+}
 
 int menuExportationJSON(){
 	return 0;

@@ -214,7 +214,6 @@ Reseau initReseau(){
 	}
 	// on initialise les trajets des gares
 	Gare g = ensembleGare->head;
-	printf("%d\n",ensembleGare->size );
 	for (int i=0; i < ensembleGare->size ; i++) {
 		do {
 			//on verifie que la gare a des trajets a ajouter
@@ -228,7 +227,6 @@ Reseau initReseau(){
 		} while (c != '/');
 		g = g->next;
 	}
-	printf("yo\n");
 	//Fermeture des fichiers
 	fclose(fichierReseau);
 	fclose(fichierTrajet);

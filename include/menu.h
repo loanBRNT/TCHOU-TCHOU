@@ -55,6 +55,7 @@ int menuReservationEtModification();
 int menuAjouteGare(Reseau r); //saisie sans espace et avec chiffre
 int menuSupGare(Reseau r);
 int menuAjouteTrajet(Reseau r);
+int menuSupTrajet(Reseau r);
 
 
 
