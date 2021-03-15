@@ -4,6 +4,7 @@
 #include "reseau.h"
 #include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
+#include "itineraireAccesseur.h"
 
 struct s_itineraire{
 	Gare depart; //gare de depart de l'itineraire
@@ -210,4 +211,27 @@ Trajet rechercheTrajet(Gare gDep, Gare gArv){
 		act = trajetNext(act);
 	}
 	return sauv;
+}
+
+Itineraire creerItineraireVide(){
+	Itineraire itineraire = (Itineraire) malloc(sizeof(struct s_itineraire));
+	return itineraire;
+}
+
+// ACCESSEUR ###################################
+
+Gare gareDepItineraire(Itineraire it){
+	return it->depart;
+}
+
+Gare gareArvItineraire(Itineraire it){
+	return it->arrive;
+}
+
+int tempsItineraire(Itineraire it){
+	return it->temps;
+}
+
+Trajet* listeTrajetItineraire(Itineraire it){
+	return it->liste;
 }

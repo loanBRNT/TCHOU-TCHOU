@@ -27,4 +27,7 @@ Ensemble initialisationGraphe(Gare); //Initialise l'ensemble graphe autour de la
 
 void freeGrapheRecherche(Ensemble); //libere la memoire prise par le graphe et les sommets
 
+
+Itineraire creerItineraireVide(); //creer un itineraire vide (init des trains)
+
 #endif

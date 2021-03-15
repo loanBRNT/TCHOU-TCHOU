@@ -1,0 +1,4 @@
+A1 Paris-Orleans:Orleans-Limoges:Limoges-Brive:Brive-Montauban:Montauban-Toulouse:
+A2 Bordeaux-Agen-Montauban-Toulouse-Narbonne-Montpellier-Marseille-Nice-
+A3 Paris-Lyon-Marseille-
+A4 Paris-Tours-Bordeaux-Biarritz-

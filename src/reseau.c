@@ -235,7 +235,27 @@ Reseau initReseau(){
 	//Fermeture des fichiers
 	fclose(fichierReseau);
 	fclose(fichierTrajet);
-	initTrain(ensembleGare);
+
+	//on ouvre le fichier train
+	FILE* fichierTrain = NULL;
+	fichierTrain = fopen("sauv/train.txt", "r");
+	if (fichierTrain == NULL) {
+		printf("ERROR 1 : PROBLEME OUVERTURE FICHIER TRAIN\n");
+	}
+	//on compte le nombre de train
+	int nbTrain = 0;
+	c=fgetc(fichierTrain);
+	while (c != EOF){
+		if (c == '\n') {
+			nbTrain++;
+		}
+		c = fgetc(fichierTrain);
+	}
+	rewind(fichierTrain);
+	for (int i=0; i < nbTrain ; i++) {
+		initTrain(ensembleGare, fichierTrain);
+	}
+	fclose(fichierTrain);
 	return ensembleGare;
 }
 

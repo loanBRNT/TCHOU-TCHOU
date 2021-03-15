@@ -6,7 +6,7 @@
 #include "voyageur.h"
 
 struct s_voyageur {
-	int idNum; //le num d'identification
+	char id[4]; //le num d'identification
 	char nom[30]; //le nom du voyageur
 	char prenom[20]; //le prenom du voyageur
 	Itineraire voyage; //l'itineraire du voyageur

@@ -6,6 +6,7 @@
 #include "menu.h"
 #include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
+#include "itineraireAccesseur.h"
 #include "train.h"
 #include "voyageur.h"
 #include "main.h"
