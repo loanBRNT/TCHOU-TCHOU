@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "reseau.h"
+#include "train.h"
 #include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
-#include "train.h"
 #include "voyageur.h"
 
 /*
@@ -57,6 +57,18 @@ Gare gareTail(Reseau r){
 
 int tailleReseau(Reseau r){
 	return (r->size);
+}
+
+Train headTrainReseau(Reseau r){
+	return r->headTrain;
+}
+
+Train tailTrainReseau(Reseau r){
+	return r->tailTrain;
+}
+
+int nbTrainReseau(Reseau r){
+	return r->nbTrain;
 }
 
 char* nomDeGare(Gare g){
@@ -252,8 +264,15 @@ Reseau initReseau(){
 		c = fgetc(fichierTrain);
 	}
 	rewind(fichierTrain);
+	ensembleGare->nbTrain = nbTrain;
+	ensembleGare->tailTrain = NULL;
+	Train t;
 	for (int i=0; i < nbTrain ; i++) {
-		initTrain(ensembleGare, fichierTrain);
+		t = initTrain(ensembleGare, fichierTrain);
+		if ( i == 0){
+			ensembleGare->headTrain = t;
+		}
+		ensembleGare->tailTrain = t;
 	}
 	fclose(fichierTrain);
 	return ensembleGare;
@@ -265,12 +284,17 @@ Reseau sauvReseau(Reseau ensembleGare){
 	Trajet tr;
 	FILE* fichierReseau = fopen("sauv/reseau.txt","w+");
 	FILE* fichierTrajet = fopen("sauv/trajet.txt","w+");
+	FILE* fichierTrain = fopen("sauv/train2.txt", "w+");
 	if (fichierReseau == NULL) {
 		printf("Error 1 : PROBLEME OUVERTURE FICHIER RESEAU\n");
 		return ensembleGare;
 	}
 	if (fichierTrajet == NULL) {
-		printf("Error 1 : PROBLEME OUVERTURE FICHIER RESEAU\n");
+		printf("Error 1 : PROBLEME OUVERTURE FICHIER TRAJET\n");
+		return ensembleGare;
+	}
+	if (fichierTrain == NULL) {
+		printf("Error 1 : PROBLEME OUVERTURE FICHIER TRAINT\n");
 		return ensembleGare;
 	}
 	//ecriture dans le fichier reseau.txt (sauvegarde des noms de gare et de l'ordre)
@@ -286,6 +310,12 @@ Reseau sauvReseau(Reseau ensembleGare){
 		fprintf(fichierTrajet, "/\n");
 		gA=gA->next;
 	}
+	// Sauvegarde des trains
+	sauvTrain(ensembleGare, fichierTrain);
+
+	fclose(fichierTrajet);
+	fclose(fichierReseau);
+	fclose(fichierTrain);
 	return ensembleGare;
 }
 

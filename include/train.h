@@ -9,9 +9,9 @@ typedef struct s_place* Place;
 
 int initItneraireTrain(Reseau r, FILE*);
 
-int initTrain(Reseau r, FILE*);
+Train initTrain(Reseau r, FILE*);
 
-
+int sauvTrain(Reseau r, FILE*);
 
 
 

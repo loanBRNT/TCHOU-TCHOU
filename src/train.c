@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "reseau.h"
+#include "train.h"
 #include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
 #include "itineraireAccesseur.h"
 #include "voyageur.h"
-#include "train.h"
 
 struct s_train {
 	char num[2]; //num d'identification du train
@@ -59,16 +59,25 @@ int initItneraireTrain(Reseau r, FILE* fichierTrain){
 }
 
 
-int initTrain(Reseau r, FILE* fichierTrain){
+Train initTrain(Reseau r, FILE* fichierTrain){
 	Train t = (Train) malloc(sizeof(struct s_train));
 	if (t == NULL){
 		printf("ERREUR ALLOCATION MEMOIRE TRAIN\n");
-		return 1;
+		return NULL;
 	}
 	///on recup l'id du train
 	t->num[0]= fgetc(fichierTrain);
 	t->num[1]= fgetc(fichierTrain);
 	fgetc(fichierTrain); //on recup l'espace
 	initItneraireTrain(r, fichierTrain);
+	if (tailTrainReseau(r) != NULL) {
+		tailTrainReseau(r)->next = t;
+	}
+	t->previous = tailTrainReseau(r);
+	t->next = NULL;
+	return t;
+}
+
+int sauvTrain(Reseau r, FILE* fichierTrain){
 	return 0;
 }

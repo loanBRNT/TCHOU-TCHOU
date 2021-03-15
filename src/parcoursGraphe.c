@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "reseau.h"
+#include "train.h"
 #include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
 #include "itineraireAccesseur.h"

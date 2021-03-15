@@ -4,10 +4,10 @@
 #include "pwd.h"
 #include "reseau.h"
 #include "menu.h"
+#include "train.h"
 #include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
 #include "itineraireAccesseur.h"
-#include "train.h"
 #include "voyageur.h"
 #include "main.h"
 

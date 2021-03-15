@@ -8,6 +8,12 @@ Gare gareTail(Reseau);
 
 int tailleReseau(Reseau r);
 
+Train headTrainReseau(Reseau r); //a faire
+
+Train tailTrainReseau(Reseau r); // a faire
+
+int nbTrainReseau(Reseau r); // a faire
+
 char* nomDeGare(Gare);
 
 int nbTrajetDeLaGare(Gare g);
