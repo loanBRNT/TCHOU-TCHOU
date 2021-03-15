@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "reseau.h"
+#include "reseauAccesseur.h"
 #include "parcoursGraphe.h"
 #include "itineraireAccesseur.h"
 #include "voyageur.h"
@@ -27,6 +28,8 @@ int initItneraireTrain(Reseau r, FILE* fichierTrain){
 	char nomArv[20];
 	char c;
 	int i;
+	Trajet tr;
+	Gare g1, g2;
 	while (c != '\n') {
 		i = 0;
 		c = fgetc(fichierTrain);
@@ -46,7 +49,12 @@ int initItneraireTrain(Reseau r, FILE* fichierTrain){
 		nomArv[i] = '\0';
 		c = fgetc(fichierTrain); //on verif si il y a un autre trajet apres
 		fseek(fichierTrain, -1, SEEK_CUR); //on remet le curseur au bon endroit
+		g1 = rechercheGare(r, nomDep);
+		g2 = rechercheGare(r, nomArv);
+		tr = rechercheTrajet(g1, g2);
+		ajouteTrajetItineraire(ch, g1, tr);
 	}
+	fgetc(fichierTrain); //on prend le saut de ligne
 	return 0;
 }
 
@@ -62,7 +70,5 @@ int initTrain(Reseau r, FILE* fichierTrain){
 	t->num[1]= fgetc(fichierTrain);
 	fgetc(fichierTrain); //on recup l'espace
 	initItneraireTrain(r, fichierTrain);
-	
-	initVoyageur();
 	return 0;
 }

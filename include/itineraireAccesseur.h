@@ -9,9 +9,9 @@ Gare gareArvItineraire(Itineraire);
 
 int tempsItineraire(Itineraire);
 
-Trajet* listeTrajetItineraire(Itineraire);
+Trajet listeTrajetItineraire(Itineraire, int);
 
-
+int nbEtapeItineraire(Itineraire it);
 
 
 

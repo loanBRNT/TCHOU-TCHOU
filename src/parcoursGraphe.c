@@ -11,6 +11,7 @@ struct s_itineraire{
 	Gare arrive; //gare d'arrivée
 	int temps; //temps de trajet
 	Trajet liste[30]; //liste des trajets
+	int nbEtape;
 };
 
 struct s_sommet{
@@ -171,6 +172,7 @@ Itineraire rechercheItinireraire(Reseau r, Gare gDep, Gare gArv){
 		i++;
 		sTest = sTest->pere;
 	}
+	itineraire->nbEtape = i;
 	//on remplit la liste des trajets, en faisant attention a l'ordre dep -> arv
 	for (int j = i; j > 0; j--)
 	{
@@ -215,7 +217,19 @@ Trajet rechercheTrajet(Gare gDep, Gare gArv){
 
 Itineraire creerItineraireVide(){
 	Itineraire itineraire = (Itineraire) malloc(sizeof(struct s_itineraire));
+	itineraire->nbEtape = 0;
+	itineraire->temps = 0;
 	return itineraire;
+}
+
+int ajouteTrajetItineraire(Itineraire it, Gare g, Trajet tr){
+	if (it->nbEtape == 0){
+		it->depart = g;
+	}
+	it->arrive = gareArvDuTrajet(tr);
+	it->liste[it->nbEtape] = tr;
+	it->nbEtape++;
+	return 0;
 }
 
 // ACCESSEUR ###################################
@@ -232,6 +246,10 @@ int tempsItineraire(Itineraire it){
 	return it->temps;
 }
 
-Trajet* listeTrajetItineraire(Itineraire it){
-	return it->liste;
+Trajet listeTrajetItineraire(Itineraire it, int rang){
+	return it->liste[rang];
+}
+
+int nbEtapeItineraire(Itineraire it){
+	return it->nbEtape;
 }

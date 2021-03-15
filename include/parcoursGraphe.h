@@ -30,4 +30,6 @@ void freeGrapheRecherche(Ensemble); //libere la memoire prise par le graphe et l
 
 Itineraire creerItineraireVide(); //creer un itineraire vide (init des trains)
 
+int ajouteTrajetItineraire(Itineraire, Gare, Trajet );
+
 #endif
