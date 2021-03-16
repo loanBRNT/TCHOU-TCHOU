@@ -250,9 +250,11 @@ Reseau initReseau(){
 
 	//on ouvre le fichier train
 	FILE* fichierTrain = NULL;
+	FILE* fichierVoyageur = NULL;
 	fichierTrain = fopen("sauv/train.txt", "r");
-	if (fichierTrain == NULL) {
-		printf("ERROR 1 : PROBLEME OUVERTURE FICHIER TRAIN\n");
+	fichierVoyageur = fopen("sauv/voyageur.txt", "r");
+	if (fichierTrain == NULL || fichierVoyageur == NULL) {
+		printf("ERROR 1 : PROBLEME OUVERTURE FICHIER TRAIN ou VOYAGE\n");
 	}
 	//on compte le nombre de train
 	int nbTrain = 0;
@@ -268,13 +270,14 @@ Reseau initReseau(){
 	ensembleGare->tailTrain = NULL;
 	Train t;
 	for (int i=0; i < nbTrain ; i++) {
-		t = initTrain(ensembleGare, fichierTrain);
+		t = initTrain(ensembleGare, fichierTrain, fichierVoyageur);
 		if ( i == 0){
 			ensembleGare->headTrain = t;
 		}
 		ensembleGare->tailTrain = t;
 	}
 	fclose(fichierTrain);
+	fclose(fichierVoyageur);
 	return ensembleGare;
 }
 

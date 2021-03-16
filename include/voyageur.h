@@ -4,10 +4,11 @@
 
 typedef struct s_voyageur* Voyageur;
 
+typedef struct s_place* Place;
 
-int initVoyageur();
+Voyageur initVoyageur(Place, FILE*);
 
-
+Place initPlace(FILE*);
 
 
 

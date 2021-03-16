@@ -4,12 +4,10 @@
 
 typedef struct s_train* Train;
 
-typedef struct s_place* Place;
-
 
 Itineraire initItneraireTrain(Reseau r, FILE*);
 
-Train initTrain(Reseau r, FILE*);
+Train initTrain(Reseau r, FILE*, FILE*);
 
 int sauvTrain(Reseau r, FILE*);
 

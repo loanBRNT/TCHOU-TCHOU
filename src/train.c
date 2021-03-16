@@ -11,15 +11,9 @@
 struct s_train {
 	char num[2]; //num d'identification du train
 	Itineraire chemin; //l'itineraire du train
-	Place tab[10];
+	Place place[10];
 	Train next; //le train suivant dans la liste
 	Train previous; //le train precedent dans la liste
-};
-
-struct s_place {
-	Voyageur head;
-	Voyageur tail;
-	int numPlace;
 };
 
 Itineraire initItneraireTrain(Reseau r, FILE* fichierTrain){
@@ -59,7 +53,7 @@ Itineraire initItneraireTrain(Reseau r, FILE* fichierTrain){
 }
 
 
-Train initTrain(Reseau r, FILE* fichierTrain){
+Train initTrain(Reseau r, FILE* fichierTrain, FILE* fichierVoyageur){
 	Train t = (Train) malloc(sizeof(struct s_train));
 	if (t == NULL){
 		printf("ERREUR ALLOCATION MEMOIRE TRAIN\n");
@@ -75,11 +69,16 @@ Train initTrain(Reseau r, FILE* fichierTrain){
 	}
 	t->previous = tailTrainReseau(r);
 	t->next = NULL;
+	for (int i = 0 ; i < 10 ; i++ ){
+		//t->place[i] = initPlace(fichierVoyageur);
+	}
+	//fgetc(fichierVoyageur);
 	return t;
 }
 
 int sauvTrain(Reseau r, FILE* fichierTrain){
 	Train t = headTrainReseau(r);
+	Train tSauv;
 	Gare g;
 	Trajet tr;
 	for (int i = 0; i < nbTrainReseau(r); ++i)
@@ -93,7 +92,9 @@ int sauvTrain(Reseau r, FILE* fichierTrain){
 			g = gareArvDuTrajet(tr);
 		}
 		fprintf(fichierTrain, "\n");
-		t = t->next;
+		tSauv = t->next;
+		free(t);
+		t = tSauv;
 	}
 	return 0;
 }
