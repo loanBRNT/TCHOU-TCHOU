@@ -13,5 +13,8 @@ void viderBuffer();
 
 long lireLong();
 
+void modiferDonnee(char*,int,char*);
+
+//void ecrirepwd();
 
 #endif
