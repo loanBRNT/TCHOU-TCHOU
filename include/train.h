@@ -7,7 +7,7 @@ typedef struct s_train* Train;
 typedef struct s_place* Place;
 
 
-int initItneraireTrain(Reseau r, FILE*);
+Itineraire initItneraireTrain(Reseau r, FILE*);
 
 Train initTrain(Reseau r, FILE*);
 

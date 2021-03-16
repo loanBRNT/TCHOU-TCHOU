@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "reseau.h"
+#include "parcoursGraphe.h"
 #include "train.h"
 #include "reseauAccesseur.h"
-#include "parcoursGraphe.h"
 #include "itineraireAccesseur.h"
 #include "voyageur.h"
 
@@ -22,7 +22,7 @@ struct s_place {
 	int numPlace;
 };
 
-int initItneraireTrain(Reseau r, FILE* fichierTrain){
+Itineraire initItneraireTrain(Reseau r, FILE* fichierTrain){
 	Itineraire ch = creerItineraireVide();
 	char nomDep[20];
 	char nomArv[20];
@@ -55,7 +55,7 @@ int initItneraireTrain(Reseau r, FILE* fichierTrain){
 		ajouteTrajetItineraire(ch, g1, tr);
 	}
 	fgetc(fichierTrain); //on prend le saut de ligne
-	return 0;
+	return ch;
 }
 
 
@@ -69,7 +69,7 @@ Train initTrain(Reseau r, FILE* fichierTrain){
 	t->num[0]= fgetc(fichierTrain);
 	t->num[1]= fgetc(fichierTrain);
 	fgetc(fichierTrain); //on recup l'espace
-	initItneraireTrain(r, fichierTrain);
+	t->chemin = initItneraireTrain(r, fichierTrain);
 	if (tailTrainReseau(r) != NULL) {
 		tailTrainReseau(r)->next = t;
 	}
@@ -79,5 +79,21 @@ Train initTrain(Reseau r, FILE* fichierTrain){
 }
 
 int sauvTrain(Reseau r, FILE* fichierTrain){
+	Train t = headTrainReseau(r);
+	Gare g;
+	Trajet tr;
+	for (int i = 0; i < nbTrainReseau(r); ++i)
+	{
+		fprintf(fichierTrain, "%c%c ",t->num[0],t->num[1]);
+		g = gareDepItineraire(t->chemin);
+		for (int i = 0; i < nbEtapeItineraire(t->chemin); ++i)
+		{
+			tr = listeTrajetItineraire(t->chemin, i);
+			fprintf(fichierTrain, "%s-%s:",nomDeGare(g),nomDeGare(gareArvDuTrajet(tr)));
+			g = gareArvDuTrajet(tr);
+		}
+		fprintf(fichierTrain, "\n");
+		t = t->next;
+	}
 	return 0;
 }

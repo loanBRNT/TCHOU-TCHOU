@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "reseau.h"
+#include "parcoursGraphe.h"
 #include "train.h"
 #include "reseauAccesseur.h"
-#include "parcoursGraphe.h"
 #include "voyageur.h"
 
 /*
@@ -284,7 +284,7 @@ Reseau sauvReseau(Reseau ensembleGare){
 	Trajet tr;
 	FILE* fichierReseau = fopen("sauv/reseau.txt","w+");
 	FILE* fichierTrajet = fopen("sauv/trajet.txt","w+");
-	FILE* fichierTrain = fopen("sauv/train2.txt", "w+");
+	FILE* fichierTrain = fopen("sauv/train.txt", "w+");
 	if (fichierReseau == NULL) {
 		printf("Error 1 : PROBLEME OUVERTURE FICHIER RESEAU\n");
 		return ensembleGare;
