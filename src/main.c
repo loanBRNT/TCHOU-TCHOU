@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+<<<<<<< HEAD
 #include <string.h>
+=======
+#include <unistd.h>
+#include "main.h"
+>>>>>>> pwd
 #include "pwd.h"
 #include "reseau.h"
 #include "menu.h"
@@ -16,7 +21,12 @@
 
 /* 
     Commande de compilation avec gcc :
+<<<<<<< HEAD
     gcc src/* -o prog -I include -L lib -lmingw32
+=======
+    gcc src/main.c -o bin/prog -I include -L lib -lmingw32
+    gcc src/* -o prog -I include -L lib -lmingw32 
+>>>>>>> pwd
 */ 
 
 void testReseau(Reseau reseau){

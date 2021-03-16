@@ -13,5 +13,8 @@ void viderBuffer();
 // fonction dérivée de lire afin de lire un long
 long lireLong();
 
+void modiferDonnee(char*,int,char*);
+
+//void ecrirepwd();
 
 #endif

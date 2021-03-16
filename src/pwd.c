@@ -205,3 +205,26 @@ int verifierLogControleur(){
 		}
 	}
 }
+
+void modiferDonnee(char* nomFile,int index ,char* texte){
+	char ligne[20];
+	int i=1;
+	FILE* id = NULL;
+	FILE* temp = NULL;
+	id=fopen(nomFile,"r");
+	temp=fopen("sauv/temporaire.txt","w");
+	while(fgets(ligne,20,id) != NULL) // on lit le fichier tant qu'il n'y a pas d'erreur
+	{
+		if(i==index){
+			fprintf(temp, "%s\n",texte);
+		}
+		else{
+			fprintf(temp, "%s",ligne);
+		}
+		i++;
+	}
+	fclose(id);
+	fclose(temp);
+	remove(nomFile);
+	rename("sauv/temporaire.txt",nomFile);
+}

@@ -498,6 +498,7 @@ int menuControleurVerification(){
 	{
 		// on verifie la valeur de retour de verifierPwdControleur pour savoir si l'utilisateur a saisi le bon mot de passe et login
  		cpt=verifierLogControleur();
+ 		fflush(stdin);
  		// si le mot de passe ou le login est faux on demande a l'utilisateur si il veut reesayer la saisie car une erreur de frappe peut arriver
  		if(cpt==1)
  		{
