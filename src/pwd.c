@@ -123,6 +123,7 @@ int verifierPwdAdmin(){
 }
 
 int verifierLogControleur(){
+	int numControleur;
 	char pwdPropose[20];
 	char pwd[20];
 	char loginPropose[20];
@@ -139,6 +140,7 @@ int verifierLogControleur(){
 
 	if(loginPropose[0]=='a'){
 		id=fopen("sauv/controleur1.txt","r");
+		numControleur=1;
 		if(id == NULL)
 		{
 			fclose(id);
@@ -146,11 +148,12 @@ int verifierLogControleur(){
 			printf("#      Impossible d'ouvrir le fichier      #\n");
 			printf("############################################\n");
 			printf("\n");
-			return 1;
+			return 5;
 		}
 	}
 	else if(loginPropose[0]=='b'){
 		id=fopen("sauv/controleur2.txt","r");
+		numControleur=2;
 		if(id == NULL)
 		{
 			fclose(id);
@@ -158,11 +161,12 @@ int verifierLogControleur(){
 			printf("#      Impossible d'ouvrir le fichier      #\n");
 			printf("############################################\n");
 			printf("\n");
-			return 1;
+			return 5;
 		}
 	}
 	else if(loginPropose[0]=='c'){
 		id=fopen("sauv/controleur3.txt","r");
+		numControleur=3;
 		if(id == NULL)
 		{
 			fclose(id);
@@ -170,7 +174,7 @@ int verifierLogControleur(){
 			printf("#      Impossible d'ouvrir le fichier      #\n");
 			printf("############################################\n");
 			printf("\n");
-			return 1;
+			return 5;
 		}
 	}
 	else{
@@ -178,7 +182,7 @@ int verifierLogControleur(){
 		printf("#           identifiant inconnu            #\n");
 		printf("############################################\n");
 		printf("\n");
-		return 1;
+		return 5;
 	}
 
 
@@ -194,7 +198,7 @@ int verifierLogControleur(){
 		printf("#           identifiant invalide          #\n");
 		printf("###########################################\n");
 		printf("\n");
-		return 1;
+		return 5;
 	}
 	else{
 		//demande a l'utilisateur de rentrer son mot de passe
@@ -216,7 +220,7 @@ int verifierLogControleur(){
 			printf("#       le mot de passe est errone        #\n");
 			printf("###########################################\n");
 			printf("\n");
-			return 1;
+			return 5;
 		}
 		else
 		{
@@ -225,14 +229,14 @@ int verifierLogControleur(){
 			printf("#   vous etes connecte au menu controleur   #\n");
 			printf("#############################################\n");
 			printf("\n");
-			return 0;
+			return numControleur;
 		}
 	}
 }
 
 void modiferDonnee(char* nomFile,int index ,char* texte){
 	char ligne[20];
-	int i=1;
+	int i=0;
 	FILE* id = NULL;
 	FILE* temp = NULL;
 	id=fopen(nomFile,"r");

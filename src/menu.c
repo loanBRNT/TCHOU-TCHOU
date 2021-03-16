@@ -481,7 +481,6 @@ int menuExportationJSON(){
 int menuGestionAdministration(){
 	return 0;
 }
-
 //######################################################
 //######### MENUS DE LA PARTIE CONTROLEUR ##############
 
@@ -500,7 +499,7 @@ int menuControleurVerification(){
  		cpt=verifierLogControleur();
  		fflush(stdin);
  		// si le mot de passe ou le login est faux on demande a l'utilisateur si il veut reesayer la saisie car une erreur de frappe peut arriver
- 		if(cpt==1)
+ 		if(cpt==5)
  		{
  			int choix =0;
  			while(choix != 1){
@@ -522,7 +521,7 @@ int menuControleurVerification(){
 				{
 					case 1:
 						choix =1;
-						cpt=1;
+						cpt=0;
 						break;
 					case 2:
 						choix=1;
@@ -540,15 +539,13 @@ int menuControleurVerification(){
  		 lorsque la fonction menuControleur ce termine on sort de la boucle
  		 pour finir la fonction menuControleurVerification ce qui nous ramene dans la fonction main du programme */
  		else{
- 			menuControleur();
+ 			menuControleur(cpt);
  			cpt=-1;
  		}
 	}
-	
 	return 0;
-
 }
-int menuControleur(){
+int menuControleur(int n){
 	int event = 1 ;
 	long choixMenu;
 	while(event != -1){
@@ -561,7 +558,7 @@ int menuControleur(){
 				menuRechercheControleur();
 				break;
 			case 2:
-				menuAdministrationControleur();
+				menuAdministrationControleur(n);
 				break;
 			case 3:
 				event = -1;
@@ -580,8 +577,90 @@ int menuRechercheControleur(){
 	return 0;
 }
 
-int menuAdministrationControleur(){
+int menuAdministrationControleur(int n){
+	int event = 1;
+	while(event != -1){
+		printf("\n");
+		printf("################################################\n");
+		printf("#            Que voulez vous faire ?           #\n");
+		printf("#                                              #\n");
+		printf("#       1- Modifier votre mot de passe         #\n");
+		printf("#       2- Modifier prenom                     #\n");
+		printf("#       3- Modifier nom                        #\n");
+		printf("#       4- RETOUR                              #\n");
+		printf("################################################\n");
+		printf("\n");
+		printf("%d\n",n );
+		int choixMenu = lireLong();
+		fflush(stdin);
+		switch(choixMenu) {
+			case 1:
+				menuModification(choixMenu,n);
+				break;
+			case 2:
+				menuModification(choixMenu,n);
+				break;
+			case 3:
+				menuModification(choixMenu,n);
+				break;
+			case 4:
+				event = -1;
+				break;
+			default:
+				afficheErreurMenu();
+				break;
+		}
+	}
+	printf("\n");
 	return 0;
+}
+
+int menuModification(int index, int n){
+	char nomFichier[100]="sauv/controleur1.txt";
+	char new[20];
+	if(n==2){
+		char nomFichier[15]="2";
+	}
+	else if(n==3){
+		char nomFichier[15]="3";
+	}
+	else{
+		printf("############################################\n");
+		printf("#                 erreur                   #\n");
+		printf("############################################\n");
+		printf("\n");
+		return 1;
+	}
+	if(index==1){
+		printf("############################################\n");
+		printf("#veuillez saisir votre nouveau mot de passe#\n");
+		printf("############################################\n");
+		printf("\n");
+	}
+	else if(index==2){
+		printf("############################################\n");
+		printf("#      veuillez saisir votre prenom        #\n");
+		printf("############################################\n");
+		printf("\n");	
+	}
+	else if(index==3){
+		printf("############################################\n");
+		printf("#       veuillez saisir votre nom          #\n");
+		printf("############################################\n");
+		printf("\n");
+	}
+	else{
+		printf("############################################\n");
+		printf("#                 erreur                   #\n");
+		printf("############################################\n");
+		printf("\n");
+		return 1;
+	}
+	lire(new,20,stdin);
+	fflush(stdin);
+	modiferDonnee(nomFichier,index ,new);
+	return 0;
+
 }
 
 //######### MENUS DE LA PARTIE CLIENT ##############
