@@ -23,6 +23,10 @@ et menuGestionAdministration est celui pour gerer les mot de passe des personnes
 int menuGestionTrajet(Reseau r);
 int menuExportationJSON();
 int menuGestionAdministration();
+int menuAjouteGare(Reseau r); //saisie sans espace et avec chiffre
+int menuSupGare(Reseau r);
+int menuAjouteTrajet(Reseau r);
+int menuSupTrajet(Reseau r);
 
 
 //fonctions des menus de la partie controleur
@@ -52,10 +56,6 @@ int menuReservationEtModification();
 
 
 
-int menuAjouteGare(Reseau r); //saisie sans espace et avec chiffre
-int menuSupGare(Reseau r);
-int menuAjouteTrajet(Reseau r);
-int menuSupTrajet(Reseau r);
 
 
 

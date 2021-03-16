@@ -51,13 +51,16 @@ long lireLong()
 int verifierPwdAdmin(){
 	char pwdPropose[20];
 	char pwd[20];
+	char loginPropose[20];
+	char login[20];
 	FILE* id =NULL;
-	//demande a l'utilisateur de rentrer le mot de passe
+	//demande a l'utilisateur de rentrer son identifiant
 	printf("####################################################\n");
-	printf("# veuillez saisir le mot de passe administrateur : #\n");
+	printf("#       veuillez saisir votre identifiant  :       #\n");
 	printf("####################################################\n");
 	printf("\n");
-	lire(pwdPropose,20,stdin);
+	lire(loginPropose,20,stdin);
+	fflush(stdin);
 	printf("\n");
 	id=fopen("sauv/admin.txt","r");
 	// verification du l'ouverture du fichier admin.txt qui contient le mot de passe de l administrateur
@@ -70,9 +73,30 @@ int verifierPwdAdmin(){
 		printf("\n");
 		return 1;
 	}
-	else
+	// on recupere l'identifiant dans le fichier controleur.txt correspondant au controleur qui se connecte
+	lire(login,20,id);
+	/*on compare l identifiant avec l identifiant saisie par l'utilisateur
+	si ils ne sont pas identique on affiche un message d'erreur et return une valeur d'erreur
+	sinon on continue la verification avec ce coup si le mot de passe 0*/
+	if((strcmp(login,loginPropose)) != 0)
 	{
-		// on recupere le mot de passe dans le fichier admin.txt
+		fclose(id);
+		printf("###########################################\n");
+		printf("#           identifiant invalide          #\n");
+		printf("###########################################\n");
+		printf("\n");
+		return 1;
+	}
+	else{
+		//demande a l'utilisateur de rentrer son mot de passe
+		printf("####################################################\n");
+		printf("#       veuillez saisir votre mot de passe :       #\n");
+		printf("####################################################\n");
+		printf("\n");
+		lire(pwdPropose,20,stdin);
+		fflush(stdin);
+		printf("\n");
+		// on recupere le mot de passe dans le fichier controleur.txt correspondant au controleur qui se connecte
 		lire(pwd,20,id);
 		/*on compare le mot de passe avec le mot de passe saisie par l'utilisateur
 		si ils ne sont pas identique on affiche un message d'erreur et return une valeur d'erreur
@@ -95,7 +119,6 @@ int verifierPwdAdmin(){
 			printf("\n");
 			return 0;
 		}
-
 	}
 }
 
@@ -111,6 +134,7 @@ int verifierLogControleur(){
 	printf("####################################################\n");
 	printf("\n");
 	lire(loginPropose,20,stdin);
+	fflush(stdin);
 	printf("\n");
 
 	if(loginPropose[0]=='a'){
