@@ -288,7 +288,7 @@ Reseau sauvReseau(Reseau ensembleGare){
 	FILE* fichierReseau = fopen("sauv/reseau.txt","w+");
 	FILE* fichierTrajet = fopen("sauv/trajet.txt","w+");
 	FILE* fichierTrain = fopen("sauv/train.txt", "w+");
-	FILE* fichierVoyageur = fopen("sauv/train2.txt", "w+");
+	FILE* fichierVoyageur = fopen("sauv/voyageur.txt", "w+");
 	if (fichierReseau == NULL) {
 		printf("Error 1 : PROBLEME OUVERTURE FICHIER RESEAU\n");
 		return ensembleGare;
@@ -319,7 +319,7 @@ Reseau sauvReseau(Reseau ensembleGare){
 		gA=gA->next;
 	}
 	// Sauvegarde des trains
-	sauvTrain(ensembleGare, fichierTrain);
+	sauvTrain(ensembleGare, fichierTrain, fichierVoyageur);
 
 	fclose(fichierTrajet);
 	fclose(fichierReseau);

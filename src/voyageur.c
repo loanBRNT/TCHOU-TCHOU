@@ -5,6 +5,9 @@
 #include "parcoursGraphe.h"
 #include "train.h"
 #include "voyageur.h"
+#include "reseauAccesseur.h"
+#include "itineraireAccesseur.h"
+#include "trainVoyageurAccesseur.h"
 
 struct s_voyageur {
 	char id[4]; //le num d'identification
@@ -32,6 +35,7 @@ Place initPlace(Reseau r, FILE* fichierVoyageur){
 	p->nbVoyageur = 0;
 	if (fgetc(fichierVoyageur) == '\n'){
 		p->head = NULL;
+		p->tail = NULL;
 	} else {
 		char c = ' ';
 		while ( c != '\n' ) {
@@ -112,4 +116,32 @@ Voyageur initVoyageur(Reseau r, Place p, FILE* fichierVoyageur) { //peut etre si
 	fgetc(fichierVoyageur); //prendre le saut de ligne
 	v->next = NULL;
 	return v;
+}
+
+int sauvVoyageur(Train t, FILE* fichierVoyageur){
+	Place p;
+	Gare g;
+	Trajet tr;
+	Voyageur v;
+	for (int i = 0; i < 10; ++i)
+	{
+		p = placeDuTrain(t, i);
+		fprintf(fichierVoyageur, "%c%c%c%c",p->numPlace[0],p->numPlace[1],p->numPlace[2],p->numPlace[3]);
+		v = p->head;
+		while (p->nbVoyageur > 0){
+			fprintf(fichierVoyageur, "/%s:%s:%c%c%c%c:",v->nom, v->prenom, v->id[0], v->id[1], v->id[2], v->id[3]);
+			g = gareDepItineraire(v->voyage);
+			for (int i = 0; i < nbEtapeItineraire(v->voyage); ++i)
+			{
+				tr = listeTrajetItineraire(v->voyage, i);
+				fprintf(fichierVoyageur, "%s-%s:",nomDeGare(g),nomDeGare(gareArvDuTrajet(tr)));
+				g = gareArvDuTrajet(tr);
+			}
+			fprintf(fichierVoyageur, "/");
+			p->nbVoyageur--;
+			v = v->next;
+		}
+		fprintf(fichierVoyageur, "\n");
+	}
+	fprintf(fichierVoyageur, "\n");
 }

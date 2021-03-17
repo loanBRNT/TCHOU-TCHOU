@@ -9,7 +9,7 @@ Itineraire initItneraireTrain(Reseau r, FILE*);
 
 Train initTrain(Reseau r, FILE*, FILE*);
 
-int sauvTrain(Reseau r, FILE*);
+int sauvTrain(Reseau r, FILE*, FILE*);
 
 
 

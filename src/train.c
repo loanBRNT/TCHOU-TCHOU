@@ -7,6 +7,7 @@
 #include "reseauAccesseur.h"
 #include "itineraireAccesseur.h"
 #include "voyageur.h"
+#include "trainVoyageurAccesseur.h"
 
 struct s_train {
 	char num[2]; //num d'identification du train
@@ -76,7 +77,7 @@ Train initTrain(Reseau r, FILE* fichierTrain, FILE* fichierVoyageur){
 	return t;
 }
 
-int sauvTrain(Reseau r, FILE* fichierTrain){
+int sauvTrain(Reseau r, FILE* fichierTrain, FILE* fichierVoyageur){
 	Train t = headTrainReseau(r);
 	Train tSauv;
 	Gare g;
@@ -92,9 +93,16 @@ int sauvTrain(Reseau r, FILE* fichierTrain){
 			g = gareArvDuTrajet(tr);
 		}
 		fprintf(fichierTrain, "\n");
+		sauvVoyageur(t, fichierVoyageur);
 		tSauv = t->next;
 		free(t);
 		t = tSauv;
 	}
 	return 0;
+}
+
+//accesseur ###############################################
+
+Place placeDuTrain(Train t, int rang){
+	return t->place[rang];
 }
