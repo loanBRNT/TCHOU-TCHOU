@@ -4,11 +4,7 @@
 #include <ctype.h>
 #include "pwd.h"
 
-void viderBuffer(){
-	int c=0;
-	while (c!= '\n' && c != EOF)
-		c = getchar();
-}
+
 
 int lire(char* chaine, int longueur ,FILE* fichier){
     char *positionEntree = NULL;
@@ -22,12 +18,12 @@ int lire(char* chaine, int longueur ,FILE* fichier){
             *positionEntree = '\0'; // On remplace ce caractère par \0
         }
         else
-        	viderBuffer();
+        	fflush(stdin);
         return 1; // On renvoie 1 si la fonction s'est déroulée sans erreur
     }
     else
     {
-    	viderBuffer();
+    	fflush(stdin);
         return 0; // On renvoie 0 s'il y a eu une erreur
     }
 }

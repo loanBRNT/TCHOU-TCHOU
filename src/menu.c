@@ -263,6 +263,7 @@ int menuAjouteGare(Reseau r){ //saisie sans espace et avec chiffre
 				break;
 			case 2:
 				event = -1;
+				break;
 			default :
 				afficheErreurMenu();
 				break;
@@ -316,6 +317,7 @@ int menuSupGare(Reseau r){
 				break;
 			case 2:
 				event= -1 ;
+				break;
 			default :
 				afficheErreurMenu();
 				break;
@@ -406,6 +408,7 @@ int menuAjouteTrajet(Reseau r){
 				break;
 			case 2:
 				event = -1;
+				break;
 			default :
 				afficheErreurMenu();
 				break;
@@ -500,6 +503,7 @@ int menuSupTrajet(Reseau r){
 				break;
 			case 2:
 				event = -1;
+				break;
 			default :
 				afficheErreurMenu();
 				break;
