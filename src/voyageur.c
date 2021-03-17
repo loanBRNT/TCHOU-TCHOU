@@ -145,3 +145,55 @@ int sauvVoyageur(Train t, FILE* fichierVoyageur){
 	}
 	fprintf(fichierVoyageur, "\n");
 }
+
+// ACCESSEUR #####################################
+
+int nbVoyageurSurLaPlace(Place p){
+	return p->nbVoyageur;
+}
+
+char* idPlace(Place p){
+	char* id;
+	for (int i = 0; i < 4; ++i)
+	{
+		id[i] = p->numPlace[i];
+	}
+	id[4]='\0';
+	return id;
+}
+
+Voyageur voyageurHeadPlace(Place p){
+	return p->head;
+}
+
+Voyageur voyageurTailPlace(Place p){
+	return p->tail;
+}
+
+
+
+char* idVoyageur(Voyageur v){
+	char* ide;
+	for (int i = 0; i < 4; ++i)
+	{
+		ide[i] = v->id[i];
+	}
+	ide[4]='\0';
+	return ide;
+}
+
+char* nomVoyageur(Voyageur v){
+	return v->nom;
+}
+
+char* prenomVoyageur(Voyageur v){
+	return v->prenom;
+}
+
+Itineraire cheminVoyageur(Voyageur v){
+	return v->voyage;
+}
+
+Voyageur voyageurNext(Voyageur v){
+	return v->next;
+}

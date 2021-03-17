@@ -106,3 +106,23 @@ int sauvTrain(Reseau r, FILE* fichierTrain, FILE* fichierVoyageur){
 Place placeDuTrain(Train t, int rang){
 	return t->place[rang];
 }
+
+char* idTrain(Train t){
+	char* id;
+	id[0]= t->num[0];
+	id[1]= t->num[1];
+	id[2]='\0';
+	return id;
+}
+
+Itineraire cheminTrain(Train t){
+	return t->chemin;
+}
+
+Train trainNext(Train t){
+	return t->next;
+}
+
+Train trainPrevious(Train t){
+	return t->previous;
+}
