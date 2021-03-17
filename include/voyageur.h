@@ -6,9 +6,9 @@ typedef struct s_voyageur* Voyageur;
 
 typedef struct s_place* Place;
 
-Voyageur initVoyageur(Place, FILE*);
+Voyageur initVoyageur(Reseau, Place, FILE*);
 
-Place initPlace(FILE*);
+Place initPlace(Reseau, FILE*);
 
 
 

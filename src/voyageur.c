@@ -16,15 +16,16 @@ struct s_voyageur {
 
 struct s_place {
 	Voyageur head;
+	Voyageur tail;
 	int nbVoyageur;
 	char numPlace[4];
 };
 
 
-Place initPlace(FILE* fichierVoyageur){
+Place initPlace(Reseau r, FILE* fichierVoyageur){
 	Place p = (Place) malloc(sizeof(struct s_place));
 	Voyageur v;
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 4; ++i)
 	{
 		p->numPlace[i]=fgetc(fichierVoyageur);
 	}
@@ -34,10 +35,13 @@ Place initPlace(FILE* fichierVoyageur){
 	} else {
 		char c = ' ';
 		while ( c != '\n' ) {
-			v = initVoyageur(p, fichierVoyageur);
+			v = initVoyageur(r, p, fichierVoyageur);
 			if (p->nbVoyageur == 0){
 				p->head = v;
+			} else {
+				p->tail->next = v;
 			}
+			p->tail = v;
 			p->nbVoyageur++;
 			c = fgetc(fichierVoyageur);
 		}
@@ -47,7 +51,7 @@ Place initPlace(FILE* fichierVoyageur){
 
 
 
-Voyageur initVoyageur(Place p, FILE* fichierVoyageur) {
+Voyageur initVoyageur(Reseau r, Place p, FILE* fichierVoyageur) { //peut etre simplifie
 	Voyageur v = (Voyageur) malloc(sizeof(struct s_voyageur));
 	char c;
 	int i;
@@ -74,6 +78,38 @@ Voyageur initVoyageur(Place p, FILE* fichierVoyageur) {
 		i++;
 		c = fgetc(fichierVoyageur);
 	} while ( c != ':');
-	//parametrer itineraire
+	Itineraire ch = creerItineraireVide();
+	char nomDep[20];
+	char nomArv[20];
+	i = 0;
+	Trajet tr;
+	Gare g1, g2;
+	while (c != '/') {
+		i = 0;
+		c = fgetc(fichierVoyageur);
+		do {
+			nomDep[i] = c;
+			c = fgetc(fichierVoyageur);
+			i++;
+		} while (c != '-');
+		nomDep[i] = '\0';
+		i = 0;
+		c = fgetc(fichierVoyageur);
+		do {
+			nomArv[i] = c;
+			c = fgetc(fichierVoyageur);
+			i++;
+		} while (c != ':');
+		nomArv[i] = '\0';
+		c = fgetc(fichierVoyageur); //on verif si il y a un autre trajet apres
+		fseek(fichierVoyageur, -1, SEEK_CUR); //on remet le curseur au bon endroit
+		g1 = rechercheGare(r, nomDep);
+		g2 = rechercheGare(r, nomArv);
+		tr = rechercheTrajet(g1, g2);
+		ajouteTrajetItineraire(ch, g1, tr);
+		v->voyage = ch;
+	}
+	fgetc(fichierVoyageur); //prendre le saut de ligne
+	v->next = NULL;
 	return v;
 }
