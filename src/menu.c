@@ -183,34 +183,40 @@ int menuAdmin(Reseau r){
 }
 
 int menuGestionTrajet(Reseau r){
-	printf("\n");
-	printf("################################################\n");
-	printf("#            Que voulez vous faire ?           #\n");
-	printf("#                                              #\n");
-	printf("#       1- Ajouter une Gare                    #\n");
-	printf("#       2- Suprimer une Gare                   #\n");
-	printf("#       3- Ajouter un trajet aller-retour      #\n");
-	printf("#       4- Suprimer un trajet aller-retour     #\n");
-	printf("#       5- RETOUR                              #\n");
-	printf("################################################\n");
-	printf("\n");
-	int choixMenu = lireLong();
-	switch(choixMenu) {
-		case 1:
-			menuAjouteGare(r);
-			break;
-		case 2:
-			menuSupGare(r);
-			break;
-		case 3:
-			menuAjouteTrajet(r);
-			break;
-		case 4:
-			menuSupTrajet(r);
-			break;
-		default:
-			return 0;
-			break;
+	int event = 1 ;
+	while(event != -1){
+		printf("\n");
+		printf("################################################\n");
+		printf("#            Que voulez vous faire ?           #\n");
+		printf("#                                              #\n");
+		printf("#       1- Ajouter une Gare                    #\n");
+		printf("#       2- Suprimer une Gare                   #\n");
+		printf("#       3- Ajouter un trajet aller-retour      #\n");
+		printf("#       4- Suprimer un trajet aller-retour     #\n");
+		printf("#       5- RETOUR                              #\n");
+		printf("################################################\n");
+		printf("\n");
+		long choixMenu = lireLong();
+		switch(choixMenu) {
+			case 1:
+				menuAjouteGare(r);
+				break;
+			case 2:
+				menuSupGare(r);
+				break;
+			case 3:
+				menuAjouteTrajet(r);
+				break;
+			case 4:
+				menuSupTrajet(r);
+				break;
+			case 5:
+				event = -1 ;
+				break;
+			default:
+				afficheErreurMenu();
+				break;
+		}
 	}
 	printf("\n");
 	return 0;
@@ -218,6 +224,7 @@ int menuGestionTrajet(Reseau r){
 
 int menuAjouteGare(Reseau r){ //saisie sans espace et avec chiffre
 	int cpt;
+	long choix;
 	char nom[30] = {0};
 	printf("\n");
 	printf("################################################\n");
@@ -228,6 +235,7 @@ int menuAjouteGare(Reseau r){ //saisie sans espace et avec chiffre
 	scanf("%s", nom);
 	fflush(stdin);
 	cpt = ajouterUneGare(r, nom);
+	int event = 1;
 	if ( cpt == 0){
 		printf("\n");
 		printf("################################################\n");
@@ -236,7 +244,8 @@ int menuAjouteGare(Reseau r){ //saisie sans espace et avec chiffre
 		printf("#           2- RETOUR                          #\n");
 		printf("################################################\n");
 		printf("\n");
-	} else {
+	}
+	else {
 		printf("\n");
 		printf("################################################\n");
 		printf("#          La gare n'a pas etait ajoute        #\n");
@@ -244,21 +253,27 @@ int menuAjouteGare(Reseau r){ //saisie sans espace et avec chiffre
 		printf("#           2- RETOUR                          #\n");
 		printf("################################################\n");
 		printf("\n");
-	}
-	cpt = lireLong();
-	switch (cpt) {
-		case 1:
-			menuAjouteGare(r);
-			break;
-		default :
-			menuGestionTrajet(r);
-			break;
+	}	
+	while(event != -1){	
+		choix = lireLong();
+		switch (choix) {
+			case 1:
+				menuAjouteGare(r);
+				event = -1;
+				break;
+			case 2:
+				event = -1;
+				break;
+			default :
+				afficheErreurMenu();
+				break;
+		}
 	}
 	return 0;
 }
 
 int menuSupGare(Reseau r){
-	int cpt;
+	long cpt;
 	char nom[30] = {0};
 	printf("\n");
 	printf("################################################\n");
@@ -292,14 +307,21 @@ int menuSupGare(Reseau r){
 	printf("#         2- RETOUR                            #\n");
 	printf("################################################\n");
 	printf("\n");
-	cpt = lireLong();
-	switch (cpt) {
-		case 1:
-			menuSupGare(r);
-			break;
-		default :
-			menuGestionTrajet(r);
-			break;
+	int event = 1;
+	while(event != -1){
+		cpt = lireLong();
+		switch (cpt) {
+			case 1:
+				menuSupGare(r);
+				event = -1;
+				break;
+			case 2:
+				event= -1 ;
+				break;
+			default :
+				afficheErreurMenu();
+				break;
+		}
 	}
 	return 0;
 }
@@ -375,14 +397,22 @@ int menuAjouteTrajet(Reseau r){
 	printf("#           2- RETOUR                          #\n");
 	printf("################################################\n");
 	printf("\n");
-	int cpt = lireLong();
-	switch (cpt) {
-		case 1:
-			menuAjouteTrajet(r);
-			break;
-		default :
-			menuGestionTrajet(r);
-			break;
+	int event = 1;
+	long cpt;
+	while(event != -1){
+		cpt = lireLong();
+		switch (cpt) {
+			case 1:
+				menuAjouteTrajet(r);
+				event = -1;
+				break;
+			case 2:
+				event = -1;
+				break;
+			default :
+				afficheErreurMenu();
+				break;
+		}
 	}
 	return 0;
 }
@@ -462,14 +492,22 @@ int menuSupTrajet(Reseau r){
 	printf("#          2- RETOUR                           #\n");
 	printf("################################################\n");
 	printf("\n");
-	int cpt = lireLong();
-	switch (cpt) {
-		case 1:
-			menuSupTrajet(r);
-			break;
-		default :
-			menuGestionTrajet(r);
-			break;
+	long cpt;
+	int event =1;
+	while(event != 1){
+		cpt = lireLong();
+		switch (cpt) {
+			case 1:
+				menuSupTrajet(r);
+				event = -1;
+				break;
+			case 2:
+				event = -1;
+				break;
+			default :
+				afficheErreurMenu();
+				break;
+		}
 	}
 	return 0;
 }
@@ -479,6 +517,80 @@ int menuExportationJSON(){
 }
 
 int menuGestionAdministration(){
+	int event = 1;
+	while(event != -1){
+		printf("\n");
+		printf("################################################\n");
+		printf("# De qui voulez vous modifier les informations #\n");
+		printf("#                                              #\n");
+		printf("#       1- controleur 1                        #\n");
+		printf("#       2- controleur 2                        #\n");
+		printf("#       3- controleur 3                        #\n");
+		printf("#       4- administrateur                      #\n");
+		printf("#       5- RETOUR                              #\n");
+		printf("################################################\n");
+		printf("\n");
+		int choixMenu = lireLong();
+		fflush(stdin);
+		switch(choixMenu) {
+			case 1:
+				menuChoixModification(choixMenu);
+				break;
+			case 2:
+				menuChoixModification(choixMenu);
+				break;
+			case 3:
+				menuChoixModification(choixMenu);
+				break;
+			case 4:
+				menuChoixModification(choixMenu);
+				break;
+			case 5:
+				event = -1;
+				break;
+			default:
+				afficheErreurMenu();
+				break;
+		}
+	}
+	printf("\n");
+	return 0;	
+}
+
+int menuChoixModification(int n){
+	int event = 1;
+	while(event != -1){
+		printf("\n");
+		printf("################################################\n");
+		printf("#            Que voulez vous faire ?           #\n");
+		printf("#                                              #\n");
+		printf("#       1- Modifier le mot de passe            #\n");
+		printf("#       2- Modifier prenom                     #\n");
+		printf("#       3- Modifier nom                        #\n");
+		printf("#       4- RETOUR                              #\n");
+		printf("################################################\n");
+		printf("\n");
+		int choixMenu = lireLong();
+		fflush(stdin);
+		switch(choixMenu) {
+			case 1:
+				menuModification(choixMenu,n);
+				break;
+			case 2:
+				menuModification(choixMenu,n);
+				break;
+			case 3:
+				menuModification(choixMenu,n);
+				break;
+			case 4:
+				event = -1;
+				break;
+			default:
+				afficheErreurMenu();
+				break;
+		}
+	}
+	printf("\n");
 	return 0;
 }
 
@@ -500,7 +612,7 @@ int menuControleurVerification(){
  		cpt=verifierLogControleur();
  		fflush(stdin);
  		// si le mot de passe ou le login est faux on demande a l'utilisateur si il veut reesayer la saisie car une erreur de frappe peut arriver
- 		if(cpt==1)
+ 		if(cpt==5)
  		{
  			int choix =0;
  			while(choix != 1){
@@ -522,7 +634,7 @@ int menuControleurVerification(){
 				{
 					case 1:
 						choix =1;
-						cpt=1;
+						cpt=0;
 						break;
 					case 2:
 						choix=1;
@@ -540,15 +652,13 @@ int menuControleurVerification(){
  		 lorsque la fonction menuControleur ce termine on sort de la boucle
  		 pour finir la fonction menuControleurVerification ce qui nous ramene dans la fonction main du programme */
  		else{
- 			menuControleur();
+ 			menuControleur(cpt);
  			cpt=-1;
  		}
 	}
-	
 	return 0;
-
 }
-int menuControleur(){
+int menuControleur(int n){
 	int event = 1 ;
 	long choixMenu;
 	while(event != -1){
@@ -561,7 +671,7 @@ int menuControleur(){
 				menuRechercheControleur();
 				break;
 			case 2:
-				menuAdministrationControleur();
+				menuChoixModification(n);
 				break;
 			case 3:
 				event = -1;
@@ -580,14 +690,71 @@ int menuRechercheControleur(){
 	return 0;
 }
 
-int menuAdministrationControleur(){
+int menuModification(int index, int n){
+	char nomFichier1[100]="sauv/controleur1.txt";
+	char nomFichier2[100]="sauv/controleur2.txt";
+	char nomFichier3[100]="sauv/controleur3.txt";
+	char nomFichier4[100]="sauv/admin.txt";
+	char new[20];
+	if(index==1){
+		printf("############################################\n");
+		printf("#veuillez saisir votre nouveau mot de passe#\n");
+		printf("############################################\n");
+		printf("\n");
+		lire(new,20,stdin);
+		fflush(stdin);
+	}
+	else if(index==2){
+		printf("############################################\n");
+		printf("#      veuillez saisir votre prenom        #\n");
+		printf("############################################\n");
+		printf("\n");
+		lire(new,20,stdin);
+		fflush(stdin);	
+	}
+	else if(index==3){
+		printf("############################################\n");
+		printf("#       veuillez saisir votre nom          #\n");
+		printf("############################################\n");
+		printf("\n");
+		lire(new,20,stdin);
+		fflush(stdin);
+	}
+	else{
+		printf("############################################\n");
+		printf("#                 erreur                   #\n");
+		printf("############################################\n");
+		printf("\n");
+		return 1;
+	}
+	if(n==1){
+		modiferDonnee(nomFichier1,index ,new);
+	}
+	else if (n==2){
+		modiferDonnee(nomFichier2,index ,new);
+	}
+	else if (n==3){
+		modiferDonnee(nomFichier3,index ,new);
+	}
+	else if (n==4){
+		modiferDonnee(nomFichier4,index ,new);
+	}
+	else{
+		printf("############################################\n");
+		printf("#                 erreur                   #\n");
+		printf("############################################\n");
+		printf("\n");
+		return 1;		
+	}
+	printf("############################################\n");
+	printf("#          Modification enregistree        #\n");
+	printf("############################################\n");
+	printf("\n");	
 	return 0;
 }
-
 //######### MENUS DE LA PARTIE CLIENT ##############
-
 int menuClient(){
-	int event = 1 ;
+int event = 1 ;
 	long choixMenu;
 	while(event != -1){
 		afficheMenuClient();

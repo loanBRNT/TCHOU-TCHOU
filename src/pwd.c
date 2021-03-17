@@ -4,11 +4,7 @@
 #include <ctype.h>
 #include "pwd.h"
 
-void viderBuffer(){
-	int c=0;
-	while (c!= '\n' && c != EOF)
-		c = getchar();
-}
+
 
 int lire(char* chaine, int longueur ,FILE* fichier){
     char *positionEntree = NULL;
@@ -22,12 +18,12 @@ int lire(char* chaine, int longueur ,FILE* fichier){
             *positionEntree = '\0'; // On remplace ce caractère par \0
         }
         else
-        	viderBuffer();
+        	fflush(stdin);
         return 1; // On renvoie 1 si la fonction s'est déroulée sans erreur
     }
     else
     {
-    	viderBuffer();
+    	fflush(stdin);
         return 0; // On renvoie 0 s'il y a eu une erreur
     }
 }
@@ -51,13 +47,16 @@ long lireLong()
 int verifierPwdAdmin(){
 	char pwdPropose[20];
 	char pwd[20];
+	char loginPropose[20];
+	char login[20];
 	FILE* id =NULL;
-	//demande a l'utilisateur de rentrer le mot de passe
+	//demande a l'utilisateur de rentrer son identifiant
 	printf("####################################################\n");
-	printf("# veuillez saisir le mot de passe administrateur : #\n");
+	printf("#       veuillez saisir votre identifiant  :       #\n");
 	printf("####################################################\n");
 	printf("\n");
-	lire(pwdPropose,20,stdin);
+	lire(loginPropose,20,stdin);
+	fflush(stdin);
 	printf("\n");
 	id=fopen("sauv/admin.txt","r");
 	// verification du l'ouverture du fichier admin.txt qui contient le mot de passe de l administrateur
@@ -70,9 +69,30 @@ int verifierPwdAdmin(){
 		printf("\n");
 		return 1;
 	}
-	else
+	// on recupere l'identifiant dans le fichier controleur.txt correspondant au controleur qui se connecte
+	lire(login,20,id);
+	/*on compare l identifiant avec l identifiant saisie par l'utilisateur
+	si ils ne sont pas identique on affiche un message d'erreur et return une valeur d'erreur
+	sinon on continue la verification avec ce coup si le mot de passe 0*/
+	if((strcmp(login,loginPropose)) != 0)
 	{
-		// on recupere le mot de passe dans le fichier admin.txt
+		fclose(id);
+		printf("###########################################\n");
+		printf("#           identifiant invalide          #\n");
+		printf("###########################################\n");
+		printf("\n");
+		return 1;
+	}
+	else{
+		//demande a l'utilisateur de rentrer son mot de passe
+		printf("####################################################\n");
+		printf("#       veuillez saisir votre mot de passe :       #\n");
+		printf("####################################################\n");
+		printf("\n");
+		lire(pwdPropose,20,stdin);
+		fflush(stdin);
+		printf("\n");
+		// on recupere le mot de passe dans le fichier controleur.txt correspondant au controleur qui se connecte
 		lire(pwd,20,id);
 		/*on compare le mot de passe avec le mot de passe saisie par l'utilisateur
 		si ils ne sont pas identique on affiche un message d'erreur et return une valeur d'erreur
@@ -95,11 +115,11 @@ int verifierPwdAdmin(){
 			printf("\n");
 			return 0;
 		}
-
 	}
 }
 
 int verifierLogControleur(){
+	int numControleur;
 	char pwdPropose[20];
 	char pwd[20];
 	char loginPropose[20];
@@ -111,10 +131,12 @@ int verifierLogControleur(){
 	printf("####################################################\n");
 	printf("\n");
 	lire(loginPropose,20,stdin);
+	fflush(stdin);
 	printf("\n");
 
 	if(loginPropose[0]=='a'){
 		id=fopen("sauv/controleur1.txt","r");
+		numControleur=1;
 		if(id == NULL)
 		{
 			fclose(id);
@@ -122,11 +144,12 @@ int verifierLogControleur(){
 			printf("#      Impossible d'ouvrir le fichier      #\n");
 			printf("############################################\n");
 			printf("\n");
-			return 1;
+			return 5;
 		}
 	}
 	else if(loginPropose[0]=='b'){
 		id=fopen("sauv/controleur2.txt","r");
+		numControleur=2;
 		if(id == NULL)
 		{
 			fclose(id);
@@ -134,11 +157,12 @@ int verifierLogControleur(){
 			printf("#      Impossible d'ouvrir le fichier      #\n");
 			printf("############################################\n");
 			printf("\n");
-			return 1;
+			return 5;
 		}
 	}
 	else if(loginPropose[0]=='c'){
 		id=fopen("sauv/controleur3.txt","r");
+		numControleur=3;
 		if(id == NULL)
 		{
 			fclose(id);
@@ -146,7 +170,7 @@ int verifierLogControleur(){
 			printf("#      Impossible d'ouvrir le fichier      #\n");
 			printf("############################################\n");
 			printf("\n");
-			return 1;
+			return 5;
 		}
 	}
 	else{
@@ -154,7 +178,7 @@ int verifierLogControleur(){
 		printf("#           identifiant inconnu            #\n");
 		printf("############################################\n");
 		printf("\n");
-		return 1;
+		return 5;
 	}
 
 
@@ -170,7 +194,7 @@ int verifierLogControleur(){
 		printf("#           identifiant invalide          #\n");
 		printf("###########################################\n");
 		printf("\n");
-		return 1;
+		return 5;
 	}
 	else{
 		//demande a l'utilisateur de rentrer son mot de passe
@@ -192,7 +216,7 @@ int verifierLogControleur(){
 			printf("#       le mot de passe est errone        #\n");
 			printf("###########################################\n");
 			printf("\n");
-			return 1;
+			return 5;
 		}
 		else
 		{
@@ -201,14 +225,14 @@ int verifierLogControleur(){
 			printf("#   vous etes connecte au menu controleur   #\n");
 			printf("#############################################\n");
 			printf("\n");
-			return 0;
+			return numControleur;
 		}
 	}
 }
 
 void modiferDonnee(char* nomFile,int index ,char* texte){
 	char ligne[20];
-	int i=1;
+	int i=0;
 	FILE* id = NULL;
 	FILE* temp = NULL;
 	id=fopen(nomFile,"r");

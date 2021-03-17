@@ -23,19 +23,23 @@ et menuGestionAdministration est celui pour gerer les mot de passe des personnes
 int menuGestionTrajet(Reseau r);
 int menuExportationJSON();
 int menuGestionAdministration();
-
+int menuAjouteGare(Reseau r); //saisie sans espace et avec chiffre
+int menuSupGare(Reseau r);
+int menuAjouteTrajet(Reseau r);
+int menuSupTrajet(Reseau r);
+int menuChoixModification(int);
 
 //fonctions des menus de la partie controleur
 // pre-menu controleur verifie si la personne a accès au menu controleur
 int menuControleurVerification();
 // interface du menu Controleur
-int menuControleur();
+int menuControleur(int);
 /* interface des 2 menus accessibles depuis le menu controleur
 menuRechercheControleur est l'interface pour la recherche du trajet d'un voyageur avec son numero d'identification
 menuAdministrationControleur() est l'interface du menu de gestion des donnees personelle du controleur
 */
 int menuRechercheControleur();
-int menuAdministrationControleur();
+int menuModification(int, int);
 
 
 //fonctions des menus de la partie client
@@ -52,10 +56,6 @@ int menuReservationEtModification();
 
 
 
-int menuAjouteGare(Reseau r); //saisie sans espace et avec chiffre
-int menuSupGare(Reseau r);
-int menuAjouteTrajet(Reseau r);
-int menuSupTrajet(Reseau r);
 
 
 
