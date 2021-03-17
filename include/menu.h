@@ -27,7 +27,7 @@ int menuAjouteGare(Reseau r); //saisie sans espace et avec chiffre
 int menuSupGare(Reseau r);
 int menuAjouteTrajet(Reseau r);
 int menuSupTrajet(Reseau r);
-
+int menuChoixModification(int);
 
 //fonctions des menus de la partie controleur
 // pre-menu controleur verifie si la personne a accès au menu controleur
@@ -39,7 +39,6 @@ menuRechercheControleur est l'interface pour la recherche du trajet d'un voyageu
 menuAdministrationControleur() est l'interface du menu de gestion des donnees personelle du controleur
 */
 int menuRechercheControleur();
-int menuAdministrationControleur(int);
 int menuModification(int, int);
 
 

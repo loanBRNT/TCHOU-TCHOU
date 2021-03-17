@@ -517,8 +517,83 @@ int menuExportationJSON(){
 }
 
 int menuGestionAdministration(){
+	int event = 1;
+	while(event != -1){
+		printf("\n");
+		printf("################################################\n");
+		printf("# De qui voulez vous modifier les informations #\n");
+		printf("#                                              #\n");
+		printf("#       1- controleur 1                        #\n");
+		printf("#       2- controleur 2                        #\n");
+		printf("#       3- controleur 3                        #\n");
+		printf("#       4- administrateur                      #\n");
+		printf("#       5- RETOUR                              #\n");
+		printf("################################################\n");
+		printf("\n");
+		int choixMenu = lireLong();
+		fflush(stdin);
+		switch(choixMenu) {
+			case 1:
+				menuChoixModification(choixMenu);
+				break;
+			case 2:
+				menuChoixModification(choixMenu);
+				break;
+			case 3:
+				menuChoixModification(choixMenu);
+				break;
+			case 4:
+				menuChoixModification(choixMenu);
+				break;
+			case 5:
+				event = -1;
+				break;
+			default:
+				afficheErreurMenu();
+				break;
+		}
+	}
+	printf("\n");
+	return 0;	
+}
+
+int menuChoixModification(int n){
+	int event = 1;
+	while(event != -1){
+		printf("\n");
+		printf("################################################\n");
+		printf("#            Que voulez vous faire ?           #\n");
+		printf("#                                              #\n");
+		printf("#       1- Modifier le mot de passe            #\n");
+		printf("#       2- Modifier prenom                     #\n");
+		printf("#       3- Modifier nom                        #\n");
+		printf("#       4- RETOUR                              #\n");
+		printf("################################################\n");
+		printf("\n");
+		int choixMenu = lireLong();
+		fflush(stdin);
+		switch(choixMenu) {
+			case 1:
+				menuModification(choixMenu,n);
+				break;
+			case 2:
+				menuModification(choixMenu,n);
+				break;
+			case 3:
+				menuModification(choixMenu,n);
+				break;
+			case 4:
+				event = -1;
+				break;
+			default:
+				afficheErreurMenu();
+				break;
+		}
+	}
+	printf("\n");
 	return 0;
 }
+
 //######################################################
 //######### MENUS DE LA PARTIE CONTROLEUR ##############
 
@@ -596,7 +671,7 @@ int menuControleur(int n){
 				menuRechercheControleur();
 				break;
 			case 2:
-				menuAdministrationControleur(n);
+				menuChoixModification(n);
 				break;
 			case 3:
 				event = -1;
@@ -615,47 +690,11 @@ int menuRechercheControleur(){
 	return 0;
 }
 
-int menuAdministrationControleur(int n){
-	int event = 1;
-	while(event != -1){
-		printf("\n");
-		printf("################################################\n");
-		printf("#            Que voulez vous faire ?           #\n");
-		printf("#                                              #\n");
-		printf("#       1- Modifier votre mot de passe         #\n");
-		printf("#       2- Modifier prenom                     #\n");
-		printf("#       3- Modifier nom                        #\n");
-		printf("#       4- RETOUR                              #\n");
-		printf("################################################\n");
-		printf("\n");
-		int choixMenu = lireLong();
-		fflush(stdin);
-		switch(choixMenu) {
-			case 1:
-				menuModification(choixMenu,n);
-				break;
-			case 2:
-				menuModification(choixMenu,n);
-				break;
-			case 3:
-				menuModification(choixMenu,n);
-				break;
-			case 4:
-				event = -1;
-				break;
-			default:
-				afficheErreurMenu();
-				break;
-		}
-	}
-	printf("\n");
-	return 0;
-}
-
 int menuModification(int index, int n){
 	char nomFichier1[100]="sauv/controleur1.txt";
 	char nomFichier2[100]="sauv/controleur2.txt";
 	char nomFichier3[100]="sauv/controleur3.txt";
+	char nomFichier4[100]="sauv/admin.txt";
 	char new[20];
 	if(index==1){
 		printf("############################################\n");
@@ -679,7 +718,7 @@ int menuModification(int index, int n){
 		printf("############################################\n");
 		printf("\n");
 		lire(new,20,stdin);
-		fflush(stdin);;
+		fflush(stdin);
 	}
 	else{
 		printf("############################################\n");
@@ -696,6 +735,9 @@ int menuModification(int index, int n){
 	}
 	else if (n==3){
 		modiferDonnee(nomFichier3,index ,new);
+	}
+	else if (n==4){
+		modiferDonnee(nomFichier4,index ,new);
 	}
 	else{
 		printf("############################################\n");
