@@ -61,3 +61,23 @@ Train rechercheTrain(Reseau r,Gare gDepTr, Trajet tr){
 	}
 	return tSauv;
 }
+
+int reservation(Reseau r, Itineraire it){
+	char nom[30];
+	char prenom[20];
+	printf("\n\n");
+	printf("################################################\n");
+	printf("#               Indiquez votre Nom             #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s",nom);
+	fflush(stdin);
+	printf("\n\n");
+	printf("################################################\n");
+	printf("#             Indiquez votre Prenom            #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s",prenom);
+	fflush(stdin);
+	//ecrire en memoire
+}
