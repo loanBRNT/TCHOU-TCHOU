@@ -15,13 +15,14 @@ EN PLUS :
 - Faire des alertes dans la console quand une gare n'a pas de trajets associé
 - Faire des alertes quand aucun train ne passe par un trajet
 - Ajouter dans le menu de gestion : Nouveau Train, Modif Train, Sup Train
-- Mettre une musique de fond ?
+- SI ON SUPPRIME UN TRAJET DANS LE PARCOURS DUN TRAIN QUE FAIRE ?
 
 AMELIORATION
 
 - CLEAR le code au max
 - Mettre en place un choix par liste et non par entree d'util
 - Pouvoir proposer plusieurs trajets au choix 
+- Musique de fond
 
 
 CONTRAINTES ACTUEL
