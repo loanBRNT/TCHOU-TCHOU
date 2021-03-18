@@ -2,9 +2,9 @@
 #define CLIENT_H
 
 
-void affichageVoyage(Itineraire);
+void affichageVoyage(Reseau, Itineraire);
 
-Train rechercheTrain(Trajet);
+Train rechercheTrain(Reseau, Gare, Trajet);
 
 
 

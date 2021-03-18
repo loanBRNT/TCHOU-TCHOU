@@ -21,7 +21,7 @@ Trajet rechercheTrajet(Gare, Gare); //retourne le trajet qui va de la 1ere Gare 
 
 /*fonction initiale de la recherche d'un itineraire, elle initialise tout l'algo de recherche
  en fonction du reseau a etudier et de la gare de de pet celle d'arv, elle contient egalement la boucle d'execution de l'algo et retourne l'itineraire */
-Itineraire rechercheItinireraire(Reseau, Gare, Gare);
+Itineraire rechercheItineraire(Reseau, Gare, Gare);
 
 Ensemble initialisationGraphe(Gare); //Initialise l'ensemble graphe autour de la Gare de Depart
 

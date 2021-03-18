@@ -46,7 +46,6 @@ int ajoutSommet(Ensemble graphe, Trajet tr, Sommet sPere){
 	graphe->tail->next = sommet; 
 	graphe->tail = sommet;
 	graphe->nbSommets++;
-	printf("On ajoute le sommet %s en %d min\n",nomDeGare(sommet->gare), sommet->distance);
 	return 0;
 }
 
@@ -75,7 +74,6 @@ int testVoisin(Ensemble graphe, Sommet sommet){
 				trouve = 1;
 				if (s->etat == 0){ //on verif que le sommet na pas deja ete entierement fait (pour eviter de mettre a jour la distance de gdep)
 					majDistance(tr,s,sommet);
-					printf("On met a jour la distance de %s qui vaut mtn %d \n", nomDeGare(s->gare), s->distance);
 				}
 			}
 			s = s->next;
@@ -122,7 +120,7 @@ void freeGrapheRecherche(Ensemble graphe){
 	free(graphe);
 }
 
-Itineraire rechercheItinireraire(Reseau r, Gare gDep, Gare gArv){ 
+Itineraire rechercheItineraire(Reseau r, Gare gDep, Gare gArv){ 
 //Pour l'appeller on peut passer en parametre rechercheItineraire(reseau, rechercheGare(reseau, char* nom),rechercheGare(reseau, char* nom) )
 	if (gDep == NULL || gArv == NULL) {
 		printf("Au moins une des gares n'exsitent pas\n");
@@ -163,7 +161,6 @@ Itineraire rechercheItinireraire(Reseau r, Gare gDep, Gare gArv){
 		}
 		testVoisin(graphe, sSauv); //on teste les voisins du sommet a la distance minimum qui n'a pas deja ete teste
 	}
-	printf("LE CHEMIN FINAL ENTRE %s et %s met %d \n",nomDeGare(gDep), nomDeGare(gArv), sSauv->distance);
 	//on sauvegarde les infos dans notre structure itineraire
 	itineraire->temps = sSauv->distance;
 	int i = 0;

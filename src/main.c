@@ -10,6 +10,7 @@
 #include "itineraireAccesseur.h"
 #include "voyageur.h"
 #include "main.h"
+#include "client.h"
 
 #define EXIT_SUCESS 0
 #define EXIT_FAILURE 1
@@ -39,6 +40,8 @@ int main(int argc, char const *argv[])
 {
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
+	//Itineraire it = rechercheItineraire(reseau, rechercheGare(reseau, "Paris"), rechercheGare(reseau, "Toulouse"));
+	//affichageVoyage(reseau, it);
 	/* lance l'affichage du menu principale
 	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
 	  si le numero n'est pas bon on redemande un numero de menu
