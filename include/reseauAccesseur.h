@@ -8,11 +8,11 @@ Gare gareTail(Reseau);
 
 int tailleReseau(Reseau r);
 
-Train headTrainReseau(Reseau r); //a faire
+Train headTrainReseau(Reseau r);
 
-Train tailTrainReseau(Reseau r); // a faire
+Train tailTrainReseau(Reseau r);
 
-int nbTrainReseau(Reseau r); // a faire
+int nbTrainReseau(Reseau r);
 
 char* nomDeGare(Gare);
 
