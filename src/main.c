@@ -40,8 +40,12 @@ int main(int argc, char const *argv[])
 {
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
-	//Itineraire it = rechercheItineraire(reseau, rechercheGare(reseau, "Paris"), rechercheGare(reseau, "Toulouse"));
+
+
+	//Itineraire it = rechercheItineraire(reseau, rechercheGare(reseau, "Toulouse"), rechercheGare(reseau, "Marseille"));
 	//affichageVoyage(reseau, it);
+
+	
 	/* lance l'affichage du menu principale
 	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
 	  si le numero n'est pas bon on redemande un numero de menu

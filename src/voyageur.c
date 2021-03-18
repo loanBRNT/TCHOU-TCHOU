@@ -10,7 +10,7 @@
 #include "trainVoyageurAccesseur.h"
 
 struct s_voyageur {
-	char id[4]; //le num d'identification
+	char id[5]; //le num d'identification
 	char nom[30]; //le nom du voyageur
 	char prenom[20]; //le prenom du voyageur
 	Itineraire voyage; //l'itineraire du voyageur
@@ -21,7 +21,7 @@ struct s_place {
 	Voyageur head;
 	Voyageur tail;
 	int nbVoyageur;
-	char numPlace[4];
+	char numPlace[5];
 };
 
 
@@ -32,6 +32,7 @@ Place initPlace(Reseau r, FILE* fichierVoyageur){
 	{
 		p->numPlace[i]=fgetc(fichierVoyageur);
 	}
+	p->numPlace[4]='\0';
 	p->nbVoyageur = 0;
 	if (fgetc(fichierVoyageur) == '\n'){
 		p->head = NULL;
@@ -82,6 +83,7 @@ Voyageur initVoyageur(Reseau r, Place p, FILE* fichierVoyageur) { //peut etre si
 		i++;
 		c = fgetc(fichierVoyageur);
 	} while ( c != ':');
+	v->id[4]='\0';
 	Itineraire ch = creerItineraireVide();
 	char nomDep[20];
 	char nomArv[20];
@@ -153,13 +155,7 @@ int nbVoyageurSurLaPlace(Place p){
 }
 
 char* idPlace(Place p){
-	char* id;
-	for (int i = 0; i < 4; ++i)
-	{
-		id[i] = p->numPlace[i];
-	}
-	id[4]='\0';
-	return id;
+	return p->numPlace;
 }
 
 Voyageur voyageurHeadPlace(Place p){
@@ -173,13 +169,7 @@ Voyageur voyageurTailPlace(Place p){
 
 
 char* idVoyageur(Voyageur v){
-	char* ide;
-	for (int i = 0; i < 4; ++i)
-	{
-		ide[i] = v->id[i];
-	}
-	ide[4]='\0';
-	return ide;
+	return v->id;
 }
 
 char* nomVoyageur(Voyageur v){

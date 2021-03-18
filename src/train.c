@@ -10,7 +10,7 @@
 #include "trainVoyageurAccesseur.h"
 
 struct s_train {
-	char num[2]; //num d'identification du train
+	char num[3]; //num d'identification du train
 	Itineraire chemin; //l'itineraire du train
 	Place place[10];
 	Train next; //le train suivant dans la liste
@@ -63,6 +63,7 @@ Train initTrain(Reseau r, FILE* fichierTrain, FILE* fichierVoyageur){
 	///on recup l'id du train
 	t->num[0]= fgetc(fichierTrain);
 	t->num[1]= fgetc(fichierTrain);
+	t->num[2]= '\0';
 	fgetc(fichierTrain); //on recup l'espace
 	t->chemin = initItneraireTrain(r, fichierTrain);
 	if (tailTrainReseau(r) != NULL) {
@@ -108,11 +109,7 @@ Place placeDuTrain(Train t, int rang){
 }
 
 char* idTrain(Train t){
-	char* id;
-	id[0]= t->num[0];
-	id[1]= t->num[1];
-	id[2]='\0';
-	return id;
+	return t->num;
 }
 
 Itineraire cheminTrain(Train t){
