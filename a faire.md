@@ -7,6 +7,8 @@
 - Reservation d'un trajet (LOAN)
 - Modification dun trajet (LOAN)
 
+--> Creer fichier voyageur et mettre dans place des fragments de voyage
+
 
 EN PLUS :
 

@@ -12,10 +12,10 @@ Place initPlace(Reseau, FILE*);
 
 int sauvVoyageur(Train, FILE*);
 
+Voyageur rechercheVoyageur(Reseau , char* );
 
 
-
-
+Voyageur creerVoyageur(char* nom, char* prenom, char* identifiant, Itineraire it);
 
 
 

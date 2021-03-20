@@ -148,6 +148,41 @@ int sauvVoyageur(Train t, FILE* fichierVoyageur){
 	fprintf(fichierVoyageur, "\n");
 }
 
+
+Voyageur rechercheVoyageur(Reseau r, char* idRecherche){
+	Train t = headTrainReseau(r);
+	Voyageur v, vSauv = NULL;
+	Place p;
+	for (int i = 0; i < nbTrainReseau(r); ++i) {
+		for (int j = 0; j < 10; ++j) {
+			p = placeDuTrain(t, j);
+			if ( p->nbVoyageur > 0) {
+				v = p->head;
+				for (int k = 0; k < p->nbVoyageur+1; ++k) {
+					if (!strcmp(v->id, idRecherche)){
+						vSauv = v;
+					}
+					v = v->next;
+				}
+			}
+		}
+		t = trainNext(t);
+	}
+	return vSauv;
+}
+
+
+Voyageur creerVoyageur(char* nom, char* prenom, char* identifiant, Itineraire it){
+	Voyageur v = (Voyageur) malloc(sizeof(struct s_voyageur));
+		// pas finit
+
+
+
+	return v;
+}
+
+
+
 // ACCESSEUR #####################################
 
 int nbVoyageurSurLaPlace(Place p){

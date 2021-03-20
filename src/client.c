@@ -79,5 +79,39 @@ int reservation(Reseau r, Itineraire it){
 	printf("\n");
 	scanf("%s",prenom);
 	fflush(stdin);
-	//ecrire en memoire
+	char * id = tirerNumVoyageur(r);
+	creerVoyageur(nom, prenom, id, it);
+}
+
+
+
+
+char* tirerNumVoyageur(Reseau r){
+	Train t = headTrainReseau(r);
+	Place p;
+	char id[5];
+	int nbVoyageur = 0;
+	for (int i = 0; i < nbTrainReseau(r); ++i) {
+		for (int j = 0; j < 10; ++j) {
+			nbVoyageur = nbVoyageur + nbVoyageurSurLaPlace(placeDuTrain(t,j));
+		}
+		t = trainNext(t);
+	}
+	nbVoyageur++;
+	itoa(nbVoyageur, id, 10);
+	id[4]='\0';
+	for (int i = strlen(id); i < 4; ++i) {
+		id[3]=id[2];
+		id[2]=id[1];
+		id[1]=id[0];
+		id[0]='0';
+	}
+	int cpt = 0;
+	do {
+		nbVoyageur = nbVoyageur - 1000;
+		cpt++;
+	} while (nbVoyageur > 0);
+	id[0]=64 + cpt; //utilisation du code ascii
+	char* iden = id;
+	return iden;
 }
