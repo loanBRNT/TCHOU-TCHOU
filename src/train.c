@@ -71,10 +71,10 @@ Train initTrain(Reseau r, FILE* fichierTrain, FILE* fichierVoyageur){
 	}
 	t->previous = tailTrainReseau(r);
 	t->next = NULL;
-	for (int i = 0 ; i < 10 ; i++ ){
+	/*for (int i = 0 ; i < 10 ; i++ ){
 		t->place[i] = initPlace(r, fichierVoyageur);
 	}
-	fgetc(fichierVoyageur);
+	fgetc(fichierVoyageur);*/
 	return t;
 }
 
