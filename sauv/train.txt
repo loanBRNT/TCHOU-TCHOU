@@ -1,4 +1,8 @@
-A1 Paris-Orleans:Orleans-Limoges:Limoges-Brive:Brive-Montauban:Montauban-Toulouse:Toulouse-Montauban:Montauban-Brive:Brive-Limoges:Limoges-Orleans:Orleans-Paris:
-A2 Bordeaux-Agen:Agen-Montauban:Montauban-Toulouse:Toulouse-Narbonne:Narbonne-Montpellier:Montpellier-Marseille:Marseille-Nice:Nice-Marseille:Marseille-Montpellier:Montpellier-Narbonne:Narbonne-Toulouse:Toulouse-Montauban:Montauban-Agen:Agen-Bordeaux:
-A3 Paris-Lyon:Lyon-Marseille:Marseille-Lyon:Lyon-Paris:
-A4 Paris-Tours:Tours-Bordeaux:Bordeaux-Biarritz:Biarritz-Bordeaux:Bordeaux-Tours:Tours-Paris:
+A1 Paris-Orleans:Orleans-Limoges:Limoges-Brive:Brive-Montauban:Montauban-Toulouse:
+A2 Bordeaux-Agen:Agen-Montauban:Montauban-Toulouse:Toulouse-Narbonne:Narbonne-Montpellier:Montpellier-Marseille:Marseille-Nice:
+A3 Paris-Lyon:Lyon-Marseille:
+A4 Paris-Tours:Tours-Bordeaux:Bordeaux-Biarritz:
+A5 Toulouse-Montauban:Montauban-Brive:Brive-Limoges:Limoges-Orleans:Orleans-Paris:
+A6 Nice-Marseille:Marseille-Montpellier:Montpellier-Narbonne:Narbonne-Toulouse:Toulouse-Montauban:Montauban-Agen:Agen-Bordeaux:
+A7 Marseille-Lyon:Lyon-Paris:
+A8 Biarritz-Bordeaux:Bordeaux-Tours:Tours-Paris:
