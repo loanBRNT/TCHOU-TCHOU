@@ -94,7 +94,6 @@ int sauvTrain(Reseau r, FILE* fichierTrain, FILE* fichierVoyageur){
 			g = gareArvDuTrajet(tr);
 		}
 		fprintf(fichierTrain, "\n");
-		printf("CHECKPOINT\n");
 		sauvVoyageur(t, fichierVoyageur);
 		tSauv = t->next;
 		free(t);
@@ -148,7 +147,7 @@ Train ajouterTrain(Reseau r){
 		printf("################################################\n");
 		printf("\n");
 		free(t);
-		return NULL;
+		exit(1);
 	}
 	while (cpt == 1){
 		printf("\n");
@@ -184,11 +183,16 @@ Train ajouterTrain(Reseau r){
 		printf("################################################\n");
 		printf("\n");
 		scanf("%d",&cpt);
+		fflush(stdin);
+	}
+	t->chemin = it;
+	for (int i = 1; i < 11; ++i)
+	{
+		t->place[i-1]=creerPlaceVide(t,i);
 	}
 	t->previous = tailTrainReseau(r);
-	tailTrainReseau(r)->next = t;
-	t->next = NULL;
-	AjouterTrainReseau(r,t);
+	(tailTrainReseau(r))->next = t;
+	ajtTrain(r, t);
 	return t;
 }
 

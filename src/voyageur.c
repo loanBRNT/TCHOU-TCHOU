@@ -55,6 +55,24 @@ Place initPlace(Reseau r, FILE* fichierVoyageur){
 	return p;
 }
 
+Place creerPlaceVide(Train t, int i){
+	Place p = (Place) malloc(sizeof(struct s_place));
+	p->head = NULL;
+	p->tail=NULL;
+	p->nbVoyageur=0;
+	char* id = idTrain(t);
+	int cpt=0;
+	while (i>9) {
+		i=i-10;
+		cpt++;
+	}
+	p->numPlace[0]= id[0];
+	p->numPlace[1]= id[1];
+	p->numPlace[2]= 48+cpt;
+	p->numPlace[3]= 48+i;
+	p->numPlace[5]= '\0' ;
+	return p;
+}
 
 
 Voyageur initVoyageur(Reseau r, Place p, FILE* fichierVoyageur) { //peut etre simplifie
@@ -130,29 +148,23 @@ int sauvVoyageur(Train t, FILE* fichierVoyageur){
 	{
 		p = placeDuTrain(t, i);
 		fprintf(fichierVoyageur, "%c%c%c%c",p->numPlace[0],p->numPlace[1],p->numPlace[2],p->numPlace[3]);
-		printf( "%c%c%c%c",p->numPlace[0],p->numPlace[1],p->numPlace[2],p->numPlace[3]);
 		v = p->head;
 		while (p->nbVoyageur > 0){
 			fprintf(fichierVoyageur, "/%s:%s:%c%c%c%c:",v->nom, v->prenom, v->id[0], v->id[1], v->id[2], v->id[3]);
-			printf("/%s:%s:%c%c%c%c:",v->nom, v->prenom, v->id[0], v->id[1], v->id[2], v->id[3]);
 			g = gareDepItineraire(v->voyage);
 			for (int i = 0; i < nbEtapeItineraire(v->voyage); ++i)
 			{
 				tr = listeTrajetItineraire(v->voyage, i);
 				fprintf(fichierVoyageur, "%s-%s:",nomDeGare(g),nomDeGare(gareArvDuTrajet(tr)));
-				printf( "%s-%s:",nomDeGare(g),nomDeGare(gareArvDuTrajet(tr)));
 				g = gareArvDuTrajet(tr);
 			}
 			fprintf(fichierVoyageur, "/");
-			printf("/");
 			p->nbVoyageur--;
 			v = v->next;
 		}
 		fprintf(fichierVoyageur, "\n");
-		printf("\n");
 	}
 	fprintf(fichierVoyageur, "\n");
-	printf("\n");
 }
 
 

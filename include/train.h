@@ -14,9 +14,7 @@ int sauvTrain(Reseau r, FILE*, FILE*);
 
 Train ajouterTrain(Reseau r);
 
-
-void AjouterTrainReseau(Reseau r, Train t);
-
+void ajtTrain(Reseau, Train);
 
 
 

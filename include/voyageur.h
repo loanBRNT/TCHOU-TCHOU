@@ -22,4 +22,6 @@ void tirerNumVoyageur(Reseau r, Voyageur v);
 
 Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire it);
 
+Place creerPlaceVide(Train t, int i);
+
 #endif

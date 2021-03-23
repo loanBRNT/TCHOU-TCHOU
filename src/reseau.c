@@ -196,9 +196,9 @@ int initGare(Reseau ensembleGare, FILE* fichierReseau){
 	return 0;
 }
 
-void AjouterTrainReseau(Reseau r, Train t){
-	r->nbTrain++;
+void ajtTrain(Reseau r, Train t){
 	r->tailTrain = t;
+	r->nbTrain++;
 }
 
 Reseau initReseau(){

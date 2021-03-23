@@ -41,14 +41,7 @@ int main(int argc, char const *argv[])
 {
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
-	/*ajouterTrain(reseau);
-	Train t = headTrainReseau(reseau);
-	for (int i = 0; i< nbTrainReseau(reseau) ; i++){
-		printf("BOUCLE %d\n",i);
-		printf("%s\n",idTrain(t));
-		t = trainNext(t);
-	}*/
-
+	
 	/* lance l'affichage du menu principale
 	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
 	  si le numero n'est pas bon on redemande un numero de menu
