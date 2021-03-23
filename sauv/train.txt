@@ -2,4 +2,3 @@ A1 Paris-Orleans:Orleans-Limoges:Limoges-Brive:Brive-Montauban:Montauban-Toulous
 A2 Bordeaux-Agen:Agen-Montauban:Montauban-Toulouse:Toulouse-Narbonne:Narbonne-Montpellier:Montpellier-Marseille:Marseille-Nice:Nice-Marseille:Marseille-Montpellier:Montpellier-Narbonne:Narbonne-Toulouse:Toulouse-Montauban:Montauban-Agen:Agen-Bordeaux:
 A3 Paris-Lyon:Lyon-Marseille:Marseille-Lyon:Lyon-Paris:
 A4 Paris-Tours:Tours-Bordeaux:Bordeaux-Biarritz:Biarritz-Bordeaux:Bordeaux-Tours:Tours-Paris:
-A5 Lyon-Marseille:Marseille-Nice:

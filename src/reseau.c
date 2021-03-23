@@ -6,6 +6,7 @@
 #include "train.h"
 #include "reseauAccesseur.h"
 #include "voyageur.h"
+#include "trainVoyageurAccesseur.h"
 
 /*
 On definit les 3 structures utiles pour manier le reseau routier ! 
@@ -200,6 +201,24 @@ void ajtTrain(Reseau r, Train t){
 	r->tailTrain = t;
 	r->nbTrain++;
 }
+
+Train enleverTrainHead(Reseau r, Train t){
+	r->headTrain = trainNext(t);
+	r->nbTrain--;
+	return t;
+}
+
+Train enleverTrainTail(Reseau r, Train t){
+	r->tailTrain = trainPrevious(t);
+	r->nbTrain--;
+	return t;
+}
+
+void enleverTrain(Reseau r){
+	r->nbTrain--;
+}
+
+
 
 Reseau initReseau(){
 	//allocation memoire

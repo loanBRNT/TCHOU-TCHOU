@@ -102,6 +102,33 @@ int sauvTrain(Reseau r, FILE* fichierTrain, FILE* fichierVoyageur){
 	return 0;
 }
 
+int suppTrain(Reseau r, char* idIdentification){
+	Train t = headTrainReseau(r);
+	for (int i = 0; i < nbTrainReseau(r); ++i)
+	{
+		if (!strcmp(t->num, idIdentification)){
+			for (int i = 0; i < 10; ++i)
+			{
+				free(t->place[i]);
+			}
+			free(t->chemin);
+			if (i == 0){
+				t->next->previous = NULL;
+				t=enleverTrainHead(r, t);
+			} else if (i == nbTrainReseau(r)-1) {
+				t->previous->next = NULL;
+				t=enleverTrainTail(r, t);
+			} else{
+				t->previous->next = t->next;
+				t->next->previous = t->previous;
+				enleverTrain(r);
+			}
+		}
+		t = trainNext(t);
+	}
+	free(t);
+}
+
 
 Train ajouterTrain(Reseau r){
 	Train t = (Train) malloc(sizeof(struct s_train));
