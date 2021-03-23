@@ -6,6 +6,11 @@
 #include "reseauAccesseur.h"
 #include "menu.h"
 #include "pwd.h"
+#include "voyageur.h"
+#include "reseauAccesseur.h"
+#include "itineraireAccesseur.h"
+#include "trainVoyageurAccesseur.h"
+#include "client.h"
 //########## FONCTIONS DE GESTION DES MENUS ###############
 //########## FONCTIONS D AFFICHAGE DES MENUS ##############
 void afficheMenuPrincipal(){
@@ -230,6 +235,7 @@ int menuAjouteGare(Reseau r){ //saisie sans espace et avec chiffre
 	printf("################################################\n");
 	printf("#            Indiquez le nom de la Gare        #\n");
 	printf("#              que vous voulez ajouter         #\n");
+	printf("#              29 caracteres maximum           #\n");	
 	printf("################################################\n");
 	printf("\n");
 	scanf("%s", nom);
@@ -597,7 +603,7 @@ int menuChoixModification(int n){
 //######################################################
 //######### MENUS DE LA PARTIE CONTROLEUR ##############
 
-int menuControleurVerification(){
+int menuControleurVerification(Reseau r){
 	//on informe l'utilisateur qui rentre sur un menu prive
 	int cpt = 0;
 	printf("\n");
@@ -652,13 +658,13 @@ int menuControleurVerification(){
  		 lorsque la fonction menuControleur ce termine on sort de la boucle
  		 pour finir la fonction menuControleurVerification ce qui nous ramene dans la fonction main du programme */
  		else{
- 			menuControleur(cpt);
+ 			menuControleur(cpt,r);
  			cpt=-1;
  		}
 	}
 	return 0;
 }
-int menuControleur(int n){
+int menuControleur(int n, Reseau r){
 	int event = 1 ;
 	long choixMenu;
 	while(event != -1){
@@ -668,7 +674,7 @@ int menuControleur(int n){
 		switch(choixMenu)
 		{
 			case 1:
-				menuRechercheControleur();
+				menuRechercheControleur(r);
 				break;
 			case 2:
 				menuChoixModification(n);
@@ -686,7 +692,43 @@ int menuControleur(int n){
 	return 0;
 }
 
-int menuRechercheControleur(){
+int menuRechercheControleur(Reseau r){
+	long choix;
+	char numClient[10];
+	printf("\n");
+	printf("################################################\n");
+	printf("#            Indiquez le numero client         #\n");
+	printf("#              que vous recherchez             #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s", numClient);
+	printf("\n");
+	fflush(stdin);
+	printf("####################################################\n");
+	rechercheVoyageur(r,numClient);
+	printf("####################################################\n");
+	int event = 1;
+	printf("\n");
+	printf("################################################\n");
+	printf("#           1- Recherche un autre client       #\n");
+	printf("#           2- RETOUR                          #\n");
+	printf("################################################\n");
+	printf("\n");
+	while(event != -1){	
+		choix = lireLong();
+		switch (choix) {
+			case 1:
+				menuRechercheControleur(r);
+				event = -1;
+				break;
+			case 2:
+				event = -1;
+				break;
+			default :
+				afficheErreurMenu();
+				break;
+		}
+	}
 	return 0;
 }
 
@@ -699,6 +741,7 @@ int menuModification(int index, int n){
 	if(index==1){
 		printf("############################################\n");
 		printf("#veuillez saisir votre nouveau mot de passe#\n");
+		printf("#           19 caracteres maximum          #\n");
 		printf("############################################\n");
 		printf("\n");
 		lire(new,20,stdin);
@@ -707,6 +750,7 @@ int menuModification(int index, int n){
 	else if(index==2){
 		printf("############################################\n");
 		printf("#      veuillez saisir votre prenom        #\n");
+		printf("#           19 caracteres maximum          #\n");		
 		printf("############################################\n");
 		printf("\n");
 		lire(new,20,stdin);
@@ -715,6 +759,7 @@ int menuModification(int index, int n){
 	else if(index==3){
 		printf("############################################\n");
 		printf("#       veuillez saisir votre nom          #\n");
+		printf("#           19 caracteres maximum          #\n");	
 		printf("############################################\n");
 		printf("\n");
 		lire(new,20,stdin);
@@ -752,9 +797,11 @@ int menuModification(int index, int n){
 	printf("\n");	
 	return 0;
 }
+
+
 //######### MENUS DE LA PARTIE CLIENT ##############
-int menuClient(){
-int event = 1 ;
+int menuClient( Reseau r){
+	int event = 1 ;
 	long choixMenu;
 	while(event != -1){
 		afficheMenuClient();
@@ -763,10 +810,10 @@ int event = 1 ;
 		switch(choixMenu)
 		{
 			case 1:
-				menuRechercheEtChoix();
+				menuRechercheEtChoix(r);
 				break;
 			case 2:
-				menuReservationEtModification();
+				menuReservationEtModification(r);
 				break;
 			case 3:
 				event = -1;
@@ -781,10 +828,10 @@ int event = 1 ;
 	return 0;
 }
 
-int menuRechercheEtChoix(){
+int menuRechercheEtChoix(Reseau r){
 	return 0;
 }
 
-int menuReservationEtModification(){
+int menuReservationEtModification(Reseau r){
 	return 0;
 }

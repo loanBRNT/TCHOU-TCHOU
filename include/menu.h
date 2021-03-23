@@ -10,6 +10,8 @@ void afficheMenuClient();
 void afficheErreurMenu();
 void afficheMessageQuitter();
 
+
+
 //fonctions des menus de la partie administrateur
 // pre-menu administrateur verifie si la personne a accès au menu administrateur
 int menuAdminVerification(Reseau r);
@@ -30,25 +32,34 @@ int menuSupTrajet(Reseau r);
 int menuChoixModification(int);
 int menuModification(int, int);
 
+
+
+
+
 //fonctions des menus de la partie controleur
 // pre-menu controleur verifie si la personne a accès au menu controleur
-int menuControleurVerification();
+int menuControleurVerification(Reseau);
 // interface du menu Controleur
-int menuControleur(int);
+int menuControleur(int,Reseau);
 /* interface des 2 menus accessibles depuis le menu controleur
 menuRechercheControleur est l'interface pour la recherche du trajet d'un voyageur avec son numero d'identification
 menuAdministrationControleur() est l'interface du menu de gestion des donnees personelle du controleur
 */
-int menuRechercheControleur();
+int menuRechercheControleur(Reseau);
 //fonctions des menus de la partie client
+
+
+
+
+
 //interface du menu voyageurs
-int menuClient();
+int menuClient(Reseau);
 /*interface des 2 menus accessibles depuis le menu client
  menuRechercheEtChoix interface du menu de recherche et de choix de trajet
   menuReservationEtModification interface du menu de reservation et de modification de son trajet.
 */
-int menuRechercheEtChoix();
-int menuReservationEtModification();
+int menuRechercheEtChoix(Reseau);
+int menuReservationEtModification(Reseau);
 
 
 

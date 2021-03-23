@@ -59,10 +59,10 @@ int main(int argc, char const *argv[])
 				menuAdminVerification(reseau);
 				break;
 			case 2:
-				menuControleurVerification();
+				menuControleurVerification(reseau);
 				break;
 			case 3:
-				menuClient();
+				menuClient(reseau);
 				break;
 			case 4:
 				afficheMessageQuitter();
