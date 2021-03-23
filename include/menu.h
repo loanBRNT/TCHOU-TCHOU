@@ -59,7 +59,8 @@ int menuClient(Reseau);
   menuReservationEtModification interface du menu de reservation et de modification de son trajet.
 */
 int menuRechercheEtChoix(Reseau);
-int menuReservationEtModification(Reseau);
+int menuReservation(Reseau);
+int menuModificationVoyage(Reseau);
 
 
 

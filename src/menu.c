@@ -68,11 +68,13 @@ void afficheMenuClient(){
 	printf("#                                         #\n");
 	printf("#       Bienvenue sur le menu CLIENT      #\n");
 	printf("#                                         #\n");
-	printf("#          1:RECHERCHE ET CHOIX           #\n");
+	printf("#             1: RECHERCHE                #\n");
 	printf("#                                         #\n");
-	printf("#      2: RESERVATION ET MODIFICATION     #\n");
+	printf("#             2: RESERVATION              #\n");
 	printf("#                                         #\n");
-	printf("#        3: RETOUR MENU PRINCIPAL         #\n");
+	printf("#             3: MODIFICATION             #\n");
+	printf("#                                         #\n");
+	printf("#        4: RETOUR MENU PRINCIPAL         #\n");
 	printf("#                                         #\n");
 	printf("#           choisissez un menu            #\n");
 	printf("#                                         #\n");
@@ -813,9 +815,12 @@ int menuClient( Reseau r){
 				menuRechercheEtChoix(r);
 				break;
 			case 2:
-				menuReservationEtModification(r);
+				menuReservation(r);
 				break;
 			case 3:
+				menuModificationVoyage(r);
+				break;				
+			case 4:
 				event = -1;
 				break;
 			default:
@@ -829,9 +834,178 @@ int menuClient( Reseau r){
 }
 
 int menuRechercheEtChoix(Reseau r){
+	char nomDep[30] = {0};
+	char nomArv[30] = {0};
+	printf("\n");
+	printf("################################################\n");
+	printf("#            Voici la liste des Gares          #\n");
+	printf("################################################\n");
+	printf("\n");
+	Gare g = gareHead(r);
+	for (int i=0; i<tailleReseau(r); i++){
+		printf("%s | ",nomDeGare(g));
+		g=gareNext(g);
+	}
+	printf("\n\n");
+	printf("################################################\n");
+	printf("#      Tapez le nom de la Gare de Depart       #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s",nomDep);
+	printf("\n");
+	fflush(stdin);
+	g = rechercheGare(r, nomDep);
+	if (g == NULL){
+		printf("\n");
+		printf("################################################\n");
+		printf("#             La Gare n'existe pas !           #\n");
+		printf("################################################\n");
+		printf("\n");
+		return 1;
+	}
+	printf("################################################\n");
+	printf("#      Tapez le nom de la Gare d'Arrivee       #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s",nomArv);
+	printf("\n");
+	fflush(stdin);
+	Gare g2 = rechercheGare(r, nomArv);
+	if (g2 == NULL){
+		printf("\n");
+		printf("################################################\n");
+		printf("#             La Gare n'existe pas !           #\n");
+		printf("################################################\n");
+		printf("\n");
+		return 1;
+	}	
+	Itineraire itineraireVoyageur = creerItineraireVide();
+	itineraireVoyageur = rechercheItineraire(r, g, g2);
+	printf("####################################################\n");
+	affichageVoyage(r, itineraireVoyageur);
+	printf("####################################################\n");
+	free(itineraireVoyageur);
+	int event = 1;
+	long choix;
+	printf("\n");
+	printf("################################################\n");
+	printf("#           1- Recherche un autre Voyage       #\n");
+	printf("#           2- RETOUR                          #\n");
+	printf("################################################\n");
+	printf("\n");
+	while(event != -1){	
+		choix = lireLong();
+		switch (choix) {
+			case 1:
+				menuRechercheEtChoix(r);
+				event = -1;
+				break;
+			case 2:
+				event = -1;
+				break;
+			default :
+				afficheErreurMenu();
+				break;
+		}
+	}
 	return 0;
 }
 
-int menuReservationEtModification(Reseau r){
+int menuReservation(Reseau r){
+	char nomDep[30] = {0};
+	char nomArv[30] = {0};
+	printf("\n");
+	printf("################################################\n");
+	printf("#            Voici la liste des Gares          #\n");
+	printf("################################################\n");
+	printf("\n");
+	Gare g = gareHead(r);
+	for (int i=0; i<tailleReseau(r); i++){
+		printf("%s | ",nomDeGare(g));
+		g=gareNext(g);
+	}
+	printf("\n\n");
+	printf("################################################\n");
+	printf("#      Tapez le nom de la Gare de Depart       #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s",nomDep);
+	printf("\n");
+	fflush(stdin);
+	g = rechercheGare(r, nomDep);
+	if (g == NULL){
+		printf("\n");
+		printf("################################################\n");
+		printf("#             La Gare n'existe pas !           #\n");
+		printf("################################################\n");
+		printf("\n");
+		return 1;
+	}
+	printf("################################################\n");
+	printf("#      Tapez le nom de la Gare d'Arrivee       #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s",nomArv);
+	fflush(stdin);
+	Gare g2 = rechercheGare(r, nomArv);
+	if (g2 == NULL){
+		printf("\n");
+		printf("################################################\n");
+		printf("#             La Gare n'existe pas !           #\n");
+		printf("################################################\n");
+		printf("\n");
+		return 1;
+	}	
+	Voyageur utilisateur;
+	Itineraire itineraireVoyageur = creerItineraireVide();
+	itineraireVoyageur = rechercheItineraire(r, g, g2);
+	utilisateur = creerVoyageur( r, itineraireVoyageur);
+	printf("\n");
+	printf("Voici votre identifant voyageur : %s\n",  idVoyageur(utilisateur) );	
+	return 0;
+}
+
+int menuModificationVoyage(Reseau r){
+	long choix;
+	char numClient[10];
+	printf("\n");
+	printf("################################################\n");
+	printf("#          Indiquez votre numero client        #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s", numClient);
+	printf("\n");
+	fflush(stdin);
+	printf("####################################################\n");
+	printf("#                Voici votre trajet                #\n");
+	printf("####################################################\n");
+	int valeur;
+	valeur = rechercheVoyageur(r,numClient);
+	if(valeur==1){
+		return 1;
+	}
+	printf("####################################################\n");
+	int event = 1;
+	printf("\n");
+	printf("################################################\n");
+	printf("#                 1- Modifier                  #\n");
+	printf("#                 2- RETOUR                    #\n");
+	printf("################################################\n");
+	printf("\n");
+	while(event != -1){	
+		choix = lireLong();
+		switch (choix) {
+			case 1:
+			// inserer fonction modification resa quand fini
+				event = -1;
+				break;
+			case 2:
+				event = -1;
+				break;
+			default :
+				afficheErreurMenu();
+				break;
+		}
+	}
 	return 0;
 }

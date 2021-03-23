@@ -156,7 +156,7 @@ int sauvVoyageur(Train t, FILE* fichierVoyageur){
 }
 
 
-void rechercheVoyageur(Reseau r, char* idRecherche){
+int rechercheVoyageur(Reseau r, char* idRecherche){
 	Train t = headTrainReseau(r);
 	Voyageur v;
 	Voyageur listeV[20];
@@ -184,12 +184,14 @@ void rechercheVoyageur(Reseau r, char* idRecherche){
 	}
 	if (nb == 0) {
 		printf(" ERROR : PAS DE VOYAGEUR AVEC LE NUM %s \n",idRecherche);
+		return 1;
 	} else {
 		printf(" LE VOYAGEUR %s %s AU NUMERO %s : \n", listeV[0]->prenom, listeV[0]->nom, idRecherche );
 		for (int i = 0; i < nb; ++i) {
 			printf(" Prend le train %s, il sera assis \n a la place numero %s de %s a %s  \n",
 				idTrain(listeT[i]), listeP[i]->numPlace, nomDeGare(gareDepItineraire(listeV[i]->voyage)), nomDeGare(gareArvItineraire(listeV[i]->voyage)) );
 		}
+		return 0;
 	}
 }
 
@@ -314,6 +316,7 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 	printf("################################################\n");
 	printf("\n");
 	scanf("%s",v->prenom);
+	printf("\n");
 	fflush(stdin);
 	Trajet tr;
 	Train t, tSauv;

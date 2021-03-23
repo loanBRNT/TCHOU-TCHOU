@@ -2,9 +2,9 @@
 
 
 - EXPORTATION EN JSON (Eliott)
-- Mettre en place La recherche d'un trajet pour le client (ELIOTT)
-- Mettre en place la réservation d'un trajet
+- Mettre en place la réservation d'un trajet 
 - Modification dun trajet (LOAN)
+-controleur afficher coordonnes avant choix de modification ( ELIOTT)
 
 
 EN PLUS :
@@ -22,7 +22,7 @@ AMELIORATION
 - Mettre en place un choix par liste et non par entree d'util
 - Pouvoir proposer plusieurs trajets au choix 
 - menu admin rajouter choix voir occupation train (affiche voyageur.txt)
-- Musique de fond
+- Musique de fond (eliott)
 
 
 CONTRAINTES ACTUEL
