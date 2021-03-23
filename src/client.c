@@ -61,8 +61,3 @@ Train rechercheTrain(Reseau r,Gare gDepTr, Trajet tr){
 	}
 	return tSauv;
 }
-
-int reservation(Reseau r, Itineraire it){
-	creerVoyageur(r, it);
-}
-

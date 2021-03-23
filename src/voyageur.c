@@ -156,18 +156,27 @@ int sauvVoyageur(Train t, FILE* fichierVoyageur){
 }
 
 
-Voyageur rechercheVoyageur(Reseau r, char* idRecherche){
+void rechercheVoyageur(Reseau r, char* idRecherche){
 	Train t = headTrainReseau(r);
-	Voyageur v, vSauv = NULL;
+	Voyageur v;
+	Voyageur listeV[20];
+	Train listeT[20];
+	Place listeP[20];
+	int nb = 0;
 	Place p;
 	for (int i = 0; i < nbTrainReseau(r); ++i) {
 		for (int j = 0; j < 10; ++j) {
 			p = placeDuTrain(t, j);
 			if ( p->nbVoyageur > 0) {
 				v = p->head;
-				for (int k = 0; k < p->nbVoyageur+1; ++k) {
+				for (int k = 0; k < p->nbVoyageur; ++k) {
 					if (!strcmp(v->id, idRecherche)){
-						vSauv = v;
+						printf("OK trouve\n");
+						listeV[nb]=v;
+						listeT[nb]=t;
+						listeP[nb]=p;
+						printf("%s\n");
+						nb++;
 					}
 					v = v->next;
 				}
@@ -175,7 +184,15 @@ Voyageur rechercheVoyageur(Reseau r, char* idRecherche){
 		}
 		t = trainNext(t);
 	}
-	return vSauv;
+	if (nb == 0) {
+		printf("ERROR : PAS DE VOYAGEUR AVEC LE NUM %s\n",idRecherche);
+	} else {
+		printf("LE VOYAGEUR %s %s AU NUMERO %s :\n", listeV[0]->prenom, listeV[0]->nom, idRecherche );
+		for (int i = 0; i < nb; ++i) {
+			printf("Prend le train %s, il sera assis a la place numero %s de %s a %s \n",
+				idTrain(listeT[i]), listeP[i]->numPlace, nomDeGare(gareDepItineraire(listeV[i]->voyage)), nomDeGare(gareArvItineraire(listeV[i]->voyage)) );
+		}
+	}
 }
 
 Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire it){

@@ -2,12 +2,10 @@
 
 
 - EXPORTATION EN JSON (Eliott)
-- Rechercher un voyageur via son id (LOAN)
+- Mettre en place la recherche d'un voyageur par les coord (ELIOTT)
 - Mettre en place La recherche d'un trajet pour le client (ELIOTT)
-- Reservation d'un trajet (LOAN)
+- Mettre en place la réservation d'un trajet
 - Modification dun trajet (LOAN)
-
---> Creer fichier voyageur et mettre dans place des fragments de voyage
 
 
 EN PLUS :
