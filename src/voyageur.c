@@ -171,11 +171,9 @@ void rechercheVoyageur(Reseau r, char* idRecherche){
 				v = p->head;
 				for (int k = 0; k < p->nbVoyageur; ++k) {
 					if (!strcmp(v->id, idRecherche)){
-						printf("OK trouve\n");
 						listeV[nb]=v;
 						listeT[nb]=t;
 						listeP[nb]=p;
-						printf("%s\n");
 						nb++;
 					}
 					v = v->next;
@@ -194,6 +192,36 @@ void rechercheVoyageur(Reseau r, char* idRecherche){
 		}
 	}
 }
+
+void suppVoyageur(Reseau r, char* idRecherche){
+	Train t = headTrainReseau(r);
+	Voyageur v, vSauv;
+	Place p;
+	for (int i = 0; i < nbTrainReseau(r); ++i) {
+		for (int j = 0; j < 10; ++j) {
+			p = placeDuTrain(t, j);
+			if ( p->nbVoyageur > 0) {
+				v = p->head;
+				vSauv = v;
+				for (int k = 0; k < p->nbVoyageur; ++k) {
+					if (!strcmp(v->id, idRecherche)){
+						if ( k == 0){
+							p->head = p->head->next;
+						} else {
+							vSauv->next = v->next;
+						}
+						p->nbVoyageur--;
+						free(v);
+					}
+					v = vSauv;
+					v = v->next;
+				}
+			}
+		}
+		t = trainNext(t);
+	}	
+}
+
 
 Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire it){
 	Place pDef = placeDuTrain(t, 0);
@@ -270,7 +298,6 @@ Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire i
 	v->voyage = itPourPlace;
 	return v;
 }
-
 
 Voyageur creerVoyageur(Reseau r, Itineraire it){
 	Voyageur v = (Voyageur) malloc(sizeof(struct s_voyageur));

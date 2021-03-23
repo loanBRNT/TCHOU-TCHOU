@@ -41,6 +41,8 @@ int main(int argc, char const *argv[])
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
 	rechercheVoyageur(reseau, "A001");
+	suppVoyageur(reseau, "A001");
+
 
 	/* lance l'affichage du menu principale
 	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
