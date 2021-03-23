@@ -20,7 +20,7 @@
     Commande de compilation avec gcc :
     gcc src/* -o prog -I include -L lib -lmingw32
 */ 
-
+/*
 void testReseau(Reseau reseau){
 	Gare pt = gareHead(reseau);
 	Trajet tr;
@@ -35,13 +35,14 @@ void testReseau(Reseau reseau){
 		printf("\n");
 	}
 }
+*/
 
 
 int main(int argc, char const *argv[])
 {
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
-	
+
 	/* lance l'affichage du menu principale
 	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
 	  si le numero n'est pas bon on redemande un numero de menu
@@ -59,10 +60,10 @@ int main(int argc, char const *argv[])
 				menuAdminVerification(reseau);
 				break;
 			case 2:
-				menuControleurVerification();
+				menuControleurVerification(reseau);
 				break;
 			case 3:
-				menuClient();
+				menuClient(reseau);
 				break;
 			case 4:
 				afficheMessageQuitter();
