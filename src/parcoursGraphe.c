@@ -227,6 +227,7 @@ int ajouteTrajetItineraire(Itineraire it, Gare g, Trajet tr){
 	it->arrive = gareArvDuTrajet(tr);
 	it->liste[it->nbEtape] = tr;
 	it->nbEtape++;
+	it->temps = it->temps + tempsDuTrajet(tr);
 	return 0;
 }
 

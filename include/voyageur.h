@@ -14,10 +14,10 @@ int sauvVoyageur(Train, FILE*);
 
 Voyageur rechercheVoyageur(Reseau , char* );
 
+Voyageur creerVoyageur(Reseau, Itineraire);
 
-Voyageur creerVoyageur(char* nom, char* prenom, char* identifiant, Itineraire it);
+void tirerNumVoyageur(Reseau r, Voyageur v);
 
-
-
+Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire it);
 
 #endif

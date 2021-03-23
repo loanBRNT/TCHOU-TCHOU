@@ -8,6 +8,7 @@
 #include "reseauAccesseur.h"
 #include "itineraireAccesseur.h"
 #include "trainVoyageurAccesseur.h"
+#include "client.h"
 
 struct s_voyageur {
 	char id[5]; //le num d'identification
@@ -129,23 +130,29 @@ int sauvVoyageur(Train t, FILE* fichierVoyageur){
 	{
 		p = placeDuTrain(t, i);
 		fprintf(fichierVoyageur, "%c%c%c%c",p->numPlace[0],p->numPlace[1],p->numPlace[2],p->numPlace[3]);
+		printf( "%c%c%c%c",p->numPlace[0],p->numPlace[1],p->numPlace[2],p->numPlace[3]);
 		v = p->head;
 		while (p->nbVoyageur > 0){
 			fprintf(fichierVoyageur, "/%s:%s:%c%c%c%c:",v->nom, v->prenom, v->id[0], v->id[1], v->id[2], v->id[3]);
+			printf("/%s:%s:%c%c%c%c:",v->nom, v->prenom, v->id[0], v->id[1], v->id[2], v->id[3]);
 			g = gareDepItineraire(v->voyage);
 			for (int i = 0; i < nbEtapeItineraire(v->voyage); ++i)
 			{
 				tr = listeTrajetItineraire(v->voyage, i);
 				fprintf(fichierVoyageur, "%s-%s:",nomDeGare(g),nomDeGare(gareArvDuTrajet(tr)));
+				printf( "%s-%s:",nomDeGare(g),nomDeGare(gareArvDuTrajet(tr)));
 				g = gareArvDuTrajet(tr);
 			}
 			fprintf(fichierVoyageur, "/");
+			printf("/");
 			p->nbVoyageur--;
 			v = v->next;
 		}
 		fprintf(fichierVoyageur, "\n");
+		printf("\n");
 	}
 	fprintf(fichierVoyageur, "\n");
+	printf("\n");
 }
 
 
@@ -171,16 +178,170 @@ Voyageur rechercheVoyageur(Reseau r, char* idRecherche){
 	return vSauv;
 }
 
-
-Voyageur creerVoyageur(char* nom, char* prenom, char* identifiant, Itineraire it){
+Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire it){
+	Place pDef = placeDuTrain(t, 0);
+	Trajet trTest, trVoy;
+	Gare gDepTest, gDepVoy;
+	Voyageur vTest;
+	Itineraire voyageTest;
+	int commun, trouve = 0;
+	int j = 0;
+	for (int l = 0; l < 10; ++l) {
+		Place p = placeDuTrain(t, l);
+		if (p->nbVoyageur == 0){
+			if (trouve == 0){
+				pDef = p;
+			}
+		} else {
+			vTest = p->head;
+			commun = 0;
+			for (int k = 0; k < p->nbVoyageur; ++k)
+			 {
+			 	voyageTest = vTest->voyage;
+				gDepTest = gareDepItineraire(voyageTest);
+				for (int i = 0; i < nbEtapeItineraire(voyageTest); ++i) {
+					j=0;
+					gDepVoy = gDep;
+					trTest = listeTrajetItineraire(voyageTest, i);
+					printf("VOYAGEUR SUR LA PLACE %s : %s-%s\n",vTest->id, nomDeGare(gDepTest), nomDeGare(gareArvDuTrajet(trTest)));
+					while (strcmp(nomDeGare(gDepVoy),nomDeGare(gLim)))	{
+						trVoy = listeTrajetItineraire(it, j);
+						printf("VOYAGEUR A METTRE : %s-%s\n",nomDeGare(gDepVoy), nomDeGare(gareArvDuTrajet(trVoy)));
+						if (!strcmp(nomDeGare(gareArvDuTrajet(trTest)), nomDeGare(gareArvDuTrajet(trVoy)))){
+							if (!strcmp(nomDeGare(gDepTest),nomDeGare(gDepVoy))){
+								commun = 1;
+							}
+						}
+						j++;
+						gDepVoy = gareArvDuTrajet(trVoy);
+					}
+					gDepTest = gareArvDuTrajet(trTest);
+				}
+				vTest = vTest -> next;
+			}
+			if (commun == 0) {
+				printf("Yo : %s\n", p->numPlace);
+				trouve = 1;
+				pDef = p;
+			}	
+		}
+	}
+	printf("La place choisit est : %s\n",pDef->numPlace );
 	Voyageur v = (Voyageur) malloc(sizeof(struct s_voyageur));
-		// pas finit
-
-
-
+	Itineraire itPourPlace = creerItineraireVide();
+	Gare g = gareDepItineraire(it);
+	j=0;
+	while (strcmp(nomDeGare(gDep),nomDeGare(g))){
+		trVoy = listeTrajetItineraire(it, j);
+		j++;
+		g = gareArvDuTrajet(trVoy);
+	}
+	while (strcmp(nomDeGare(gDep),nomDeGare(gLim))){
+		trVoy = listeTrajetItineraire(it, j);
+		ajouteTrajetItineraire(itPourPlace, gDep, trVoy);
+		j++;
+		gDep = gareArvDuTrajet(trVoy);
+	}
+	if (pDef->nbVoyageur == 0){
+		pDef->head = v;
+	} else {
+		pDef->tail->next = v;
+		pDef->tail = v;
+	}
+	v->next = NULL;
+	pDef->nbVoyageur++;
+	v->voyage = itPourPlace;
 	return v;
 }
 
+
+Voyageur creerVoyageur(Reseau r, Itineraire it){
+	Voyageur v = (Voyageur) malloc(sizeof(struct s_voyageur));
+	printf("\n\n");
+	printf("################################################\n");
+	printf("#               Indiquez votre Nom             #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s",v->nom);
+	fflush(stdin);
+	printf("\n\n");
+	printf("################################################\n");
+	printf("#             Indiquez votre Prenom            #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s",v->prenom);
+	fflush(stdin);
+	Trajet tr;
+	Train t, tSauv;
+	Gare g = gareDepItineraire(it);
+	Train listeT[20]; //contrainte max 20 trains differents
+	Gare listeG[20];
+	int cpt=1;
+	for (int i = 0; i < nbEtapeItineraire(it); ++i)
+	{
+		tr = listeTrajetItineraire(it, i);
+		t = rechercheTrain(r,g, tr);
+		if (i == 0 ) {
+			listeT[0]=t;
+		} else if (strcmp(idTrain(t),idTrain(tSauv))) {
+			listeT[cpt] = t;
+			listeG[cpt-1] = g;
+			cpt++;
+		}
+		g = gareArvDuTrajet(tr);
+		tSauv = t ;
+	}
+	listeG[cpt-1]=g;
+	g = gareDepItineraire(it);
+	tirerNumVoyageur(r, v);
+	for (int i = 0; i < cpt; ++i){
+		printf("%d/%d\n",i,cpt );
+		printf("On va chercher une place pour l'itineraire allant de %s a %s avec le train %s \n",nomDeGare(g), nomDeGare(listeG[i]), idTrain(listeT[i]));
+		Voyageur vNouv = mettreSurUnePlace(r, listeT[i], listeG[i], g, it);
+		for (int j = 0; j < strlen(v->nom); ++j)
+		{
+			vNouv->nom[j] = v->nom[j];
+		}
+		for (int j = 0; j < strlen(v->prenom); ++j)
+		{
+			vNouv->prenom[j] = v->prenom[j];
+		}
+		for (int j = 0; j < strlen(v->id); ++j)
+		{
+			vNouv->id[j] = v->id[j];
+		}
+		g = listeG[i];
+	}
+	return v;
+}
+
+
+void tirerNumVoyageur(Reseau r, Voyageur v){
+	Train t = headTrainReseau(r);
+	Place p;
+	int nbVoyageur = 0;
+	for (int i = 0; i < nbTrainReseau(r); ++i) {
+		for (int j = 0; j < 10; ++j) {
+			nbVoyageur = nbVoyageur + nbVoyageurSurLaPlace(placeDuTrain(t,j));
+		}
+		t = trainNext(t);
+	}
+	nbVoyageur++;
+	itoa(nbVoyageur, v->id, 10);
+	v->id[4]='\0';
+	for (int i = strlen(v->id); i < 4; ++i) {
+		v->id[3]=v->id[2];
+		v->id[2]=v->id[1];
+		v->id[1]=v->id[0];
+		v->id[0]='0';
+	}
+	int cpt = 0;
+	do {
+		nbVoyageur = nbVoyageur - 1000;
+		cpt++;
+	} while (nbVoyageur > 0);
+	v->id[0]=64 + cpt; //utilisation du code ascii
+}
 
 
 // ACCESSEUR #####################################

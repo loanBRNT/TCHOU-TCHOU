@@ -94,6 +94,7 @@ int sauvTrain(Reseau r, FILE* fichierTrain, FILE* fichierVoyageur){
 			g = gareArvDuTrajet(tr);
 		}
 		fprintf(fichierTrain, "\n");
+		printf("CHECKPOINT\n");
 		sauvVoyageur(t, fichierVoyageur);
 		tSauv = t->next;
 		free(t);
