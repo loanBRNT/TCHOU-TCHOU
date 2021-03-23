@@ -252,8 +252,9 @@ Reseau initReseau(){
 	FILE* fichierTrain = NULL;
 	FILE* fichierVoyageur = NULL;
 	fichierTrain = fopen("sauv/train.txt", "r");
-	fichierVoyageur = fopen("sauv/voyageur.txt", "r");
-	if (fichierTrain == NULL || fichierVoyageur == NULL) {
+	fichierPlace = fopen("sauv/place.txt", "r");
+	fichierVoyageur = fopen("sauv/voyageur.txt");
+	if (fichierTrain == NULL || fichierPlace == NULL) {
 		printf("ERROR 1 : PROBLEME OUVERTURE FICHIER TRAIN ou VOYAGE\n");
 	}
 	//on compte le nombre de train
@@ -270,14 +271,14 @@ Reseau initReseau(){
 	ensembleGare->tailTrain = NULL;
 	Train t;
 	for (int i=0; i < nbTrain ; i++) {
-		t = initTrain(ensembleGare, fichierTrain, fichierVoyageur);
+		t = initTrain(ensembleGare, fichierTrain, fichierPlace, fichierVoyageur);
 		if ( i == 0){
 			ensembleGare->headTrain = t;
 		}
 		ensembleGare->tailTrain = t;
 	}
 	fclose(fichierTrain);
-	fclose(fichierVoyageur);
+	fclose(fichierPlace);
 	return ensembleGare;
 }
 
@@ -288,7 +289,8 @@ Reseau sauvReseau(Reseau ensembleGare){
 	FILE* fichierReseau = fopen("sauv/reseau.txt","w+");
 	FILE* fichierTrajet = fopen("sauv/trajet.txt","w+");
 	FILE* fichierTrain = fopen("sauv/train.txt", "w+");
-	FILE* fichierVoyageur = fopen("sauv/voyageur.txt", "w+");
+	FILE* fichierPlace = fopen("sauv/place.txt", "w+");
+	FILE* fichierVoyageur = fopen("sauv/voyager.txt");
 	if (fichierReseau == NULL) {
 		printf("Error 1 : PROBLEME OUVERTURE FICHIER RESEAU\n");
 		return ensembleGare;
@@ -301,8 +303,8 @@ Reseau sauvReseau(Reseau ensembleGare){
 		printf("Error 1 : PROBLEME OUVERTURE FICHIER TRAIN\n");
 		return ensembleGare;
 	}
-	if (fichierVoyageur == NULL) {
-		printf("Error 1 : PROBLEME OUVERTURE FICHIER Voyageur\n");
+	if (fichierPlace == NULL) {
+		printf("Error 1 : PROBLEME OUVERTURE FICHIER Place\n");
 		return ensembleGare;
 	}
 	//ecriture dans le fichier reseau.txt (sauvegarde des noms de gare et de l'ordre)
@@ -319,11 +321,12 @@ Reseau sauvReseau(Reseau ensembleGare){
 		gA=gA->next;
 	}
 	// Sauvegarde des trains
-	sauvTrain(ensembleGare, fichierTrain, fichierVoyageur);
+	sauvTrain(ensembleGare, fichierTrain, fichierPlace, fichierVoyageur);
 
 	fclose(fichierTrajet);
 	fclose(fichierReseau);
 	fclose(fichierTrain);
+	fclose(fichierPlace);
 	fclose(fichierVoyageur);
 	return ensembleGare;
 }

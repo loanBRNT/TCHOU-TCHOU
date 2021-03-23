@@ -1,4 +1,4 @@
-BERNAT:LOAN:A001:[A101]:Brive-Montauban:Montauban-Toulouse:[A201]Toulouse-Narbonne:/
-GAUDILLAT:ELIOT:A002:[A106]Montauban-Toulouse:/
-PARDO-PARGA:PAULINE:A003:[A106]Limoges-Brive:Brive-Montauban:/
-MACRON:EMMANUEL:A004:[A302]Paris-Lyon:Lyon-Marseille:/
+A001:BERNAT:LOAN:[A101]:Brive-Montauban:Montauban-Toulouse:[A201]:Toulouse-Narbonne:/
+A002:GAUDILLAT:ELIOT:[A106]:Montauban-Toulouse:/
+A003:PARDO-PARGA:PAULINE:[A106]:Limoges-Brive:Brive-Montauban:/
+A004:MACRON:EMMANUEL:[A302]:Paris-Lyon:Lyon-Marseille:/

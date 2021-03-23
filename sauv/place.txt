@@ -1,15 +1,15 @@
-A101/A001:Brive-Montauban:Montauban-Toulouse:/
+A101/A001
 A102
 A103
 A104
 A105
-A106/A002:Montauban-Toulouse:/A003:Limoges-Brive:Brive-Montauban:/
+A106/A002/A003
 A107
 A108
 A109
 A110
 
-A201/A001:Toulouse-Narbonne:/
+A201/A001
 A202
 A203
 A204
@@ -21,7 +21,7 @@ A209
 A210
 
 A301
-A302/A004:Paris-Lyon:Lyon-Marseille:/
+A302/A004
 A303
 A304
 A305
