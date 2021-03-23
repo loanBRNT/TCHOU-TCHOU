@@ -183,11 +183,11 @@ void rechercheVoyageur(Reseau r, char* idRecherche){
 		t = trainNext(t);
 	}
 	if (nb == 0) {
-		printf("ERROR : PAS DE VOYAGEUR AVEC LE NUM %s\n",idRecherche);
+		printf(" ERROR : PAS DE VOYAGEUR AVEC LE NUM %s \n",idRecherche);
 	} else {
-		printf("LE VOYAGEUR %s %s AU NUMERO %s :\n", listeV[0]->prenom, listeV[0]->nom, idRecherche );
+		printf(" LE VOYAGEUR %s %s AU NUMERO %s : \n", listeV[0]->prenom, listeV[0]->nom, idRecherche );
 		for (int i = 0; i < nb; ++i) {
-			printf("Prend le train %s, il sera assis a la place numero %s de %s a %s \n",
+			printf(" Prend le train %s, il sera assis \n a la place numero %s de %s a %s  \n",
 				idTrain(listeT[i]), listeP[i]->numPlace, nomDeGare(gareDepItineraire(listeV[i]->voyage)), nomDeGare(gareArvItineraire(listeV[i]->voyage)) );
 		}
 	}

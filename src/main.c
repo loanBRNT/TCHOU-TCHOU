@@ -20,7 +20,7 @@
     Commande de compilation avec gcc :
     gcc src/* -o prog -I include -L lib -lmingw32
 */ 
-
+/*
 void testReseau(Reseau reseau){
 	Gare pt = gareHead(reseau);
 	Trajet tr;
@@ -35,12 +35,14 @@ void testReseau(Reseau reseau){
 		printf("\n");
 	}
 }
+*/
 
 
 int main(int argc, char const *argv[])
 {
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
+<<<<<<< HEAD
 	/*ajouterTrain(reseau);
 	Train t = headTrainReseau(reseau);
 	for (int i = 0; i< nbTrainReseau(reseau) ; i++){
@@ -48,6 +50,8 @@ int main(int argc, char const *argv[])
 		printf("%s\n",idTrain(t));
 		t = trainNext(t);
 	}*/
+=======
+>>>>>>> menuvoy
 
 	/* lance l'affichage du menu principale
 	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
@@ -66,10 +70,10 @@ int main(int argc, char const *argv[])
 				menuAdminVerification(reseau);
 				break;
 			case 2:
-				menuControleurVerification();
+				menuControleurVerification(reseau);
 				break;
 			case 3:
-				menuClient();
+				menuClient(reseau);
 				break;
 			case 4:
 				afficheMessageQuitter();
