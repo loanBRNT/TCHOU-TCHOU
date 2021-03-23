@@ -103,6 +103,113 @@ int sauvTrain(Reseau r, FILE* fichierTrain, FILE* fichierVoyageur){
 	return 0;
 }
 
+
+Train ajouterTrain(Reseau r){
+	Train t = (Train) malloc(sizeof(struct s_train));
+	Itineraire it = creerItineraireVide();
+	int num = nbTrainReseau(r)+1;
+	int cpt = 0;
+	while (num > 9){
+		num = num - 10;
+		cpt++;
+	}
+	t->num[0]=65 + cpt;
+	t->num[1]=48 + num;
+	t->num[2]='\0';
+
+	cpt=1;
+	int i = 0;
+	char nomDep[30] = {0};
+	char nomArv[30] = {0};
+	printf("\n");
+	printf("################################################\n");
+	printf("#            Voici la liste des Gares          #\n");
+	printf("################################################\n");
+	printf("\n");
+	Gare g = gareHead(r);
+	Gare g2;
+	Trajet tr;
+	for (int i=0; i<tailleReseau(r); i++){
+		printf("%s | ",nomDeGare(g));
+		g=gareNext(g);
+	}
+	printf("\n\n");
+	printf("################################################\n");
+	printf("#      Tapez le nom de la Gare de Depart       #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s",nomDep);
+	fflush(stdin);
+	g = rechercheGare(r, nomDep);
+	if (g == NULL){
+		printf("\n");
+		printf("################################################\n");
+		printf("#             La Gare n'existe pas !           #\n");
+		printf("################################################\n");
+		printf("\n");
+		free(t);
+		return NULL;
+	}
+	while (cpt == 1){
+		printf("\n");
+		printf("################################################\n");
+		printf("#      Voici la liste des gares disponible     #\n");
+		printf("################################################\n");	
+		printf("\n");
+		tr = trajetHeadDeLaGare(g);
+		for (int i=0; i < nbTrajetDeLaGare(g) ; i++){
+			printf("%s-%s en %d minutes\n",nomDeGare(g), nomDeGare(gareArvDuTrajet(tr)), tempsDuTrajet(tr));
+			tr = trajetNext(tr);
+		}
+		printf("\n\n");
+		printf("################################################\n");
+		printf("#      Tapez le nom de la Gare Suivante        #\n");
+		printf("################################################\n");
+		printf("\n");
+		scanf("%s",nomArv);
+		fflush(stdin);
+		g2 = rechercheGare(r, nomArv);
+		tr = rechercheTrajet(g,g2);
+		if (tr != NULL ){
+			ajouteTrajetItineraire(it, g, tr);
+			g = g2;
+			i++;
+		} else {
+			printf("ERREUR : Trajet inexistant\n");
+		}
+		printf("################################################\n");
+		printf("#      Ajoutez un Trajet supplementaire ?      #\n");
+		printf("#              1- OUI                          #\n");
+		printf("#              2- NON                          #\n");
+		printf("################################################\n");
+		printf("\n");
+		scanf("%d",&cpt);
+	}
+	t->previous = tailTrainReseau(r);
+	tailTrainReseau(r)->next = t;
+	t->next = NULL;
+	AjouterTrainReseau(r,t);
+	return t;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //accesseur ###############################################
 
 Place placeDuTrain(Train t, int rang){

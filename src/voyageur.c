@@ -222,7 +222,6 @@ void suppVoyageur(Reseau r, char* idRecherche){
 	}	
 }
 
-
 Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire it){
 	Place pDef = placeDuTrain(t, 0);
 	Trajet trTest, trVoy;

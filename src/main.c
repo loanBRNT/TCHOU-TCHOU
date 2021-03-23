@@ -11,6 +11,7 @@
 #include "voyageur.h"
 #include "main.h"
 #include "client.h"
+#include "trainVoyageurAccesseur.h"
 
 #define EXIT_SUCESS 0
 #define EXIT_FAILURE 1
@@ -40,9 +41,13 @@ int main(int argc, char const *argv[])
 {
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
-	rechercheVoyageur(reseau, "A001");
-	suppVoyageur(reseau, "A001");
-
+	/*ajouterTrain(reseau);
+	Train t = headTrainReseau(reseau);
+	for (int i = 0; i< nbTrainReseau(reseau) ; i++){
+		printf("BOUCLE %d\n",i);
+		printf("%s\n",idTrain(t));
+		t = trainNext(t);
+	}*/
 
 	/* lance l'affichage du menu principale
 	  puis demande le numero du menu souhaite et lance la fonction de gestion du menu selectionne 
