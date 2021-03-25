@@ -12,13 +12,13 @@
 #include "main.h"
 #include "client.h"
 #include "trainVoyageurAccesseur.h"
-
+#include <SDL2/SDL_mixer.h>
 #define EXIT_SUCESS 0
 #define EXIT_FAILURE 1
 
 /* 
     Commande de compilation avec gcc :
-    gcc src/* -o prog -I include -L lib -lmingw32
+    gcc src/* -o prog -I include -L lib -lmingw32 -lSDL2 -lSDL2_mixer
 */ 
 /*
 void testReseau(Reseau reseau){
@@ -40,6 +40,18 @@ void testReseau(Reseau reseau){
 
 int main(int argc, char const *argv[])
 {
+
+	
+	 if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) //Initialisation de l'API Mixer
+   {
+      printf("%s", Mix_GetError());
+   }
+
+    Mix_CloseAudio(); //Fermeture de l'API
+
+
+
+
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
 	suppTrain(reseau, "A5");
