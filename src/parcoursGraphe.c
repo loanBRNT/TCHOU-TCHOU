@@ -187,7 +187,7 @@ Gare rechercheGare(Reseau r, char* nom){
 	// on parcourt toute les gares, et on regarde si l'une des gares correspond au char* passé en parametre
 	for (int i=0 ; i<tailleReseau(r);i++){
 		if (!strcmp(nomDeGare(act),nom)){
-			sauv = act;
+			return act;
 		}
 		act = gareNext(act);
 	}
@@ -229,6 +229,14 @@ int ajouteTrajetItineraire(Itineraire it, Gare g, Trajet tr){
 	it->nbEtape++;
 	it->temps = it->temps + tempsDuTrajet(tr);
 	return 0;
+}
+
+Itineraire changerArv(Itineraire it, int i){
+	it->nbEtape = i+1;
+	printf("%d\n",it->nbEtape );
+	printf("%s\n",nomDeGare(gareArvDuTrajet(it->liste[i])));
+	it->arrive = gareArvDuTrajet(it->liste[i]);
+	return it;
 }
 
 // ACCESSEUR ###################################
