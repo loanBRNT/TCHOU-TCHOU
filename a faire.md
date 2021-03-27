@@ -2,12 +2,9 @@
 
 
 - EXPORTATION EN JSON (Eliott)
-<<<<<<< HEAD
-=======
-- Mettre en place la réservation d'un trajet 
-- Modification dun trajet (LOAN)
--controleur afficher coordonnes avant choix de modification ( ELIOTT)
->>>>>>> menuvoy
+
+-> ERREUR : Le creer voyageur n'est pas reconnu directement en memoire
+-> ERREUR : La recherche de Trajet ne fonctionne pas apres un ajout de gare et de trajet : AJOUT DE TRAIN NOTIF
 
 
 EN PLUS :

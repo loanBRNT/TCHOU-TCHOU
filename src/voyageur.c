@@ -261,10 +261,8 @@ Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire i
 					j=0;
 					gDepVoy = gDep;
 					trTest = listeTrajetItineraire(voyageTest, i);
-					printf("VOYAGEUR SUR LA PLACE %s : %s-%s\n",vTest->id, nomDeGare(gDepTest), nomDeGare(gareArvDuTrajet(trTest)));
 					while (strcmp(nomDeGare(gDepVoy),nomDeGare(gLim)))	{
 						trVoy = listeTrajetItineraire(it, j);
-						printf("VOYAGEUR A METTRE : %s-%s\n",nomDeGare(gDepVoy), nomDeGare(gareArvDuTrajet(trVoy)));
 						if (!strcmp(nomDeGare(gareArvDuTrajet(trTest)), nomDeGare(gareArvDuTrajet(trVoy)))){
 							if (!strcmp(nomDeGare(gDepTest),nomDeGare(gDepVoy))){
 								commun = 1;
@@ -278,13 +276,11 @@ Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire i
 				vTest = vTest -> next;
 			}
 			if (commun == 0) {
-				printf("Yo : %s\n", p->numPlace);
 				trouve = 1;
 				pDef = p;
 			}	
 		}
 	}
-	printf("La place choisit est : %s\n",pDef->numPlace );
 	Voyageur v = (Voyageur) malloc(sizeof(struct s_voyageur));
 	Itineraire itPourPlace = creerItineraireVide();
 	Gare g = gareDepItineraire(it);
@@ -353,8 +349,6 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 	g = gareDepItineraire(it);
 	tirerNumVoyageur(r, v);
 	for (int i = 0; i < cpt; ++i){
-		printf("%d/%d\n",i,cpt );
-		printf("On va chercher une place pour l'itineraire allant de %s a %s avec le train %s \n",nomDeGare(g), nomDeGare(listeG[i]), idTrain(listeT[i]));
 		Voyageur vNouv = mettreSurUnePlace(r, listeT[i], listeG[i], g, it);
 		for (int j = 0; j < strlen(v->nom); ++j)
 		{
