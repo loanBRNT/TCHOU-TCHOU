@@ -2,9 +2,6 @@
 
 
 - EXPORTATION EN JSON (Eliott)
-- Mettre en place La recherche d'un trajet pour le client (ELIOTT)
-- Mettre en place la réservation d'un trajet (ELIOTT)
-- Modification dun trajet (LOAN)
 
 
 EN PLUS :

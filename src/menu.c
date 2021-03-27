@@ -198,7 +198,10 @@ int menuGestionTrajet(Reseau r){
 		printf("#       2- Suprimer une Gare                   #\n");
 		printf("#       3- Ajouter un trajet aller-retour      #\n");
 		printf("#       4- Suprimer un trajet aller-retour     #\n");
-		printf("#       5- RETOUR                              #\n");
+		printf("#       5- Ajouter un Train                    #\n");
+		printf("#       6- Supprimer un Train                  #\n");
+		printf("#       7- Modifier un Train                   #\n");
+		printf("#       8- RETOUR                              #\n");
 		printf("################################################\n");
 		printf("\n");
 		long choixMenu = lireLong();
@@ -216,6 +219,9 @@ int menuGestionTrajet(Reseau r){
 				menuSupTrajet(r);
 				break;
 			case 5:
+				menuSupTrajet(r);
+				break;
+			case 8:
 				event = -1 ;
 				break;
 			default:
@@ -224,6 +230,11 @@ int menuGestionTrajet(Reseau r){
 		}
 	}
 	printf("\n");
+	return 0;
+}
+
+int menuAjouterTrain(Reseau r){
+	ajouterTrain(r);
 	return 0;
 }
 
