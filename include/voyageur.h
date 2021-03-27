@@ -14,7 +14,7 @@ int sauvVoyageur(Train, FILE*);
 
 void suppVoyageur(Reseau r, char* idRecherche);
 
-void rechercheVoyageur(Reseau , char* );
+int rechercheVoyageur(Reseau , char* );
 
 Voyageur creerVoyageur(Reseau, Itineraire);
 
