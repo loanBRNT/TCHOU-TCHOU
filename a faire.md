@@ -2,12 +2,7 @@
 
 
 - EXPORTATION EN JSON (Eliott)
-<<<<<<< HEAD
-=======
-- Mettre en place la réservation d'un trajet 
 - Modification dun trajet (LOAN)
--controleur afficher coordonnes avant choix de modification ( ELIOTT)
->>>>>>> menuvoy
 
 
 EN PLUS :
