@@ -567,6 +567,39 @@ int menuGestionAdministration(){
 
 int menuChoixModification(int n){
 	int event = 1;
+	char nomFichier1[100]="sauv/controleur1.txt";
+	char nomFichier2[100]="sauv/controleur2.txt";
+	char nomFichier3[100]="sauv/controleur3.txt";
+	char nomFichier4[100]="sauv/admin.txt";
+	char ligne[20];
+	FILE* id;
+	if(n==1){
+		id=fopen(nomFichier1,"r");
+	}
+	else if (n==2){
+		id=fopen(nomFichier2,"r");
+	}
+	else if (n==3){
+		id=fopen(nomFichier3,"r");
+	}
+	else if (n==4){
+		id=fopen(nomFichier4,"r");
+	}
+	else{
+		printf("############################################\n");
+		printf("#                 erreur                   #\n");
+		printf("############################################\n");
+		printf("\n");
+		return 1;	
+	}
+	printf("############################################\n");
+	printf("        voici vos donnees personnelles     \n");
+	while(fgets(ligne,20,id) != NULL) // on lit le fichier tant qu'il n'y a pas d'erreur
+	{
+		printf("%s\n",ligne);
+	}
+	printf("############################################\n");	
+	fclose(id);
 	while(event != -1){
 		printf("\n");
 		printf("################################################\n");
