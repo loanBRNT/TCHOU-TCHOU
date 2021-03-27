@@ -401,30 +401,56 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 
 
 void tirerNumVoyageur(Reseau r, Voyageur v){
-	Train t = headTrainReseau(r);
-	Place p;
 	int nbVoyageur = 0;
-	for (int i = 0; i < nbTrainReseau(r); ++i) {
-		for (int j = 0; j < 10; ++j) {
-			nbVoyageur = nbVoyageur + nbVoyageurSurLaPlace(placeDuTrain(t,j));
+	int ok = 0;
+	Train t, tTest;
+	Voyageur vTest;
+	int nb;
+	Place p;
+	while (ok == 0){
+		t = headTrainReseau(r);
+		for (int i = 0; i < nbTrainReseau(r); ++i) {
+			for (int j = 0; j < 10; ++j) {
+				nbVoyageur = nbVoyageur + nbVoyageurSurLaPlace(placeDuTrain(t,j));
+			}
+			t = trainNext(t);
 		}
-		t = trainNext(t);
+		nbVoyageur++;
+		itoa(nbVoyageur, v->id, 10);
+		v->id[4]='\0';
+		for (int i = strlen(v->id); i < 4; ++i) {
+			v->id[3]=v->id[2];
+			v->id[2]=v->id[1];
+			v->id[1]=v->id[0];
+			v->id[0]='0';
+		}
+		int cpt = 0;
+		do {
+			nbVoyageur = nbVoyageur - 1000;
+			cpt++;
+		} while (nbVoyageur > 0);
+		v->id[0]=64 + cpt; //utilisation du code ascii
+		tTest = headTrainReseau(r);
+		nb = 0;
+		for (int i = 0; i < nbTrainReseau(r); ++i) {
+			for (int j = 0; j < 10; ++j) {
+				p = placeDuTrain(tTest, j);
+				if ( p->nbVoyageur > 0) {
+					vTest = p->head;
+					for (int k = 0; k < p->nbVoyageur; ++k) {
+						if (!strcmp(vTest->id, v->id)){
+							nb++;
+						}
+						vTest = vTest->next;
+					}
+				}
+			}
+			tTest = trainNext(tTest);
+		}
+		if (nb == 0){
+			ok = 1;
+		}
 	}
-	nbVoyageur++;
-	itoa(nbVoyageur, v->id, 10);
-	v->id[4]='\0';
-	for (int i = strlen(v->id); i < 4; ++i) {
-		v->id[3]=v->id[2];
-		v->id[2]=v->id[1];
-		v->id[1]=v->id[0];
-		v->id[0]='0';
-	}
-	int cpt = 0;
-	do {
-		nbVoyageur = nbVoyageur - 1000;
-		cpt++;
-	} while (nbVoyageur > 0);
-	v->id[0]=64 + cpt; //utilisation du code ascii
 }
 
 
