@@ -103,10 +103,12 @@ int sauvTrain(Reseau r, FILE* fichierTrain, FILE* fichierVoyageur){
 }
 
 int suppTrain(Reseau r, char* idIdentification){
+	int trouve = 0;
 	Train t = headTrainReseau(r);
 	for (int i = 0; i < nbTrainReseau(r); ++i)
 	{
 		if (!strcmp(t->num, idIdentification)){
+			trouve = 1;
 			for (int i = 0; i < 10; ++i)
 			{
 				free(t->place[i]);
@@ -123,10 +125,15 @@ int suppTrain(Reseau r, char* idIdentification){
 				t->next->previous = t->previous;
 				enleverTrain(r);
 			}
+			free(t);
 		}
 		t = trainNext(t);
 	}
-	free(t);
+	if (trouve == 0) {
+		printf("PAS DE TRAIN AVEC CE NUMERO\n");
+		return 1;
+	}	
+	return 0;
 }
 
 
@@ -224,7 +231,17 @@ Train ajouterTrain(Reseau r){
 }
 
 
-
+Train rechercheTrain(Reseau r, char* id){
+	Train t = headTrainReseau(r);
+	Train tSauv = NULL;
+	for (int i = 0; i < nbTrainReseau(r); ++i)
+	{
+		if (!strcmp(t->num, id)){
+			tSauv = t;
+		}
+	}
+	return tSauv;
+}
 
 
 

@@ -221,7 +221,13 @@ int menuGestionTrajet(Reseau r){
 				menuSupTrajet(r);
 				break;
 			case 5:
-				menuSupTrajet(r);
+				menuAjouterTrain(r);
+				break;
+			case 6:
+				menuSuppTrain(r);
+				break;
+			case 7:
+				menuModifTrain(r);
 				break;
 			case 8:
 				event = -1 ;
@@ -236,8 +242,71 @@ int menuGestionTrajet(Reseau r){
 }
 
 int menuAjouterTrain(Reseau r){
+	printf("\n");
+	printf("################################################\n");
+	printf("#            Le Train que vous ajoutez         #\n");
+	printf("#             n'est pas aller retour !         #\n");
+	printf("################################################\n");
+	printf("\n");
 	ajouterTrain(r);
 	return 0;
+}
+
+int menuSuppTrain(Reseau r){
+	char nom[30] = {0};
+	printf("\n");
+	printf("################################################\n");
+	printf("#               Indiquez le numero du          #\n");
+	printf("#             train que vous voulez supp       #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s", nom);
+	fflush(stdin);
+	suppTrain(r, nom);
+}
+
+int menuModifTrain(Reseau r){
+	char nom[30] = {0};
+	int cpt = 0;
+	printf("\n");
+	printf("################################################\n");
+	printf("#               Indiquez le numero du          #\n");
+	printf("#          train que vous voulez modifier      #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%s", nom);
+	fflush(stdin);
+	printf("\n");
+	printf("################################################\n");
+	printf("#        Comment voulez vous modifier ?        #\n");
+	printf("#     1- Ajouter des Trajets a la fin          #\n");
+	printf("#     2- Raccourcir le Trajet                  #\n");
+	printf("################################################\n");
+	printf("\n");
+	scanf("%d", &cpt);
+	fflush(stdin);
+	Train t = rechercheTrain(r, nom);
+	if (t == NULL){
+	printf("\n");
+	printf("################################################\n");
+	printf("#                  INVALIDE                    #\n");
+	printf("################################################\n");
+	printf("\n");
+	return 1;		
+	}
+	if (cpt == 1){
+		modifAjtTrajetFin(r, cheminTrain(t));
+		return 0;
+	} else if (cpt == 2){
+		modifArv(r, cheminTrain(t));
+		return 0;
+	}
+	printf("\n");
+	printf("################################################\n");
+	printf("#                  INVALIDE                    #\n");
+	printf("################################################\n");
+	printf("\n");
+	return 1;
 }
 
 int menuAjouteGare(Reseau r){ //saisie sans espace et avec chiffre

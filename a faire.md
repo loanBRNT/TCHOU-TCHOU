@@ -2,7 +2,13 @@
 
 
 - EXPORTATION EN JSON (Eliott)
+<<<<<<< HEAD
 - Modification dun trajet (LOAN)
+=======
+
+-> ERREUR : Le creer voyageur n'est pas reconnu directement en memoire
+-> ERREUR : La recherche de Trajet ne fonctionne pas apres un ajout de gare et de trajet : AJOUT DE TRAIN NOTIF
+>>>>>>> 2ca9ffefc7f14e623b713dc77d3edb7755636ea7
 
 
 EN PLUS :

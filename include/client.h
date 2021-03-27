@@ -4,7 +4,7 @@
 
 void affichageVoyage(Reseau, Itineraire);
 
-Train rechercheTrain(Reseau, Gare, Trajet);
+Train rechercheTrainCorres(Reseau, Gare, Trajet);
 
 void modifArv(Reseau r, Itineraire it);
 

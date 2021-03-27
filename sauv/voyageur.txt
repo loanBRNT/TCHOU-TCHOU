@@ -3,7 +3,7 @@ A102
 A103
 A104
 A105
-A106/GAUDILLAT:ELIOT:A002:Montauban-Toulouse://PARDO-PARGA:PAULINE:A003:Limoges-Brive:Brive-Montauban://Jibaud:Mathieu:A006:Toulouse-Montauban:/
+A106/GAUDILLAT:ELIOT:A002:Montauban-Toulouse://PARDO-PARGA:PAULINE:A003:Limoges-Brive:Brive-Montauban:/
 A107
 A108
 A109
@@ -21,7 +21,7 @@ A209
 A210
 
 A301
-A302/MACRON:EMMANUEL:A004:Paris-Lyon:Lyon-Marseille:/
+A302
 A303
 A304
 A305
