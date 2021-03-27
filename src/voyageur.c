@@ -334,7 +334,7 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 	for (int i = 0; i < nbEtapeItineraire(it); ++i)
 	{
 		tr = listeTrajetItineraire(it, i);
-		t = rechercheTrain(r,g, tr);
+		t = rechercheTrainCorres(r,g, tr);
 		if (i == 0 ) {
 			listeT[0]=t;
 		} else if (strcmp(idTrain(t),idTrain(tSauv))) {

@@ -32,8 +32,9 @@ int menuSupTrajet(Reseau r);
 int menuChoixModification(int);
 int menuModification(int, int);
 
-
-
+int menuAjouterTrain(Reseau r);
+int menuSuppTrain(Reseau r);
+int menuModifTrain(Reseau r);
 
 
 //fonctions des menus de la partie controleur

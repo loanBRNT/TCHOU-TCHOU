@@ -18,7 +18,7 @@ void affichageVoyage(Reseau r, Itineraire voyage){
 	for (int i = 0; i < nbEtapeItineraire(voyage); ++i)
 	{
 		tr = listeTrajetItineraire(voyage, i);
-		t = rechercheTrain(r,g, tr);
+		t = rechercheTrainCorres(r,g, tr);
 		if (i == 0 ){
 			printf("Depart de la gare %s via le train %s direction %s\n", nomDeGare(g) ,idTrain(t), nomDeGare(gareArvDuTrajet(tr)) );
 		} else {
@@ -32,7 +32,7 @@ void affichageVoyage(Reseau r, Itineraire voyage){
 	printf("Arrive a la gare %s en %d minutes\n",gareArvItineraire(voyage), tempsItineraire(voyage) );
 }
 
-Train rechercheTrain(Reseau r,Gare gDepTr, Trajet tr){
+Train rechercheTrainCorres(Reseau r,Gare gDepTr, Trajet tr){
 	Train t = headTrainReseau(r);
 	Train tSauv = NULL;
 	Gare gTrain;

@@ -23,4 +23,6 @@ void enleverTrain(Reseau r);
 Train enleverTrainHead(Reseau r, Train t );
 
 Train enleverTrainTail(Reseau r, Train t);
+
+Train rechercheTrain(Reseau r, char* id);
 #endif
