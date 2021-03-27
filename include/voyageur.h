@@ -24,4 +24,6 @@ Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire i
 
 Place creerPlaceVide(Train t, int i);
 
+int ensembleVoyageur(Reseau r);
+
 #endif

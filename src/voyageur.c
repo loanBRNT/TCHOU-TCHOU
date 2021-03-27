@@ -167,6 +167,38 @@ int sauvVoyageur(Train t, FILE* fichierVoyageur){
 	fprintf(fichierVoyageur, "\n");
 }
 
+int ensembleVoyageur(Reseau r){
+	Place p;
+	Gare g;
+	Trajet tr;
+	Voyageur v;
+	Train t = headTrainReseau(r);
+	for (int i = 0; i < nbTrainReseau(r); ++i)
+	{
+		for (int i = 0; i < 10; ++i){
+			p = placeDuTrain(t, i);
+			printf( "%c%c%c%c",p->numPlace[0],p->numPlace[1],p->numPlace[2],p->numPlace[3]);
+			v = p->head;
+			printf(":%d:",p->nbVoyageur);
+			for (int j=0; j<p->nbVoyageur; j++){
+				printf( "/%s:%s:%c%c%c%c:",v->nom, v->prenom, v->id[0], v->id[1], v->id[2], v->id[3]);
+				g = gareDepItineraire(v->voyage);
+				for (int i = 0; i < nbEtapeItineraire(v->voyage); ++i)
+				{
+					tr = listeTrajetItineraire(v->voyage, i);
+					printf("%s-%s:",nomDeGare(g),nomDeGare(gareArvDuTrajet(tr)));
+					g = gareArvDuTrajet(tr);
+				}
+				printf("/");
+				v = v->next;
+			}
+			printf( "\n");
+		}
+		printf("\n");
+		t = trainNext(t);
+	}
+	
+}
 
 int rechercheVoyageur(Reseau r, char* idRecherche){
 	Train t = headTrainReseau(r);
@@ -358,7 +390,7 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 		{
 			vNouv->prenom[j] = v->prenom[j];
 		}
-		for (int j = 0; j < strlen(v->id); ++j)
+		for (int j = 0; j < 5; ++j)
 		{
 			vNouv->id[j] = v->id[j];
 		}

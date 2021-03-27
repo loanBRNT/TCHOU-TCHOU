@@ -1072,7 +1072,7 @@ int menuReservation(Reseau r){
 	itineraireVoyageur = rechercheItineraire(r, g, g2);
 	utilisateur = creerVoyageur( r, itineraireVoyageur);
 	printf("\n");
-	printf("Voici votre identifant voyageur : %s\n",  idVoyageur(utilisateur) );	
+	printf("Voici votre identifant voyageur : %s\n",  idVoyageur(utilisateur) );
 	return 0;
 }
 
