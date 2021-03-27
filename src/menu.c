@@ -267,7 +267,6 @@ int menuSuppTrain(Reseau r){
 
 int menuModifTrain(Reseau r){
 	char nom[30] = {0};
-	int cpt = 0;
 	printf("\n");
 	printf("################################################\n");
 	printf("#               Indiquez le numero du          #\n");
@@ -283,8 +282,7 @@ int menuModifTrain(Reseau r){
 	printf("#     2- Raccourcir le Trajet                  #\n");
 	printf("################################################\n");
 	printf("\n");
-	scanf("%d", &cpt);
-	fflush(stdin);
+	long cpt = lireLong();
 	Train t = rechercheTrain(r, nom);
 	if (t == NULL){
 	printf("\n");
