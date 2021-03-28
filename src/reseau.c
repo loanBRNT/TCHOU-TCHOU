@@ -279,7 +279,6 @@ Reseau initReseau(){
 	if (fichierTrain == NULL || fichierVoyageur == NULL) {
 		printf("ERROR 1 : PROBLEME OUVERTURE FICHIER TRAIN ou VOYAGE\n");
 	}
-	printf("CHECKPOINT avant train et voyageurs\n");
 	//on compte le nombre de train
 	int nbTrain = 0;
 	c=fgetc(fichierTrain);
@@ -413,6 +412,7 @@ int ajouterUnTrajet(Gare gDep, Gare gArv, int temps){
 	}
 	//On entre les informations du trajet
 	tr1->ponderation = temps;
+	printf("%s\n",gArv->nomGARE);
 	tr1->gArrive = gArv;
 	tr1->next= NULL;
 	//On raccroche a la gare correspondante
@@ -440,11 +440,13 @@ int retirerUnTrajet(Gare gDep, Gare gArv){
 	int rangInf = 0;
 	//on compte le nombre de trajet après le notre dans la liste
 	while (sauv->next != NULL) {
+		printf("%d\n",compteur );
 		compteur++;
 		sauv = sauv->next;
 	}
 	// on calcule le rang du trajet juste avant le notre
 	rangInf = (gDep->nbTrajet - compteur) - 1;
+	printf("%d\n",rangInf);
 	sauv = gDep->headListeTrajet;
 	// on re parcours la liste pour se placer au trajet juste avant celui à retirer
 	for (int i = 0 ; i < rangInf ; i++) {

@@ -6,15 +6,11 @@
 -> ERREUR : La recherche de Trajet ne fonctionne pas si on utilise un trajet sans train : 
 	-- Notif de train OK
 	-- Eviter le crash
-	-- Ajouter le systeme pour casser les chemins de train qd on supprime une gare
+	-- Ajouter le systeme pour casser les chemins de train qd on supprime une gare [URGENT]
 
 -> Modifier les itineraires de voyageurs
 
-EN PLUS :
-
-- Faire des alertes dans la console quand une gare n'a pas de trajets associé
-
-- SI ON SUPPRIME UN TRAJET DANS LE PARCOURS DUN TRAIN QUE FAIRE ?
+-> PROBLEME AJOUT ET ENLEVAGE DE TRAJET [URGENT]
 
 AMELIORATION
 
