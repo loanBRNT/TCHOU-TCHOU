@@ -142,6 +142,7 @@ int initTrajet(Reseau r,Gare gareDepart, FILE* fichierTrajet){
 		}
 	} while (caractere != '-');
 	nom[i-1] = '\0';
+	printf("%s:",nom );
 	tr->gArrive = rechercheGare(r, nom);
 	//calcul de la ponderation
 	caractere = fgetc(fichierTrajet);
@@ -256,6 +257,7 @@ Reseau initReseau(){
 	// on initialise les trajets des gares
 	Gare g = ensembleGare->head;
 	for (int i=0; i < ensembleGare->size ; i++) {
+		printf("\n%s:",g->nomGARE );
 		do {
 			//on verifie que la gare a des trajets a ajouter
 			fgetc(fichierTrajet);
@@ -281,11 +283,14 @@ Reseau initReseau(){
 		printf("ERROR 1 : PROBLEME OUVERTURE FICHIER TRAIN ou VOYAGE\n");
 	}
 	//on compte le nombre de train
+	printf("CHECKOUT avant T V\n");
 	int nbTrain = 0;
 	c=fgetc(fichierTrain);
 	while (c != EOF){
+		printf(":%c:\n",c);
 		if (c == '\n') {
 			nbTrain++;
+			printf("%d\n",nbTrain);
 		}
 		c = fgetc(fichierTrain);
 	}
@@ -294,6 +299,7 @@ Reseau initReseau(){
 	ensembleGare->tailTrain = NULL;
 	Train t;
 	for (int i=0; i < nbTrain ; i++) {
+		printf("=====%d\n",i );
 		t = initTrain(ensembleGare, fichierTrain, fichierVoyageur);
 		if ( i == 0){
 			ensembleGare->headTrain = t;
