@@ -125,7 +125,8 @@ int initTrajet(Reseau r,Gare gareDepart, FILE* fichierTrajet){
 		gareDepart->tailListeTrajet->next = tr;
 		gareDepart->tailListeTrajet = tr;
 	}
-
+	printf("%c\n",fgetc(fichierTrajet) );
+	fseek(fichierTrajet, -2, SEEK_CUR);
 	//systeme de lecture du format
 	//lecture du nom de la gare d'arrivee
 	char caractere;
@@ -136,12 +137,14 @@ int initTrajet(Reseau r,Gare gareDepart, FILE* fichierTrajet){
 	char* nom;
 	do {
 		caractere = fgetc(fichierTrajet);
+		printf("%c",caractere );
 		if (caractere !='\n') {
 			nom[i] = caractere;
 			i++;
 		}
 	} while (caractere != '-');
 	nom[i-1] = '\0';
+	printf(": %s ",nom );
 	tr->gArrive = rechercheGare(r, nom);
 	//calcul de la ponderation
 	caractere = fgetc(fichierTrajet);
@@ -160,6 +163,7 @@ int initTrajet(Reseau r,Gare gareDepart, FILE* fichierTrajet){
 	} else {
 		tr->ponderation = centaine;
 	}
+	printf(": %d \n",tr->ponderation );
 	tr->next = NULL;
 	gareDepart->nbTrajet++;
 	return 0;
@@ -177,6 +181,7 @@ int initGare(Reseau ensembleGare, FILE* fichierReseau){
 	int i = 0;
 	do {
 		caractere = fgetc(fichierReseau);
+		printf("%c\n",caractere );
 		g->nomGARE[i] = caractere;
 		i++;
 	}while (caractere != '\n');
@@ -262,7 +267,7 @@ Reseau initReseau(){
 			if (fgetc(fichierTrajet) == '/'){
 				continue;
 			}
-			fseek(fichierTrajet, -2, SEEK_CUR);
+			printf("CHECKPOINT %s \n", g->nomGARE);
 			initTrajet(ensembleGare, g, fichierTrajet);
 			c = fgetc(fichierTrajet);
 		} while (c != '/');
@@ -280,6 +285,7 @@ Reseau initReseau(){
 	if (fichierTrain == NULL || fichierVoyageur == NULL) {
 		printf("ERROR 1 : PROBLEME OUVERTURE FICHIER TRAIN ou VOYAGE\n");
 	}
+	printf("CHECKPOINT avant train et voyageurs\n");
 	//on compte le nombre de train
 	int nbTrain = 0;
 	c=fgetc(fichierTrain);
