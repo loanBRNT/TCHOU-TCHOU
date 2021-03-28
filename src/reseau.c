@@ -472,9 +472,15 @@ int retirerUneGare(Reseau r, Gare g){
 		return 1;
 	}
 	//on raccorde les précédents et suivants ensemble
-	(g->previous)->next= g->next;
-	if ( r->tail != g) {
+	if ( strcmp(r->head->nomGARE, g->nomGARE)) {
+		(g->previous)->next= g->next;
+	} else {
+		r->head = g->next;
+	}
+	if ( strcmp(r->tail->nomGARE, g->nomGARE)) {
 		g->next->previous=g->previous;
+	} else {
+		r->tail = g->previous;
 	}
 	Trajet tr = g->headListeTrajet;
 	//on libere de la memoire tous les trajets de la gare

@@ -206,6 +206,18 @@ int menuGestionTrajet(Reseau r){
 		printf("#       8- RETOUR                              #\n");
 		printf("################################################\n");
 		printf("\n");
+		Gare pt = gareHead(r);
+		Trajet tr;
+		for (int i=0; i<tailleReseau(r); i++){
+			printf("%s : ",nomDeGare(pt));
+			tr = trajetHeadDeLaGare(pt);
+			for (int j=0; j<nbTrajetDeLaGare(pt); j++){
+				printf("%s-",nomDeGare(gareArvDuTrajet(tr)));
+				tr = trajetNext(tr);
+			}
+			pt = gareNext(pt);
+			printf("\n");
+		}
 		long choixMenu = lireLong();
 		switch(choixMenu) {
 			case 1:

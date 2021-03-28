@@ -57,8 +57,6 @@ Montauban-20
 Montauban-30
 
 Narbonne-90
-
-Nailloux-40
 /
 
 Toulouse-90
@@ -82,11 +80,4 @@ Marseille-150
 /
 
 Bordeaux-90
-
-Nailloux-150
-/
-
-Toulouse-40
-
-Biarritz-150
 /

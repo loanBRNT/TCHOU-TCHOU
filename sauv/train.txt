@@ -7,4 +7,64 @@ A6 Nice-Marseille:Marseille-Montpellier:Montpellier-Narbonne:Narbonne-Toulouse:T
 A7 Marseille-Lyon:Lyon-Paris:
 A8 Biarritz-Bordeaux:Bordeaux-Tours:Tours-Paris:
 A9 Montauban-Agen:Agen-Bordeaux:
-B0 Toulouse-Nailloux:Nailloux-Biarritz:Biarritz-Nailloux:Nailloux-Toulouse:
+B0 Toulouse-Paris
+Orleans
+Limoges
+Lyon
+Brive
+Tours
+Bordeaux
+Agen
+Montauban
+Toulouse
+Narbonne
+Montpellier
+Marseille
+Nice
+Biarritz
+:Paris
+Orleans
+Limoges
+Lyon
+Brive
+Tours
+Bordeaux
+Agen
+Montauban
+Toulouse
+Narbonne
+Montpellier
+Marseille
+Nice
+Biarritz
+-Biarritz:Biarritz-Paris
+Orleans
+Limoges
+Lyon
+Brive
+Tours
+Bordeaux
+Agen
+Montauban
+Toulouse
+Narbonne
+Montpellier
+Marseille
+Nice
+Biarritz
+:Paris
+Orleans
+Limoges
+Lyon
+Brive
+Tours
+Bordeaux
+Agen
+Montauban
+Toulouse
+Narbonne
+Montpellier
+Marseille
+Nice
+Biarritz
+-Toulouse:
