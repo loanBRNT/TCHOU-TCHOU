@@ -7,7 +7,7 @@ A106/GAUDILLAT:ELIOT:A002:Montauban-Toulouse://PARDO-PARGA:PAULINE:A003:Limoges-
 A107
 A108
 A109
-A110/HUGO:ANTON:A005:Orleans-Limoges:Limoges-Brive:Brive-Montauban:Montauban-Toulouse:/
+A110
 
 A201/BERNAT:LOAN:A001:Toulouse-Narbonne:/
 A202
@@ -29,7 +29,7 @@ A306
 A307
 A308
 A309
-A310/SALAM:LEROYA:A007:Lyon-Marseille:/
+A310
 
 A401
 A402
@@ -62,7 +62,7 @@ A606
 A607
 A608
 A609
-A610/SALAM:LEROYA:A007:Marseille-Montpellier:Montpellier-Narbonne:Narbonne-Toulouse:/
+A610
 
 A701
 A702
@@ -105,36 +105,6 @@ B005
 B006
 B007
 B008
-B009/SALAM:LEROYA:A007:Toulouse-Paris
-Orleans
-Limoges
-Lyon
-Brive
-Tours
-Bordeaux
-Agen
-Montauban
-Toulouse
-Narbonne
-Montpellier
-Marseille
-Nice
-Biarritz
-:/
-B010/HUGO:ANTON:A005:Toulouse-Paris
-Orleans
-Limoges
-Lyon
-Brive
-Tours
-Bordeaux
-Agen
-Montauban
-Toulouse
-Narbonne
-Montpellier
-Marseille
-Nice
-Biarritz
-:/
+B009
+B010
 
