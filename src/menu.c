@@ -489,6 +489,11 @@ int menuAjouteTrajet(Reseau r){
 	}
 	ajouterUnTrajet(g, g2, tmps);
 	printf("\n");
+	printf("******************** WARNING *******************\n");
+	printf("*   Le trajet n'est parcouru par aucun Train ! *\n");
+	printf("************************************************\n");
+	printf("\n");
+	printf("\n");
 	printf("################################################\n");
 	printf("#          Le trajet a bien ete ajoute         #\n");
 	printf("#           1- Ajouter un autre trajet         #\n");
