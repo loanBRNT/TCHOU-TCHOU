@@ -5,7 +5,7 @@
 
 -> ERREUR : La recherche de Trajet ne fonctionne pas si on utilise un trajet sans train : 
 	-- Notif de train OK
-	-- Eviter le crash
+	-- Eviter le crash OK
 	-- Ajouter le systeme pour casser les chemins de train qd on supprime une gare [URGENT]
 
 -> Modifier les itineraires de voyageurs

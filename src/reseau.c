@@ -412,7 +412,6 @@ int ajouterUnTrajet(Gare gDep, Gare gArv, int temps){
 	}
 	//On entre les informations du trajet
 	tr1->ponderation = temps;
-	printf("%s\n",gArv->nomGARE);
 	tr1->gArrive = gArv;
 	tr1->next= NULL;
 	//On raccroche a la gare correspondante
@@ -435,29 +434,26 @@ int retirerUnTrajet(Gare gDep, Gare gArv){
 		printf("Le trajet n'existe pas !\n");
 		return 1;
 	}
-	Trajet sauv = tr;
-	int compteur=0;
-	int rangInf = 0;
-	//on compte le nombre de trajet après le notre dans la liste
-	while (sauv->next != NULL) {
-		printf("%d\n",compteur );
-		compteur++;
-		sauv = sauv->next;
+	Trajet sauv = gDep->headListeTrajet;
+	if (strcmp(sauv->gArrive->nomGARE,gArv->nomGARE)){
+		while ((strcmp(gArv->nomGARE,sauv->next->gArrive->nomGARE)) && (sauv->next != NULL)){
+			sauv = sauv->next;
+		}
+		sauv->next = tr->next;
+		if (tr->next == NULL){
+			gDep->tailListeTrajet == sauv;
+		}
+	} else {
+		if (gDep->nbTrajet == 1){
+			gDep->headListeTrajet == NULL;
+			gDep->tailListeTrajet == NULL;
+		} else {
+			gDep->headListeTrajet = gDep->headListeTrajet->next;
+		}
 	}
-	// on calcule le rang du trajet juste avant le notre
-	rangInf = (gDep->nbTrajet - compteur) - 1;
-	printf("%d\n",rangInf);
-	sauv = gDep->headListeTrajet;
-	// on re parcours la liste pour se placer au trajet juste avant celui à retirer
-	for (int i = 0 ; i < rangInf ; i++) {
-		sauv = sauv->next;
-	}
-	//on raccorde le précendent du trajet à retirer au suivant de trajet à retirer
-	sauv->next = tr->next;
-	//on libere la memoire
 	free(tr);
 	gDep->nbTrajet--;
-	if (rechercheTrajet(gArv,gDep) != NULL){
+	if (rechercheTrajet(gArv,gDep) != NULL) {
 		retirerUnTrajet(gArv,gDep);
 	}
 	return 0;
