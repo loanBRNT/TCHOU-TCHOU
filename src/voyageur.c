@@ -368,6 +368,11 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 	{
 		tr = listeTrajetItineraire(it, i);
 		t = rechercheTrainCorres(r,g, tr);
+		if (t == NULL){
+			printf("ERROR : le trajet %s - %s n'a pas de train assigne !\n", nomDeGare(g), nomDeGare(gareArvDuTrajet(tr)) );
+			free(v);
+			return NULL;
+		}
 		if (i == 0 ) {
 			listeT[0]=t;
 		} else if (strcmp(idTrain(t),idTrain(tSauv))) {

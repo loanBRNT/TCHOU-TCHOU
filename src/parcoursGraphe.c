@@ -126,6 +126,10 @@ Itineraire rechercheItineraire(Reseau r, Gare gDep, Gare gArv){
 		printf("Au moins une des gares n'exsitent pas\n");
 		return NULL;
 	}
+	if ((nbTrajetDeLaGare(gDep) == 0) || (nbTrajetDeLaGare(gArv) == 0)) {
+		printf("ERROR : UNE DES GARES ARRIVEE/DEPART NE POSSEDE PAS DE TRAJET\n");
+		return NULL;
+	}
 	//init de l'itinieraire
 	Itineraire itineraire = (Itineraire) malloc(sizeof(struct s_itineraire));
 	itineraire->depart = gDep;

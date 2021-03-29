@@ -19,17 +19,24 @@ void affichageVoyage(Reseau r, Itineraire voyage){
 	{
 		tr = listeTrajetItineraire(voyage, i);
 		t = rechercheTrainCorres(r,g, tr);
-		if (i == 0 ){
-			printf("Depart de la gare %s via le train %s direction %s\n", nomDeGare(g) ,idTrain(t), nomDeGare(gareArvDuTrajet(tr)) );
-		} else {
-			if (strcmp(idTrain(t),idTrain(tSauv))) {
-				printf("Correspondance a la gare %s avec le train %s direction %s \n",nomDeGare(g), idTrain(t), nomDeGare(gareArvDuTrajet(tr)) );
+		if (t != NULL) {
+			if (i == 0 ){
+				printf("Depart de la gare %s via le train %s direction %s\n", nomDeGare(g) ,idTrain(t), nomDeGare(gareArvDuTrajet(tr)) );
+			} else {
+				if (strcmp(idTrain(t),idTrain(tSauv))) {
+					printf("Correspondance a la gare %s avec le train %s direction %s \n",nomDeGare(g), idTrain(t), nomDeGare(gareArvDuTrajet(tr)) );
+				}
 			}
+			g = gareArvDuTrajet(tr);
+			tSauv = t ;	
+		} else {
+			printf("ERROR : le trajet %s - %s n'a pas de train assigne !\n", nomDeGare(g), nomDeGare(gareArvDuTrajet(tr)) );
+			break;
 		}
-		g = gareArvDuTrajet(tr);
-		tSauv = t ;
 	}
-	printf("Arrive a la gare %s en %d minutes\n",gareArvItineraire(voyage), tempsItineraire(voyage) );
+	if (t != NULL){
+		printf("Arrive a la gare %s en %d minutes\n",gareArvItineraire(voyage), tempsItineraire(voyage) );
+	}
 }
 
 Train rechercheTrainCorres(Reseau r,Gare gDepTr, Trajet tr){

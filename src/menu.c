@@ -1009,6 +1009,9 @@ int menuRechercheEtChoix(Reseau r){
 	}	
 	Itineraire itineraireVoyageur = creerItineraireVide();
 	itineraireVoyageur = rechercheItineraire(r, g, g2);
+	if (itineraireVoyageur == NULL){
+		return 1;
+	}
 	printf("####################################################\n");
 	affichageVoyage(r, itineraireVoyageur);
 	printf("####################################################\n");
@@ -1087,9 +1090,14 @@ int menuReservation(Reseau r){
 	Voyageur utilisateur;
 	Itineraire itineraireVoyageur = creerItineraireVide();
 	itineraireVoyageur = rechercheItineraire(r, g, g2);
+	if (itineraireVoyageur == NULL) {
+		return 1;
+	}
 	utilisateur = creerVoyageur( r, itineraireVoyageur);
-	printf("\n");
-	printf("Voici votre identifant voyageur : %s\n",  idVoyageur(utilisateur) );
+	if (utilisateur != NULL) {
+		printf("\n");
+		printf("Voici votre identifant voyageur : %s\n",  idVoyageur(utilisateur) );
+	}
 	return 0;
 }
 
