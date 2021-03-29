@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "reseau.h"
+#include "pwd.h"
 #include "parcoursGraphe.h"
 #include "train.h"
 #include "voyageur.h"
@@ -451,6 +452,68 @@ void tirerNumVoyageur(Reseau r, Voyageur v){
 			ok = 1;
 		}
 	}
+}
+
+Voyageur modifVoyageur(Reseau r, char* id){
+	if (rechercheVoyageur(r, id) == 1 ){
+		return NULL;
+	}
+	Gare g1, g2;
+	printf("\n");
+	printf("################################################\n");
+	printf("#        Quel modif voulez vous faire ?        #\n");
+	printf("#          1- Ajoutez une Etape                #\n");
+	printf("#          2- Changer la gare d'arrivee        #\n");
+	printf("################################################\n");
+	printf("\n");
+	long entree = lireLong();
+	if (entree == 1) {
+		char nomGEtape[30] = {0};
+		printf("\n\n");
+		printf("################################################\n");
+		printf("#    Indiquez le nom de la Gare etape          #\n");
+		printf("################################################\n");
+		printf("\n");
+		scanf("%s",nomGEtape);
+		fflush(stdin);
+		Gare g2 = rechercheGare(r, nomGEtape);
+		if (g2 == NULL){
+			printf("\n");
+			printf("################################################\n");
+			printf("#             La Gare n'existe pas !           #\n");
+			printf("################################################\n");
+			printf("\n");
+			return NULL;
+		}
+	} else if (entree == 2) {
+
+	} else {
+		printf("CHOIX INVALIDE\n");
+		return NULL;
+	}
+	Itineraire it = rechercheItineraire(r, g1, g2);
+	Trajet tr;
+	Train t, tSauv;
+	Gare g = gareDepItineraire(it);
+	Train listeT[20]; //contrainte max 20 trains differents
+	Gare listeG[20];
+	int cpt=1;
+	for (int i = 0; i < nbEtapeItineraire(it); ++i)
+	{
+		tr = listeTrajetItineraire(it, i);
+		t = rechercheTrainCorres(r,g, tr);
+		if (i == 0 ) {
+			listeT[0]=t;
+		} else if (strcmp(idTrain(t),idTrain(tSauv))) {
+			listeT[cpt] = t;
+			listeG[cpt-1] = g;
+			cpt++;
+		}
+		g = gareArvDuTrajet(tr);
+		tSauv = t ;
+	}
+	listeG[cpt-1]=g;
+	g = gareDepItineraire(it);
 }
 
 

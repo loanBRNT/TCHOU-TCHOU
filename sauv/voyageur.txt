@@ -9,7 +9,7 @@ A108
 A109
 A110
 
-A201/BERNAT:LOAN:A001:Toulouse-Narbonne:/
+A201/BERNAT:LOAN:A001:Toulouse-Narbonne://BERNAT:AMANDINE:A005:Marseille-Nice:/
 A202
 A203
 A204
@@ -29,7 +29,7 @@ A306
 A307
 A308
 A309
-A310
+A310/BERNAT:AMANDINE:A005:Paris-Lyon:Lyon-Marseille:/
 
 A401
 A402
@@ -84,7 +84,7 @@ A806
 A807
 A808
 A809
-A810
+A810/BERNAT:AMANDINE:A005:Biarritz-Bordeaux:Bordeaux-Tours:Tours-Paris:/
 
 A901
 A902
