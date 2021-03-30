@@ -32,7 +32,11 @@ Gare gareArvDuTrajet(Trajet tr);
 
 Trajet trajetNext(Trajet tr);
 
+int nbDeVoyageur(Reseau r);
 
+Voyageur voyageurHead(Reseau r);
+
+Voyageur voyageurTail(Reseau r);
 
 
 #endif

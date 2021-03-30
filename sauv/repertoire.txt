@@ -1,0 +1,4 @@
+A001:BERNAT:LOAN:Brive-Narbonne:
+A002:GAUDILLAT:ELIOT:Montauban-Toulouse:
+A003:PARDO-PARGA:PAULINE:Limoges-Montauban:
+A005:BERNAT:AMANDINE:Bordeaux-Nice:

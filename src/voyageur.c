@@ -402,6 +402,14 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 		}
 		g = listeG[i];
 	}
+	FILE* fichRepertoire = fopen("sauv/repertoire.txt", "w");
+	if (fichRepertoire == NULL) {
+		printf("ERREUR : IMPOSSIBLE D'OUVRIR REPERTOIRE.TXT\n");
+		return NULL;
+	}
+	fseek(fichRepertoire, 0, SEEK_END);
+	fprintf(fichRepertoire, "%s:%s:%s:%s-%s:\n",v->id,v->nom,v->prenom,nomDeGare(gareDepItineraire(it)),nomDeGare(gareArvItineraire(it)));
+	fclose(fichRepertoire);
 	return v;
 }
 

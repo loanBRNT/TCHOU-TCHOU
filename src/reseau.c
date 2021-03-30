@@ -4,8 +4,8 @@
 #include "reseau.h"
 #include "parcoursGraphe.h"
 #include "train.h"
-#include "reseauAccesseur.h"
 #include "voyageur.h"
+#include "reseauAccesseur.h"
 #include "trainVoyageurAccesseur.h"
 
 /*
@@ -40,6 +40,9 @@ struct s_reseau{
 	Train headTrain; //Indice du premier train
 	Train tailTrain;
 	int nbTrain; //nb de train dans le reseau
+	Voyageur headVoyageur;
+	Voyageur tailVoyageur;
+	int nbVoyageur; //nb de voyageur 
 };
 
 //ZONE DES ACCESSEURS (reseauAccesseur.h) 
@@ -47,6 +50,18 @@ struct s_reseau{
 /*
 	Permet d'acceder aux parametres des structures hors des fichiers .c tout en maintenant la declaration opaque
 */
+
+int nbDeVoyageur(Reseau r){
+	return (r->nbVoyageur);
+}
+
+Voyageur voyageurHead(Reseau r){
+	return (r->headVoyageur);
+}
+
+Voyageur voyageurTail(Reseau r){
+	return (r->tailVoyageur);
+}
 
 Gare gareHead(Reseau r){
 	return (r->head);

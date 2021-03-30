@@ -4,9 +4,9 @@
 #include "reseau.h"
 #include "parcoursGraphe.h"
 #include "train.h"
+#include "voyageur.h"
 #include "reseauAccesseur.h"
 #include "itineraireAccesseur.h"
-#include "voyageur.h"
 #include "trainVoyageurAccesseur.h"
 
 struct s_train {

@@ -4,6 +4,7 @@
 #include "reseau.h"
 #include "parcoursGraphe.h"
 #include "train.h"
+#include "voyageur.h"
 #include "reseauAccesseur.h"
 #include "itineraireAccesseur.h"
 

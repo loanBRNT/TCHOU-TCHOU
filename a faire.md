@@ -10,7 +10,7 @@
 
 -> Modifier les itineraires de voyageurs
 
--> PROBLEME AJOUT ET ENLEVAGE DE TRAJET [URGENT]
+-> PROBLEME AJOUT ET ENLEVAGE DE TRAJET Ok
 
 AMELIORATION
 
