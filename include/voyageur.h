@@ -26,4 +26,6 @@ Place creerPlaceVide(Train t, int i);
 
 int ensembleVoyageur(Reseau r);
 
+Voyageur initRepertoire(Reseau, FILE*);
+
 #endif

@@ -291,6 +291,7 @@ Reseau initReseau(){
 	FILE* fichierVoyageur = NULL;
 	fichierTrain = fopen("sauv/train.txt", "r");
 	fichierVoyageur = fopen("sauv/voyageur.txt", "r");
+	FILE* fichierRepertoire = fopen("sauv/repertoire.txt", "r");
 	if (fichierTrain == NULL || fichierVoyageur == NULL) {
 		printf("ERROR 1 : PROBLEME OUVERTURE FICHIER TRAIN ou VOYAGE\n");
 	}
@@ -314,6 +315,26 @@ Reseau initReseau(){
 		}
 		ensembleGare->tailTrain = t;
 	}
+	int nbVoy = 0;
+	c=fgetc(fichierRepertoire);
+	while (c != EOF){
+		if (c == '\n') {
+			nbVoy++;
+		}
+		c = fgetc(fichierRepertoire);
+	}
+	rewind(fichierRepertoire);
+	Voyageur v;
+	ensembleGare->tailVoyageur = NULL;
+	for (int i = 0; i < nbVoy ; i++){
+		v = initRepertoire(ensembleGare, fichierRepertoire);
+		if (i == 0) {
+			ensembleGare->headVoyageur = v;
+		}
+		ensembleGare->tailVoyageur = v;
+	}
+	ensembleGare->nbVoyageur = nbVoy;
+	fclose(fichierRepertoire);
 	fclose(fichierTrain);
 	fclose(fichierVoyageur);
 	return ensembleGare;

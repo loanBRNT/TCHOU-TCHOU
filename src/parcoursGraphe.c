@@ -244,6 +244,13 @@ Itineraire changerArv(Itineraire it, int i){
 	return it;
 }
 
+Itineraire itineraireRep(Reseau r, Itineraire it, char* nomDep, char* nomArv){
+	it->depart = rechercheGare(r, nomDep);
+	it->arrive = rechercheGare(r, nomArv);
+	return it;
+}
+	
+
 // ACCESSEUR ###################################
 
 Gare gareDepItineraire(Itineraire it){

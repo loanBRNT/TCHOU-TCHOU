@@ -32,6 +32,7 @@ Itineraire creerItineraireVide(); //creer un itineraire vide (init des trains)
 
 int ajouteTrajetItineraire(Itineraire, Gare, Trajet );
 
+Itineraire itineraireRep(Reseau, Itineraire, char*, char*);
 
 Itineraire changerArv(Itineraire it, int i);
 

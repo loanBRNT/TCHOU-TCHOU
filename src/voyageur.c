@@ -26,6 +26,63 @@ struct s_place {
 	char numPlace[5];
 };
 
+Voyageur initRepertoire(Reseau r, FILE* fichierRepertoire){
+	Voyageur v = (Voyageur) malloc(sizeof(struct s_voyageur));
+	char c;
+	char nomDep[30] = {0};
+	char nomArv[30] = {0};
+	int i;
+	i = 0;
+	c = fgetc(fichierRepertoire);
+	do {
+		v->id[i] = c;
+		i++;
+		c = fgetc(fichierRepertoire);
+	} while ( c != ':');
+	v->id[4]='\0';
+	i = 0;
+	c = fgetc(fichierRepertoire);
+	do {
+		v->nom[i] = c;
+		i++;
+		c = fgetc(fichierRepertoire);
+	} while ( c != ':');
+	v->nom[i] = '\0';
+	i = 0;
+	c = fgetc(fichierRepertoire);
+	do {
+		v->prenom[i] = c;
+		i++;
+		c = fgetc(fichierRepertoire);
+	} while ( c != ':');
+	v->prenom[i] = '\0';
+	i = 0;
+	c = fgetc(fichierRepertoire);
+	do {
+		nomDep[i] = c;
+		i++;
+		c = fgetc(fichierRepertoire);
+	} while ( c != ':');
+	nomDep[i] = '\0';
+	i = 0;
+	c = fgetc(fichierRepertoire);
+	do {
+		nomArv[i] = c;
+		i++;
+		c = fgetc(fichierRepertoire);
+	} while ( c != ':');
+	nomArv[i] = '\0';
+	Itineraire it = creerItineraireVide();
+	itineraireRep(r, it, nomDep, nomArv);
+	v->voyage = it;
+	fgetc(fichierRepertoire); //Recup de la fin de ligne
+	if (voyageurTail(r) != NULL){
+		voyageurTail(r)->next = v;
+	}
+	v->next = NULL;
+	return v;
+}
+
 
 Place initPlace(Reseau r, FILE* fichierVoyageur){
 	Place p = (Place) malloc(sizeof(struct s_place));
