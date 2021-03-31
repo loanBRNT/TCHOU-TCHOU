@@ -28,4 +28,14 @@ int ensembleVoyageur(Reseau r);
 
 Voyageur initRepertoire(Reseau, FILE*);
 
+int sauvRepertoire(Reseau r, FILE* fichierRepertoire);
+
+void ajtVoyMemoire(Voyageur v, Reseau r);
+
+void supVoyMemoire(Reseau r);
+
+void chgHeadVoy(Reseau r, Voyageur v);
+
+void chgTailVoy(Reseau r,Voyageur v);
+
 #endif

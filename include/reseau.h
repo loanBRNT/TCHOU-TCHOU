@@ -40,5 +40,4 @@ int retirerUneGare(Reseau, Gare); //retire une gare ainsi que ses trajets (DEPAR
 
 int retirerUnTrajet(Gare,Gare);  //retire un trajet entre deux gares (dans les deux sens)
 
-
 #endif

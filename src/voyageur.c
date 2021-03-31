@@ -83,6 +83,17 @@ Voyageur initRepertoire(Reseau r, FILE* fichierRepertoire){
 	return v;
 }
 
+int sauvRepertoire(Reseau r, FILE* fichierRepertoire){
+	Voyageur v = voyageurHead(r);
+	Voyageur vSauv;
+	for (int i = 0; i < nbDeVoyageur(r) ; ++i) {
+		fprintf(fichierRepertoire, "%s:%s:%s:%s:%s:\n",v->id,v->nom,v->prenom,gareDepItineraire(v->voyage), gareArvItineraire(v->voyage) );
+		vSauv = v;
+		v = v->next;
+		free(vSauv);
+	}
+	return 0;
+}
 
 Place initPlace(Reseau r, FILE* fichierVoyageur){
 	Place p = (Place) malloc(sizeof(struct s_place));
@@ -288,9 +299,9 @@ int rechercheVoyageur(Reseau r, char* idRecherche){
 		printf(" ERROR : PAS DE VOYAGEUR AVEC LE NUM %s \n",idRecherche);
 		return 1;
 	} else {
-		printf(" LE VOYAGEUR %s %s AU NUMERO %s : \n", listeV[0]->prenom, listeV[0]->nom, idRecherche );
+		printf("LE VOYAGEUR %s %s AU NUMERO %s : \n", listeV[0]->prenom, listeV[0]->nom, idRecherche );
 		for (int i = 0; i < nb; ++i) {
-			printf(" Prend le train %s, il sera assis \n a la place numero %s de %s a %s  \n",
+			printf("Prend le train %s, il sera assis \n a la place numero %s de %s a %s  \n",
 				idTrain(listeT[i]), listeP[i]->numPlace, nomDeGare(gareDepItineraire(listeV[i]->voyage)), nomDeGare(gareArvItineraire(listeV[i]->voyage)) );
 		}
 		return 0;
@@ -323,7 +334,24 @@ void suppVoyageur(Reseau r, char* idRecherche){
 			}
 		}
 		t = trainNext(t);
-	}	
+	}
+	v = voyageurHead(r);
+	if (!strcmp(v->id, idRecherche)) {
+		chgHeadVoy(r, v);
+	} else {
+		for (int i = 0 ; i< nbDeVoyageur(r)-1; i++){
+			if (!strcmp(v->next->id, idRecherche)){
+				if (i == nbDeVoyageur(r)-2){
+					chgTailVoy(r, v);
+				}
+				v->next = v->next->next;
+				free(v->next);
+			}
+			v = voyageurNext(v);
+		}	
+	}
+	supVoyMemoire(r);
+	
 }
 
 Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire it){
@@ -445,11 +473,11 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 	tirerNumVoyageur(r, v);
 	for (int i = 0; i < cpt; ++i){
 		Voyageur vNouv = mettreSurUnePlace(r, listeT[i], listeG[i], g, it);
-		for (int j = 0; j < strlen(v->nom); ++j)
+		for (int j = 0; j < strlen(v->nom)+1; ++j)
 		{
 			vNouv->nom[j] = v->nom[j];
 		}
-		for (int j = 0; j < strlen(v->prenom); ++j)
+		for (int j = 0; j < strlen(v->prenom)+1; ++j)
 		{
 			vNouv->prenom[j] = v->prenom[j];
 		}
@@ -459,14 +487,10 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 		}
 		g = listeG[i];
 	}
-	FILE* fichRepertoire = fopen("sauv/repertoire.txt", "w");
-	if (fichRepertoire == NULL) {
-		printf("ERREUR : IMPOSSIBLE D'OUVRIR REPERTOIRE.TXT\n");
-		return NULL;
-	}
-	fseek(fichRepertoire, 0, SEEK_END);
-	fprintf(fichRepertoire, "%s:%s:%s:%s-%s:\n",v->id,v->nom,v->prenom,nomDeGare(gareDepItineraire(it)),nomDeGare(gareArvItineraire(it)));
-	fclose(fichRepertoire);
+	v->voyage = it;
+	voyageurTail(r)->next = v;
+	v->next = NULL;
+	ajtVoyMemoire(v,r);
 	return v;
 }
 
@@ -479,14 +503,7 @@ void tirerNumVoyageur(Reseau r, Voyageur v){
 	int nb;
 	Place p;
 	while (ok == 0){
-		t = headTrainReseau(r);
-		for (int i = 0; i < nbTrainReseau(r); ++i) {
-			for (int j = 0; j < 10; ++j) {
-				nbVoyageur = nbVoyageur + nbVoyageurSurLaPlace(placeDuTrain(t,j));
-			}
-			t = trainNext(t);
-		}
-		nbVoyageur++;
+		nbVoyageur = nbDeVoyageur(r)+1;
 		itoa(nbVoyageur, v->id, 10);
 		v->id[4]='\0';
 		for (int i = strlen(v->id); i < 4; ++i) {
@@ -528,12 +545,12 @@ Voyageur modifVoyageur(Reseau r, char* id){
 	if (rechercheVoyageur(r, id) == 1 ){
 		return NULL;
 	}
-	Gare g1, g2;
+	Gare gDep, gArv;
 	printf("\n");
 	printf("################################################\n");
 	printf("#        Quel modif voulez vous faire ?        #\n");
-	printf("#          1- Ajoutez une Etape                #\n");
-	printf("#          2- Changer la gare d'arrivee        #\n");
+	printf("#          1- Changer la gare d'arrivee        #\n");
+	printf("#          2- Annuler la reservation           #\n");
 	printf("################################################\n");
 	printf("\n");
 	long entree = lireLong();
@@ -546,8 +563,8 @@ Voyageur modifVoyageur(Reseau r, char* id){
 		printf("\n");
 		scanf("%s",nomGEtape);
 		fflush(stdin);
-		Gare g2 = rechercheGare(r, nomGEtape);
-		if (g2 == NULL){
+		Gare gArv = rechercheGare(r, nomGEtape);
+		if (gArv == NULL){
 			printf("\n");
 			printf("################################################\n");
 			printf("#             La Gare n'existe pas !           #\n");
@@ -555,21 +572,31 @@ Voyageur modifVoyageur(Reseau r, char* id){
 			printf("\n");
 			return NULL;
 		}
-	} else if (entree == 2) {
+		Voyageur v = voyageurHead(r);
+		for (int i = 0; i < nbDeVoyageur(r); ++i) {
+			if (!strcmp(v->id,id)){
+				gDep = gareDepItineraire(v->voyage);
+			}
+			v = v->next;
+		}
+		suppVoyageur(r, id);
 
-	} else {
+	} else if (entree == 2) {
+		suppVoyageur(r, id);
+		printf("La reservation a bien ete annule\n");
+		return NULL;
+	}else {
 		printf("CHOIX INVALIDE\n");
 		return NULL;
 	}
-	Itineraire it = rechercheItineraire(r, g1, g2);
+	Itineraire it = rechercheItineraire(r, gDep, gArv);
 	Trajet tr;
 	Train t, tSauv;
 	Gare g = gareDepItineraire(it);
 	Train listeT[20]; //contrainte max 20 trains differents
 	Gare listeG[20];
 	int cpt=1;
-	for (int i = 0; i < nbEtapeItineraire(it); ++i)
-	{
+	for (int i = 0; i < nbEtapeItineraire(it); ++i){
 		tr = listeTrajetItineraire(it, i);
 		t = rechercheTrainCorres(r,g, tr);
 		if (i == 0 ) {

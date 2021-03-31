@@ -233,7 +233,22 @@ void enleverTrain(Reseau r){
 	r->nbTrain--;
 }
 
+void ajtVoyMemoire(Voyageur v, Reseau r){
+	r->nbVoyageur++;
+	r->tailVoyageur = v;
+}
 
+void supVoyMemoire(Reseau r){
+	r->nbVoyageur--;
+}
+
+void chgHeadVoy(Reseau r, Voyageur v){
+	r->headVoyageur = voyageurNext(v);
+}
+
+void chgTailVoy(Reseau r,Voyageur v){
+	r->tailVoyageur = v;
+}
 
 Reseau initReseau(){
 	//allocation memoire
@@ -348,6 +363,7 @@ Reseau sauvReseau(Reseau ensembleGare){
 	FILE* fichierTrajet = fopen("sauv/trajet.txt","w+");
 	FILE* fichierTrain = fopen("sauv/train.txt", "w+");
 	FILE* fichierVoyageur = fopen("sauv/voyageur.txt", "w+");
+	FILE* fichierRepertoire = fopen("sauv/repertoire.txt", "w+");
 	if (fichierReseau == NULL) {
 		printf("Error 1 : PROBLEME OUVERTURE FICHIER RESEAU\n");
 		return ensembleGare;
@@ -379,6 +395,7 @@ Reseau sauvReseau(Reseau ensembleGare){
 	}
 	// Sauvegarde des trains
 	sauvTrain(ensembleGare, fichierTrain, fichierVoyageur);
+	sauvRepertoire(ensembleGare, fichierRepertoire);
 
 	fclose(fichierTrajet);
 	fclose(fichierReseau);

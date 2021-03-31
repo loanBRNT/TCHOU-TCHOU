@@ -1087,13 +1087,11 @@ int menuReservation(Reseau r){
 		printf("\n");
 		return 1;
 	}	
-	Voyageur utilisateur;
-	Itineraire itineraireVoyageur = creerItineraireVide();
-	itineraireVoyageur = rechercheItineraire(r, g, g2);
+	Itineraire itineraireVoyageur = rechercheItineraire(r, g, g2);
 	if (itineraireVoyageur == NULL) {
 		return 1;
 	}
-	utilisateur = creerVoyageur( r, itineraireVoyageur);
+	Voyageur utilisateur = creerVoyageur( r, itineraireVoyageur);
 	if (utilisateur != NULL) {
 		printf("\n");
 		printf("Voici votre identifant voyageur : %s\n",  idVoyageur(utilisateur) );
