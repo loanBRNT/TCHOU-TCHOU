@@ -4,4 +4,4 @@ A003:PARDO-PARGA:PAULINE:Limoges:Montauban:
 A005:BERNAT:AMANDINE:Bordeaux:Nice:
 A009:TAMA:ZARM:Orleans:Toulouse:
 A006:MACRON:BRIGITTE:Paris:Biarritz:
-A007:MONKEY-D:LUFFY:Brive:Biarritz:
+A007:MONKEY-D:LUFFY:Brive:Toulouse:

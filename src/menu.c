@@ -1108,16 +1108,8 @@ int menuModificationVoyage(Reseau r){
 	printf("################################################\n");
 	printf("\n");
 	scanf("%s", numClient);
-	printf("\n");
 	fflush(stdin);
-	printf("####################################################\n");
-	printf("#                Voici votre trajet                #\n");
-	printf("####################################################\n");
-	int valeur;
-	valeur = rechercheVoyageur(r,numClient);
-	if(valeur==1){
-		return 1;
-	}
+	modifVoyageur(r, numClient);
 	printf("####################################################\n");
 	int event = 1;
 	printf("\n");

@@ -299,7 +299,17 @@ int rechercheVoyageur(Reseau r, char* idRecherche){
 		printf(" ERROR : PAS DE VOYAGEUR AVEC LE NUM %s \n",idRecherche);
 		return 1;
 	} else {
-		printf("LE VOYAGEUR %s %s AU NUMERO %s : \n", listeV[0]->prenom, listeV[0]->nom, idRecherche );
+		v = voyageurHead(r);
+		Gare gDep, gArv;
+		for (int i = 0; i < nbDeVoyageur(r); ++i)
+		{
+			if (!strcmp(v->id, idRecherche)){
+				gDep = gareDepItineraire(v->voyage);
+				gArv = gareArvItineraire(v->voyage);
+			}
+			v = voyageurNext(v);
+		}
+		printf("LE VOYAGEUR %s %s AU NUMERO %s : \n il part de %s et arrivera a %s \n\n ", listeV[0]->prenom, listeV[0]->nom, idRecherche, nomDeGare(gDep), nomDeGare(gArv));
 		for (int i = 0; i < nb; ++i) {
 			printf("Prend le train %s, il sera assis \n a la place numero %s de %s a %s  \n",
 				idTrain(listeT[i]), listeP[i]->numPlace, nomDeGare(gareDepItineraire(listeV[i]->voyage)), nomDeGare(gareArvItineraire(listeV[i]->voyage)) );
@@ -545,6 +555,7 @@ Voyageur modifVoyageur(Reseau r, char* id){
 	if (rechercheVoyageur(r, id) == 1 ){
 		return NULL;
 	}
+	Voyageur vNew = (Voyageur) malloc(sizeof(struct s_voyageur));
 	Gare gDep, gArv;
 	printf("\n");
 	printf("################################################\n");
@@ -558,12 +569,12 @@ Voyageur modifVoyageur(Reseau r, char* id){
 		char nomGEtape[30] = {0};
 		printf("\n\n");
 		printf("################################################\n");
-		printf("#    Indiquez le nom de la Gare etape          #\n");
+		printf("#    Indiquez le nom de la nouvelle arrive     #\n");
 		printf("################################################\n");
 		printf("\n");
 		scanf("%s",nomGEtape);
 		fflush(stdin);
-		Gare gArv = rechercheGare(r, nomGEtape);
+		gArv = rechercheGare(r, nomGEtape);
 		if (gArv == NULL){
 			printf("\n");
 			printf("################################################\n");
@@ -576,6 +587,18 @@ Voyageur modifVoyageur(Reseau r, char* id){
 		for (int i = 0; i < nbDeVoyageur(r); ++i) {
 			if (!strcmp(v->id,id)){
 				gDep = gareDepItineraire(v->voyage);
+				for (int j = 0; j < strlen(v->nom)+1; ++j)
+				{
+					vNew->nom[j] = v->nom[j];
+				}
+				for (int j = 0; j < strlen(v->prenom)+1; ++j)
+				{
+					vNew->prenom[j] = v->prenom[j];
+				}
+				for (int j = 0; j < 5; ++j)
+				{
+					vNew->id[j] = v->id[j];
+				}
 			}
 			v = v->next;
 		}
@@ -592,26 +615,53 @@ Voyageur modifVoyageur(Reseau r, char* id){
 	Itineraire it = rechercheItineraire(r, gDep, gArv);
 	Trajet tr;
 	Train t, tSauv;
-	Gare g = gareDepItineraire(it);
 	Train listeT[20]; //contrainte max 20 trains differents
 	Gare listeG[20];
 	int cpt=1;
-	for (int i = 0; i < nbEtapeItineraire(it); ++i){
+	for (int i = 0; i < nbEtapeItineraire(it); ++i)
+	{
 		tr = listeTrajetItineraire(it, i);
-		t = rechercheTrainCorres(r,g, tr);
+		t = rechercheTrainCorres(r,gDep, tr);
+		if (t == NULL){
+			printf("ERROR : le trajet %s - %s n'a pas de train assigne !\n", nomDeGare(gDep), nomDeGare(gareArvDuTrajet(tr)) );
+			free(vNew);
+			return NULL;
+		}
 		if (i == 0 ) {
 			listeT[0]=t;
 		} else if (strcmp(idTrain(t),idTrain(tSauv))) {
 			listeT[cpt] = t;
-			listeG[cpt-1] = g;
+			listeG[cpt-1] = gDep;
 			cpt++;
 		}
-		g = gareArvDuTrajet(tr);
+		gDep = gareArvDuTrajet(tr);
 		tSauv = t ;
 	}
-	listeG[cpt-1]=g;
-	g = gareDepItineraire(it);
+	listeG[cpt-1]=gDep;
+	gDep = gareDepItineraire(it);
+	for (int i = 0; i < cpt; ++i){
+		Voyageur vNouv = mettreSurUnePlace(r, listeT[i], listeG[i], gDep, it);
+		for (int j = 0; j < strlen(vNew->nom)+1; ++j)
+		{
+			vNouv->nom[j] = vNew->nom[j];
+		}
+		for (int j = 0; j < strlen(vNew->prenom)+1; ++j)
+		{
+			vNouv->prenom[j] = vNew->prenom[j];
+		}
+		for (int j = 0; j < 5; ++j)
+		{
+			vNouv->id[j] = vNew->id[j];
+		}
+		gDep = listeG[i];
+	}
+	vNew->voyage = it;
+	voyageurTail(r)->next = vNew;
+	vNew->next = NULL;
+	ajtVoyMemoire(vNew,r);
+	return vNew;
 }
+
 
 
 // ACCESSEUR #####################################

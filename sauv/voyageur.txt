@@ -6,10 +6,10 @@ A105
 A106/GAUDILLAT:ELIOT:A002:Montauban-Toulouse://PARDO-PARGA:PAULINE:A003:Limoges-Brive:Brive-Montauban:/
 A107
 A108
-A109/MONKEY-D:LUFFY:A007:Brive-Montauban:/
+A109/MONKEY-D:LUFFY:A007:Brive-Montauban:Montauban-Toulouse:/
 A110/TAMA:ZARM:A009:Orleans-Limoges:Limoges-Brive:Brive-Montauban:Montauban-Toulouse:/
 
-A201/BERNAT:LOAN:A001:Toulouse-Narbonne://BERNAT:AMANDINE:A005:Marseille-Nice:/
+A201/BERNAT:LOAN:A001:Toulouse-Narbonne://BERNAT:AMANDINE:A005:Marseille-Nice://HUGO:ANAL:A008:Bordeaux-Agen:Agen-Montauban:/
 A202
 A203
 A204
@@ -39,7 +39,7 @@ A405
 A406
 A407
 A408
-A409/MONKEY-D:LUFFY:A007:Bordeaux-Biarritz:/
+A409
 A410/MACRON:BRIGITTE:A006:Paris-Tours:Tours-Bordeaux:Bordeaux-Biarritz:/
 
 A501
@@ -62,7 +62,7 @@ A606
 A607
 A608
 A609
-A610/MONKEY-D:LUFFY:A007:Montauban-Agen:Agen-Bordeaux:/
+A610
 
 A701
 A702

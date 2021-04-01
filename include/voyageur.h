@@ -38,4 +38,6 @@ void chgHeadVoy(Reseau r, Voyageur v);
 
 void chgTailVoy(Reseau r,Voyageur v);
 
+Voyageur modifVoyageur(Reseau r, char* id);
+
 #endif
