@@ -7,3 +7,4 @@ A6 Nice-Marseille:Marseille-Montpellier:Montpellier-Narbonne:Narbonne-Toulouse:T
 A7 Marseille-Lyon:Lyon-Paris:
 A8 Biarritz-Bordeaux:Bordeaux-Tours:Tours-Paris:
 A9 Montauban-Agen:Agen-Bordeaux:
+B0 Limoges-Brive:Brive-Montauban:Montauban-Agen:Agen-Bordeaux:Bordeaux-Biarritz:

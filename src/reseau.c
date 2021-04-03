@@ -548,17 +548,23 @@ int retirerUneGare(Reseau r, Gare g){
 	}
 	r->size--;
 	//on retire la gare
-	free(g);
 	//On retirer les trajets qui amenaient a la gare qui vient d'etre retire
 	Gare act = r->head;
 	Trajet t;
+	int ok = 0;
 	for (int i=0; i<r->size; i++){
-		t = rechercheTrajet(act,g);
-		if (t != NULL) {
-			retirerUnTrajet(act, g);
+		ok = 0;
+		while ( ok == 0){
+			t = rechercheTrajet(act,g);
+			if (t != NULL) {
+				retirerUnTrajet(act, g);
+			} else {
+				ok = 1;
+			}
 		}
 		act = act->next;
 	}
+	free(g);
 	return 0;
 }
 

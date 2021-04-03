@@ -48,13 +48,9 @@ Agen-40
 Brive-60
 
 Toulouse-20
-
-Toulouse-30
 /
 
 Montauban-20
-
-Montauban-30
 
 Narbonne-90
 /
@@ -80,5 +76,4 @@ Marseille-150
 /
 
 Bordeaux-90
-/
 /
