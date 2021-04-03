@@ -522,6 +522,11 @@ int retirerUneGare(Reseau r, Gare g){
 		printf("Vous ne pouvez avoir moins de 2 gares dans votre réseau !\n");
 		return 1;
 	}
+	if (verifierTrain(r, g)) {
+		printf("SUPPRESSION IMPOSSIBLE\n");
+		return 1;
+	}
+	suppGareDansTrain(r, g);
 	//on raccorde les précédents et suivants ensemble
 	if ( strcmp(r->head->nomGARE, g->nomGARE)) {
 		(g->previous)->next= g->next;
@@ -556,3 +561,4 @@ int retirerUneGare(Reseau r, Gare g){
 	}
 	return 0;
 }
+
