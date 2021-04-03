@@ -513,7 +513,7 @@ void tirerNumVoyageur(Reseau r, Voyageur v){
 	int nb;
 	Place p;
 	while (ok == 0){
-		nbVoyageur = nbDeVoyageur(r)+1;
+		nbVoyageur = nbDeVoyageur(r)+1+nbVoyageur;
 		itoa(nbVoyageur, v->id, 10);
 		v->id[4]='\0';
 		for (int i = strlen(v->id); i < 4; ++i) {
