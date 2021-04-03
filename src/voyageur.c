@@ -511,10 +511,11 @@ void tirerNumVoyageur(Reseau r, Voyageur v){
 	int ok = 0;
 	Train t, tTest;
 	Voyageur vTest;
-	int nb;
+	int nb, sauv;
 	Place p;
 	while (ok == 0){
 		nbVoyageur = nbDeVoyageur(r)+1+nbVoyageur;
+		sauv = nbVoyageur;
 		itoa(nbVoyageur, v->id, 10);
 		v->id[4]='\0';
 		for (int i = strlen(v->id); i < 4; ++i) {
@@ -525,9 +526,9 @@ void tirerNumVoyageur(Reseau r, Voyageur v){
 		}
 		int cpt = 0;
 		do {
-			nbVoyageur = nbVoyageur - 1000;
+			sauv = sauv - 1000;
 			cpt++;
-		} while (nbVoyageur > 0);
+		} while (sauv > 0);
 		v->id[0]=64 + cpt; //utilisation du code ascii
 		tTest = headTrainReseau(r);
 		nb = 0;
