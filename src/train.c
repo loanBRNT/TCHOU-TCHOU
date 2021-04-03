@@ -109,23 +109,27 @@ int suppTrain(Reseau r, char* idIdentification){
 	{
 		if (!strcmp(t->num, idIdentification)){
 			trouve = 1;
-			for (int i = 0; i < 10; ++i)
-			{
-				free(t->place[i]);
+			if (trainPasVide(t)) {
+				for (int i = 0; i < 10; ++i)
+				{
+					free(t->place[i]);
+				}
+				free(t->chemin);
+				if (i == 0){
+					t->next->previous = NULL;
+					t=enleverTrainHead(r, t);
+				} else if (i == nbTrainReseau(r)-1) {
+					t->previous->next = NULL;
+					t=enleverTrainTail(r, t);
+				} else{
+					t->previous->next = t->next;
+					t->next->previous = t->previous;
+					enleverTrain(r);
+				}
+				free(t);
+			} else {
+				printf("ERROR : IL Y A DES VOYAGEUR SUR CE TRAIN\nSUPPRESSION IMPOSSIBLE\n");
 			}
-			free(t->chemin);
-			if (i == 0){
-				t->next->previous = NULL;
-				t=enleverTrainHead(r, t);
-			} else if (i == nbTrainReseau(r)-1) {
-				t->previous->next = NULL;
-				t=enleverTrainTail(r, t);
-			} else{
-				t->previous->next = t->next;
-				t->next->previous = t->previous;
-				enleverTrain(r);
-			}
-			free(t);
 		}
 		t = trainNext(t);
 	}
@@ -243,15 +247,88 @@ Train rechercheTrain(Reseau r, char* id){
 	return tSauv;
 }
 
+int trainPasVide(Train t){
+	int pasVide = 0;
+	for (int i ; i < 10; i++){
+		if (nbVoyageurSurLaPlace(t->place[i]) > 0) {
+			pasVide = 1;
+		}
+	}
+	return pasVide;
+}
 
+int gareDansTrain(Gare g, Train t){
+	int trouve = 0;
+	Gare gTest = gareDepItineraire(t->chemin);
+	if (!strcmp(nomDeGare(g), nomDeGare(gTest))) {
+			trouve = 1;
+		}
+	for (int i = 0; i < nbEtapeItineraire(t->chemin); ++i) {
+		gTest = gareArvDuTrajet(listeTrajetItineraire(cheminTrain(t),i));
+		if (!strcmp(nomDeGare(g), nomDeGare(gTest))) {
+			trouve = 1;
+		}
+	}
+	return trouve;
+}
 
+int trajetDansTrain(Trajet tr, Gare g, Train t){
+	int trouve = 0;
+	Gare gTest = gareDepItineraire(t->chemin);
+	Trajet trTest;
+	for (int i = 0; i < nbEtapeItineraire(t->chemin); ++i)
+	{
+		trTest = listeTrajetItineraire(t->chemin, i);
+		if (!strcmp(nomDeGare(gareArvDuTrajet(trTest)), nomDeGare(gareArvDuTrajet(tr)))) {
+			if (!strcmp(nomDeGare(g),nomDeGare(gTest))) {
+				trouve = 1;
+			}
+		}
+		gTest = gareArvDuTrajet(trTest);
+	}
+	return trouve;
+}
 
+int verifierTrainTrajet(Reseau r, Gare g, Trajet tr){
+	Train t = headTrainReseau(r);
+	int pb = 0;
+	while (t != NULL) {
+		if (gareDansTrain(g, t)){
+			if (trainPasVide(t)){
+				printf("Le Train %s utilise le trajet %s-%s et il y a des passagers dedans\n", idTrain(t), nomDeGare(g), nomDeGare(gareArvDuTrajet(tr)));
+				pb = 1;
+			} else {
+				printf("Le Train %s utilise le trajet %s-%s mais il n'y a pas de passagers\n",idTrain(t), nomDeGare(g),nomDeGare(gareArvDuTrajet(tr)));
+			}
+		}
+		t = t->next;
+	}
+	return pb;
+}
 
+int verifierTrain(Reseau r, Gare g){
+	Train t = headTrainReseau(r);
+	int pb = 0;
+	while (t != NULL) {
+		if (gareDansTrain(g, t)){
+			if (trainPasVide(t)){
+				printf("Le Train %s passe par la Gare %s et il y a des passagers dedans\n", idTrain(t), nomDeGare(g));
+				pb = 1;
+			} else {
+				printf("Le Train %s passe par la Gare %s mais il n'y a pas de passagers\n",idTrain(t), nomDeGare(g) );
+			}
+		}
+		t = t->next;
+	}
+	return pb;
+}
 
-
-
-
-
+int suppGareDansTrain(Reseau r,Gare g){
+	Train t = headTrainReseau(r);
+	if (gareDansTrain(g, t)) {
+		printf("LA GARE A ETAIT DETECTE DANS LE TRAIN\n"); //A CODER
+	}
+}
 
 
 

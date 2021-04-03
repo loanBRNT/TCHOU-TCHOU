@@ -396,10 +396,15 @@ int menuSupGare(Reseau r){
 		printf("################################################\n");
 		printf("#             La Gare n'existe pas !           #\n");
 	} else {
-		retirerUneGare(r, g);
-		printf("\n");
-		printf("################################################\n");
-		printf("#         La Gare a bien etait retire !        #\n");
+		if (retirerUneGare(r, g)){
+			printf("\n");
+			printf("################################################\n");
+			printf("#      La Gare n'a pas pu etre Supprimer !     #\n");
+		} else {
+			printf("\n");
+			printf("################################################\n");
+			printf("#         La Gare a bien etait retire !        #\n");
+		}
 	}
 	printf("#         1- Supprimmer une autre Gare         #\n");
 	printf("#         2- RETOUR                            #\n");
