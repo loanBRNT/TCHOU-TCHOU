@@ -5,3 +5,5 @@ A009:TAMA:ZARM:Orleans:Toulouse:
 A006:MACRON:BRIGITTE:Paris:Biarritz:
 A007:MONKEY-D:LUFFY:Brive:Toulouse:
 A005:BERNAT:AMANDINE:Bordeaux:Paris:
+A984:Ketcheum:Ash:Paris:Agen:
+A982:Hal:san:Orleans:Agen:
