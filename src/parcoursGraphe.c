@@ -279,6 +279,34 @@ Itineraire modifItineraireTrain(Train t, int i){
 	return cheminTrain(t);
 }
 	
+Itineraire modifItineraireTrainTrajet(Train t, int i){
+	if (i == 0){
+		cheminTrain(t)->depart = gareArvDuTrajet(cheminTrain(t)->liste[0]);
+		for (int j=0 ; j+1 < nbEtapeItineraire(cheminTrain(t)) ; j++) {
+			cheminTrain(t)->liste[j]=cheminTrain(t)->liste[j+1];
+		}	
+		cheminTrain(t)->nbEtape--;
+	} else if (i == cheminTrain(t)->nbEtape-1){
+		cheminTrain(t)->arrive = gareArvDuTrajet(cheminTrain(t)->liste[cheminTrain(t)->nbEtape-2]);
+		cheminTrain(t)->nbEtape--;
+	} else if (i > (nbEtapeItineraire(cheminTrain(t)) / 2)) {
+		cheminTrain(t)->arrive = gareArvDuTrajet(cheminTrain(t)->liste[i-1]);
+		cheminTrain(t)->nbEtape = i;
+	} else {
+		cheminTrain(t)->depart = gareArvDuTrajet(cheminTrain(t)->liste[i]);
+		for (int j=0 ; j+i+1 < nbEtapeItineraire(cheminTrain(t)) ; j++) {
+			cheminTrain(t)->liste[j]=cheminTrain(t)->liste[j+i+1];
+		}
+		cheminTrain(t)->nbEtape = cheminTrain(t)->nbEtape - 1 - i;
+	}
+	printf("\n");
+	printf("****************************** WARNING *****************************\n");
+	printf("      Le train %s est raccourcit entre %s et %s\n", idTrain(t), nomDeGare(cheminTrain(t)->depart), nomDeGare(cheminTrain(t)->arrive));
+	printf("********************************************************************\n");
+	printf("\n");
+	return cheminTrain(t);
+}
+
 
 // ACCESSEUR ###################################
 

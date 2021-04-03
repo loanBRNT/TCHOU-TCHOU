@@ -590,7 +590,7 @@ int menuSupTrajet(Reseau r){
 		menuGestionTrajet(r);
 		return 1;
 	}
-	if (retirerUnTrajet(g,g2) == 1){
+	if (retirerUnTrajet(r, g,g2) == 1){
 		menuGestionTrajet(r);
 		return 1;
 	}

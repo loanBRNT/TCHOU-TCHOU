@@ -356,9 +356,41 @@ int suppGareDansTrain(Reseau r,Gare g){
 			tSauv = t->next;
 		}
 	}
+	return 0;
 }
 
 int suppTrajetDansTrain(Reseau r, Gare g, Trajet tr){
+	Train t;
+	Train tSauv = headTrainReseau(r);
+	Gare gDep;
+	for (int j = 0; j < nbTrainReseau(r); ++j) {
+		t = tSauv;
+		if (trajetDansTrain(tr, g, t)) {
+			if (nbEtapeItineraire(t->chemin) < 3 ){
+				printf("\n");
+				printf("********************** WARNING *********************\n");
+				printf("*             Le train %s est supprimee            *\n", t->num);
+				printf("****************************************************\n");
+				printf("\n");
+				tSauv = t->next;
+				suppTrain(r, t->num);
+				j--;
+			} else {
+				gDep = gareDepItineraire(t->chemin);
+				for (int i = 0 ; i < nbEtapeItineraire(t->chemin) ; i++ ) {
+					if (!strcmp(nomDeGare(gareArvDuTrajet(tr)),nomDeGare(gareArvDuTrajet(listeTrajetItineraire(t->chemin, i))))){
+						if (!strcmp(nomDeGare(g),nomDeGare(gDep))){
+							modifItineraireTrainTrajet(t, i);
+						}
+					}
+					gDep = gareArvDuTrajet(listeTrajetItineraire(t->chemin, i));
+				}
+				tSauv = t->next;
+			}
+		} else {
+			tSauv = t->next;
+		}
+	}
 	return 0;
 }
 

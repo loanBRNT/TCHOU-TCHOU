@@ -38,6 +38,6 @@ ajoute un trajet entre les deux gares
 
 int retirerUneGare(Reseau, Gare); //retire une gare ainsi que ses trajets (DEPART + ARRIVE) du reseau
 
-int retirerUnTrajet(Gare,Gare);  //retire un trajet entre deux gares (dans les deux sens)
+int retirerUnTrajet(Reseau r, Gare,Gare);  //retire un trajet entre deux gares (dans les deux sens)
 
 #endif

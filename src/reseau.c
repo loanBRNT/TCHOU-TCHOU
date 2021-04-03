@@ -480,13 +480,18 @@ int ajouterUnTrajet(Gare gDep, Gare gArv, int temps){
 	}
 	return 0;
 }
-int retirerUnTrajet(Gare gDep, Gare gArv){
+int retirerUnTrajet(Reseau r, Gare gDep, Gare gArv){
 	//on verifie que le trajet existe bien
 	Trajet tr = rechercheTrajet(gDep, gArv);
 	if (tr == NULL) {
 		printf("Le trajet n'existe pas !\n");
 		return 1;
 	}
+	if (verifierTrainTrajet(r, gDep, tr)){
+		printf("SUPPRESSION IMPOSSIBLE\n");
+		return 1;
+	}
+	suppTrajetDansTrain(r, gDep, tr);
 	Trajet sauv = gDep->headListeTrajet;
 	if (strcmp(sauv->gArrive->nomGARE,gArv->nomGARE)){
 		while ((strcmp(gArv->nomGARE,sauv->next->gArrive->nomGARE)) && (sauv->next != NULL)){
@@ -507,7 +512,7 @@ int retirerUnTrajet(Gare gDep, Gare gArv){
 	free(tr);
 	gDep->nbTrajet--;
 	if (rechercheTrajet(gArv,gDep) != NULL) {
-		retirerUnTrajet(gArv,gDep);
+		retirerUnTrajet(r, gArv,gDep);
 	}
 	return 0;
 }
@@ -557,7 +562,7 @@ int retirerUneGare(Reseau r, Gare g){
 		while ( ok == 0){
 			t = rechercheTrajet(act,g);
 			if (t != NULL) {
-				retirerUnTrajet(act, g);
+				retirerUnTrajet(r,act, g);
 			} else {
 				ok = 1;
 			}

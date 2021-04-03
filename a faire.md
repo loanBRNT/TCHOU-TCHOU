@@ -3,9 +3,18 @@
 
 - EXPORTATION EN JSON (Eliott)
 
--> Ajouter le systeme pour casser les chemins de train qd on supprime une gare [URGENT]
+-> Attention, train qui boucle pour la sup !
 
--> Modifier les itineraires de voyageurs / Finir la modif de gare de fin
+
+
+
+
+
+-> Etat des trains 
+
+-> Boutons reset voyageur
+
+-> etat du circuit (gare non desservie etc)
 
 AMELIORATION
 
