@@ -358,6 +358,10 @@ int suppGareDansTrain(Reseau r,Gare g){
 	}
 }
 
+int suppTrajetDansTrain(Reseau r, Gare g, Trajet tr){
+	return 0;
+}
+
 
 
 

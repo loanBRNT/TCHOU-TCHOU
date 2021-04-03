@@ -9,7 +9,7 @@ A108
 A109/MONKEY-D:LUFFY:A007:Brive-Montauban:Montauban-Toulouse:/
 A110/TAMA:ZARM:A009:Orleans-Limoges:Limoges-Brive:Brive-Montauban:Montauban-Toulouse:/
 
-A201/BERNAT:LOAN:A001:Toulouse-Narbonne://BERNAT:AMANDINE:A005:Marseille-Nice://HUGO:ANAL:A008:Bordeaux-Agen:Agen-Montauban:/
+A201/BERNAT:LOAN:A001:Toulouse-Narbonne://HUGO:ANAL:A008:Bordeaux-Agen:Agen-Montauban:/
 A202
 A203
 A204
@@ -29,7 +29,7 @@ A306
 A307
 A308
 A309
-A310/BERNAT:AMANDINE:A005:Paris-Lyon:Lyon-Marseille:/
+A310
 
 A401
 A402
@@ -84,7 +84,7 @@ A806
 A807
 A808
 A809
-A810/BERNAT:AMANDINE:A005:Biarritz-Bordeaux:Bordeaux-Tours:Tours-Paris:/
+A810/BERNAT:AMANDINE:A005:Bordeaux-Tours:Tours-Paris:/
 
 A901
 A902
