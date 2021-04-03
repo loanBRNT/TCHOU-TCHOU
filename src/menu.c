@@ -1143,6 +1143,7 @@ int menuModificationVoyage(Reseau r){
 	printf("\n");
 	scanf("%s", numClient);
 	fflush(stdin);
+	rechercheVoyageur(r,numClient);
 	int event = 1;
 	printf("\n");
 	printf("################################################\n");
