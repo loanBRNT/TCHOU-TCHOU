@@ -13,5 +13,7 @@ long lireLong();
 
 void modiferDonnee(char*,int,char*);
 
+void crypterVigenere(char*,char*);
+
 
 #endif

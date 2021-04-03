@@ -46,7 +46,8 @@ long lireLong()
 
 int verifierPwdAdmin(){
 	char pwdPropose[20];
-	char pwd[20];
+	char pwd[30];
+	char pwdProposeCrypte[30];
 	char loginPropose[20];
 	char login[20];
 	FILE* id =NULL;
@@ -91,13 +92,15 @@ int verifierPwdAdmin(){
 		printf("\n");
 		lire(pwdPropose,20,stdin);
 		fflush(stdin);
+		crypterVigenere(pwdPropose,pwdProposeCrypte);
+		//crypterVigenere(pwdPropose,pwdProposeCrypte);
 		printf("\n");
 		// on recupere le mot de passe dans le fichier controleur.txt correspondant au controleur qui se connecte
-		lire(pwd,20,id);
+		lire(pwd,30,id);
 		/*on compare le mot de passe avec le mot de passe saisie par l'utilisateur
 		si ils ne sont pas identique on affiche un message d'erreur et return une valeur d'erreur
 		sinon on affiche un message pour informer de la connexion et on return 0*/
-		if((strcmp(pwdPropose,pwd)) != 0)
+		if((strcmp(pwdProposeCrypte,pwd)) != 0)
 		{
 			fclose(id);
 			printf("###########################################\n");
@@ -121,7 +124,8 @@ int verifierPwdAdmin(){
 int verifierLogControleur(){
 	int numControleur;
 	char pwdPropose[20];
-	char pwd[20];
+	char pwdProposeCrypte[30];
+	char pwd[30];
 	char loginPropose[20];
 	char login[20];
 	FILE* id =NULL;
@@ -203,13 +207,15 @@ int verifierLogControleur(){
 		printf("####################################################\n");
 		printf("\n");
 		lire(pwdPropose,20,stdin);
+		//on crypte le mot de passe proposer
+		crypterVigenere(pwdPropose,pwdProposeCrypte);
 		printf("\n");
 		// on recupere le mot de passe dans le fichier controleur.txt correspondant au controleur qui se connecte
-		lire(pwd,20,id);
+		lire(pwd,30,id);
 		/*on compare le mot de passe avec le mot de passe saisie par l'utilisateur
 		si ils ne sont pas identique on affiche un message d'erreur et return une valeur d'erreur
 		sinon on affiche un message pour informer de la connexion et on return 0*/
-		if((strcmp(pwdPropose,pwd)) != 0)
+		if((strcmp(pwdProposeCrypte,pwd)) != 0)
 		{
 			fclose(id);
 			printf("###########################################\n");
@@ -231,13 +237,13 @@ int verifierLogControleur(){
 }
 
 void modiferDonnee(char* nomFile,int index ,char* texte){
-	char ligne[20];
+	char ligne[30];
 	int i=0;
 	FILE* id = NULL;
 	FILE* temp = NULL;
 	id=fopen(nomFile,"r");
 	temp=fopen("sauv/temporaire.txt","w");
-	while(fgets(ligne,20,id) != NULL) // on lit le fichier tant qu'il n'y a pas d'erreur
+	while(fgets(ligne,30,id) != NULL) // on lit le fichier tant qu'il n'y a pas d'erreur
 	{
 		if(i==index){
 			fprintf(temp, "%s\n",texte);
@@ -251,4 +257,35 @@ void modiferDonnee(char* nomFile,int index ,char* texte){
 	fclose(temp);
 	remove(nomFile);
 	rename("sauv/temporaire.txt",nomFile);
+}
+
+void crypterVigenere(char* pwd, char* pwdCrypt){
+	char cle[]="UpsSitech";
+	char Salt1[]="Tchou";
+	char Salt2[]="qJfC:";
+	int i=0;
+	int j =0;
+	int avancement=0;
+	while(Salt1[j] != '\0'){
+		pwdCrypt[avancement]=((int)Salt1[j]+(int)cle[i])%127;
+		i=(i+1)%strlen(cle);
+		avancement++;
+		j++;
+	}
+	j=0;
+	while(pwd[j] != '\0'){
+		pwdCrypt[avancement]=((int)pwd[j]+(int)cle[i])%127;
+		i=(i+1)%strlen(cle);
+		avancement++;
+		j++;
+	}
+	j=0;
+	while(Salt2[j] != '\0'){
+		pwdCrypt[avancement]=((int)Salt2[j]+(int)cle[i])%127;
+		i=(i+1)%strlen(cle);
+		avancement++;
+		j++;
+	}
+	pwdCrypt[avancement]='\0';
+
 }
