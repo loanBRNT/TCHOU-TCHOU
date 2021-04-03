@@ -38,4 +38,6 @@ int verifierTrainTrajet(Reseau r, Gare g, Trajet tr);
 
 int suppGareDansTrain(Reseau r,Gare g);
 
+Itineraire modifItineraireTrain(Train t, int i);
+
 #endif

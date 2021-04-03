@@ -346,6 +346,7 @@ void suppVoyageur(Reseau r, char* idRecherche){
 		t = trainNext(t);
 	}
 	v = voyageurHead(r);
+	Voyageur v2;
 	if (!strcmp(v->id, idRecherche)) {
 		chgHeadVoy(r, v);
 	} else {
@@ -355,7 +356,7 @@ void suppVoyageur(Reseau r, char* idRecherche){
 					chgTailVoy(r, v);
 				}
 				v->next = v->next->next;
-				free(v->next);
+				i++;
 			}
 			v = voyageurNext(v);
 		}	
@@ -513,7 +514,7 @@ void tirerNumVoyageur(Reseau r, Voyageur v){
 	int nb;
 	Place p;
 	while (ok == 0){
-		nbVoyageur = nbDeVoyageur(r)+1;
+		nbVoyageur = nbDeVoyageur(r)+1+nbVoyageur;
 		itoa(nbVoyageur, v->id, 10);
 		v->id[4]='\0';
 		for (int i = strlen(v->id); i < 4; ++i) {
@@ -603,7 +604,6 @@ Voyageur modifVoyageur(Reseau r, char* id){
 			v = v->next;
 		}
 		suppVoyageur(r, id);
-
 	} else if (entree == 2) {
 		suppVoyageur(r, id);
 		printf("La reservation a bien ete annule\n");

@@ -109,7 +109,7 @@ int suppTrain(Reseau r, char* idIdentification){
 	{
 		if (!strcmp(t->num, idIdentification)){
 			trouve = 1;
-			if (trainPasVide(t)) {
+			if (!trainPasVide(t)) {
 				for (int i = 0; i < 10; ++i)
 				{
 					free(t->place[i]);
@@ -249,7 +249,7 @@ Train rechercheTrain(Reseau r, char* id){
 
 int trainPasVide(Train t){
 	int pasVide = 0;
-	for (int i ; i < 10; i++){
+	for (int i=0 ; i < 10; i++){
 		if (nbVoyageurSurLaPlace(t->place[i]) > 0) {
 			pasVide = 1;
 		}
@@ -324,10 +324,42 @@ int verifierTrain(Reseau r, Gare g){
 }
 
 int suppGareDansTrain(Reseau r,Gare g){
-	Train t = headTrainReseau(r);
-	if (gareDansTrain(g, t)) {
-		printf("LA GARE A ETAIT DETECTE DANS LE TRAIN\n"); //A CODER
+	Train t;
+	Train tSauv= headTrainReseau(r);
+	Gare gTest;
+	for ( int j = 0; j < nbTrainReseau(r) ; j++){
+		gTest = gareDepItineraire(tSauv->chemin);
+		t = tSauv;
+		if (gareDansTrain(g, t)) {
+			if (nbEtapeItineraire(t->chemin) < 4 ){
+				printf("\n");
+				printf("********************** WARNING *********************\n");
+				printf("*             Le train %s est supprimee            *\n", t->num);
+				printf("****************************************************\n");
+				printf("\n");
+				tSauv = t->next;
+				suppTrain(r, t->num);
+				j--;
+			} else {
+				for (int i = 0 ; i < nbEtapeItineraire(t->chemin) ; i++ ){
+					if (!strcmp(nomDeGare(gTest),nomDeGare(g))) {
+						modifItineraireTrain(t, i);
+					}
+				gTest = gareArvDuTrajet(listeTrajetItineraire(t->chemin, i));
+				}
+				if (!strcmp(nomDeGare(gTest),nomDeGare(g))) {
+					modifItineraireTrain(t, nbEtapeItineraire(t->chemin));
+				}
+				tSauv = t->next;
+			}		
+		} else {
+			tSauv = t->next;
+		}
 	}
+}
+
+int suppTrajetDansTrain(Reseau r, Gare g, Trajet tr){
+	return 0;
 }
 
 
