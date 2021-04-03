@@ -40,6 +40,7 @@ void testReseau(Reseau reseau){
 
 int main(int argc, char const *argv[])
 {
+
 	/* initialisation du reseau*/
 	Reseau reseau = initReseau();
 

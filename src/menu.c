@@ -851,6 +851,7 @@ int menuModification(int index, int n){
 	char nomFichier3[100]="sauv/controleur3.txt";
 	char nomFichier4[100]="sauv/admin.txt";
 	char new[20];
+	char pwdcrypte[30];
 	if(index==1){
 		printf("############################################\n");
 		printf("#veuillez saisir votre nouveau mot de passe#\n");
@@ -858,6 +859,7 @@ int menuModification(int index, int n){
 		printf("############################################\n");
 		printf("\n");
 		lire(new,20,stdin);
+		crypterVigenere(new,pwdcrypte);
 		fflush(stdin);
 	}
 	else if(index==2){
@@ -885,24 +887,50 @@ int menuModification(int index, int n){
 		printf("\n");
 		return 1;
 	}
-	if(n==1){
-		modiferDonnee(nomFichier1,index ,new);
-	}
-	else if (n==2){
-		modiferDonnee(nomFichier2,index ,new);
-	}
-	else if (n==3){
-		modiferDonnee(nomFichier3,index ,new);
-	}
-	else if (n==4){
-		modiferDonnee(nomFichier4,index ,new);
+	if(index==1){
+		if(n==1){
+		modiferDonnee(nomFichier1,index ,pwdcrypte);
+		}
+		else if (n==2){
+			modiferDonnee(nomFichier2,index ,pwdcrypte);
+		}
+		else if (n==3){
+			modiferDonnee(nomFichier3,index ,pwdcrypte);
+		}
+		else if (n==4){
+			modiferDonnee(nomFichier4,index ,pwdcrypte);
+		}
+
+		else{
+			printf("############################################\n");
+			printf("#                 erreur                   #\n");
+			printf("############################################\n");
+			printf("\n");
+			return 1;		
+		}
 	}
 	else{
-		printf("############################################\n");
-		printf("#                 erreur                   #\n");
-		printf("############################################\n");
-		printf("\n");
-		return 1;		
+		if(n==1){
+		modiferDonnee(nomFichier1,index ,new);
+		}
+		else if (n==2){
+			modiferDonnee(nomFichier2,index ,new);
+		}
+		else if (n==3){
+			modiferDonnee(nomFichier3,index ,new);
+		}
+		else if (n==4){
+			modiferDonnee(nomFichier4,index ,new);
+		}
+
+		else{
+			printf("############################################\n");
+			printf("#                 erreur                   #\n");
+			printf("############################################\n");
+			printf("\n");
+			return 1;
+		}
+
 	}
 	printf("############################################\n");
 	printf("#          Modification enregistree        #\n");
