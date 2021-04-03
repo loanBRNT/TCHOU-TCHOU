@@ -275,6 +275,7 @@ int menuSuppTrain(Reseau r){
 	scanf("%s", nom);
 	fflush(stdin);
 	suppTrain(r, nom);
+	return 0;
 }
 
 int menuModifTrain(Reseau r){
@@ -1137,7 +1138,7 @@ int menuModificationVoyage(Reseau r){
 	printf("\n");
 	scanf("%s", numClient);
 	fflush(stdin);
-	modifVoyageur(r, numClient);
+	rechercheVoyageur(r,numClient);
 	printf("####################################################\n");
 	int event = 1;
 	printf("\n");
@@ -1150,7 +1151,7 @@ int menuModificationVoyage(Reseau r){
 		choix = lireLong();
 		switch (choix) {
 			case 1:
-			// inserer fonction modification resa quand fini
+				modifVoyageur(r, numClient);
 				event = -1;
 				break;
 			case 2:
