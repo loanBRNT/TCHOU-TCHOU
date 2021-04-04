@@ -293,7 +293,7 @@ int verifierTrainTrajet(Reseau r, Gare g, Trajet tr){
 	Train t = headTrainReseau(r);
 	int pb = 0;
 	while (t != NULL) {
-		if (gareDansTrain(g, t)){
+		if (trajetDansTrain(tr, g, t)){
 			if (trainPasVide(t)){
 				printf("Le Train %s utilise le trajet %s-%s et il y a des passagers dedans\n", idTrain(t), nomDeGare(g), nomDeGare(gareArvDuTrajet(tr)));
 				pb = 1;

@@ -528,6 +528,7 @@ int retirerUneGare(Reseau r, Gare g){
 		return 1;
 	}
 	if (verifierTrain(r, g)) {
+		printf("OUI =======\n");
 		printf("SUPPRESSION IMPOSSIBLE\n");
 		return 1;
 	}
@@ -556,16 +557,10 @@ int retirerUneGare(Reseau r, Gare g){
 	//On retirer les trajets qui amenaient a la gare qui vient d'etre retire
 	Gare act = r->head;
 	Trajet t;
-	int ok = 0;
 	for (int i=0; i<r->size; i++){
-		ok = 0;
-		while ( ok == 0){
-			t = rechercheTrajet(act,g);
-			if (t != NULL) {
-				retirerUnTrajet(r,act, g);
-			} else {
-				ok = 1;
-			}
+		t = rechercheTrajet(act,g);
+		if (t != NULL) {
+			retirerUnTrajet(r,act, g);
 		}
 		act = act->next;
 	}
