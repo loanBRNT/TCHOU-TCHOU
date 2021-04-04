@@ -1,8 +1,0 @@
-A002:GAUDILLAT:ELIOT:Montauban:Toulouse:
-A003:PARDO-PARGA:PAULINE:Limoges:Montauban:
-A009:TAMA:ZARM:Orleans:Toulouse:
-A006:MACRON:BRIGITTE:Paris:Biarritz:
-A007:MONKEY-D:LUFFY:Brive:Toulouse:
-A005:BERNAT:AMANDINE:Bordeaux:Paris:
-A001:BERNAT:LOAN:Brive:Limoges:
-A016:QUINQUIS:HUGO:Limoges:Toulouse:

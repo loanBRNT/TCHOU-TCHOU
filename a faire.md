@@ -3,12 +3,6 @@
 
 - EXPORTATION EN JSON (Eliott)
 
--> Attention, train qui boucle pour la sup !
-
-
-
-
-
 
 -> Etat des trains 
 
