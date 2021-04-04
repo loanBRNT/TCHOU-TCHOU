@@ -601,27 +601,8 @@ int menuSupTrajet(Reseau r){
 	printf("\n");
 	printf("################################################\n");
 	printf("#         Le trajet a bien ete Supprime        #\n");
-	printf("#          1- Supprimer un autre trajet        #\n");
-	printf("#          2- RETOUR                           #\n");
 	printf("################################################\n");
 	printf("\n");
-	long cpt;
-	int event =1;
-	while(event != 1){
-		cpt = lireLong();
-		switch (cpt) {
-			case 1:
-				menuSupTrajet(r);
-				event = -1;
-				break;
-			case 2:
-				event = -1;
-				break;
-			default :
-				afficheErreurMenu();
-				break;
-		}
-	}
 	return 0;
 }
 
@@ -804,6 +785,7 @@ int menuControleurVerification(Reseau r){
 	}
 	return 0;
 }
+
 int menuControleur(int n, Reseau r){
 	int event = 1 ;
 	long choixMenu;

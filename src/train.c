@@ -126,6 +126,7 @@ int suppTrain(Reseau r, char* idIdentification){
 					t->next->previous = t->previous;
 					enleverTrain(r);
 				}
+				printf("\nLe train %s a bien etait supprime\n", t->num);
 				free(t);
 			} else {
 				printf("ERROR : IL Y A DES VOYAGEUR SUR CE TRAIN\nSUPPRESSION IMPOSSIBLE\n");
@@ -185,7 +186,7 @@ Train ajouterTrain(Reseau r){
 		printf("################################################\n");
 		printf("\n");
 		free(t);
-		exit(1);
+		return NULL;
 	}
 	while (cpt == 1){
 		printf("\n");
@@ -206,13 +207,21 @@ Train ajouterTrain(Reseau r){
 		scanf("%s",nomArv);
 		fflush(stdin);
 		g2 = rechercheGare(r, nomArv);
-		tr = rechercheTrajet(g,g2);
-		if (tr != NULL ){
-			ajouteTrajetItineraire(it, g, tr);
-			g = g2;
-			i++;
+		if (g2 == NULL ) {
+			printf("\n");
+			printf("################################################\n");
+			printf("#             La Gare n'existe pas !           #\n");
+			printf("################################################\n");
+			printf("\n");
 		} else {
-			printf("ERREUR : Trajet inexistant\n");
+			tr = rechercheTrajet(g,g2);
+			if (tr != NULL ){
+				ajouteTrajetItineraire(it, g, tr);
+				g = g2;
+				i++;
+			} else {
+				printf("ERREUR : Trajet inexistant\n");
+			}
 		}
 		printf("################################################\n");
 		printf("#      Ajoutez un Trajet supplementaire ?      #\n");
@@ -299,8 +308,6 @@ int verifierTrainTrajet(Reseau r, Gare g, Trajet tr){
 			if (trainPasVide(t)){
 				printf("Le Train %s utilise le trajet %s-%s et il y a des passagers dedans\n", idTrain(t), nomDeGare(g), nomDeGare(gareArvDuTrajet(tr)));
 				pb = 1;
-			} else {
-				printf("Le Train %s utilise le trajet %s-%s mais il n'y a pas de passagers\n",idTrain(t), nomDeGare(g),nomDeGare(gareArvDuTrajet(tr)));
 			}
 		}
 		t = t->next;
@@ -316,8 +323,6 @@ int verifierTrain(Reseau r, Gare g){
 			if (trainPasVide(t)){
 				printf("Le Train %s passe par la Gare %s et il y a des passagers dedans\n", idTrain(t), nomDeGare(g));
 				pb = 1;
-			} else {
-				printf("Le Train %s passe par la Gare %s mais il n'y a pas de passagers\n",idTrain(t), nomDeGare(g) );
 			}
 		}
 		t = t->next;
@@ -335,12 +340,11 @@ int suppGareDansTrain(Reseau r,Gare g){
 		if (gareDansTrain(g, t)) {
 			if (nbEtapeItineraire(t->chemin) < 4 ){
 				printf("\n");
-				printf("********************** WARNING *********************\n");
-				printf("*             Le train %s est supprimee            *\n", t->num);
-				printf("****************************************************\n");
-				printf("\n");
+				printf("********************** WARNING *********************");
 				tSauv = t->next;
 				suppTrain(r, t->num);
+				printf("****************************************************\n");
+				printf("\n");
 				j--;
 			} else {
 				for (int i = 0 ; i < nbEtapeItineraire(t->chemin) ; i++ ){
@@ -370,12 +374,11 @@ int suppTrajetDansTrain(Reseau r, Gare g, Trajet tr){
 		if (trajetDansTrain(tr, g, t)) {
 			if (nbEtapeItineraire(t->chemin) < 3 ){
 				printf("\n");
-				printf("********************** WARNING *********************\n");
-				printf("*             Le train %s est supprimee            *\n", t->num);
-				printf("****************************************************\n");
-				printf("\n");
+				printf("********************** WARNING *********************");
 				tSauv = t->next;
 				suppTrain(r, t->num);
+				printf("****************************************************\n");
+				printf("\n");
 				j--;
 			} else {
 				gDep = gareDepItineraire(t->chemin);
@@ -400,7 +403,7 @@ void affichageEtatReseau(Reseau r) {
 	Train t;
 	Gare g = gareHead(r);
 	Trajet tr;
-	int trouve = 0;
+	int trouve = 0, general = 0;
 	for (int i = 0 ; i < tailleReseau(r) ; i++ ){
 		tr = trajetHeadDeLaGare(g);
 		for (int j = 0 ; j < nbTrajetDeLaGare(g) ; j++ ){
@@ -409,6 +412,7 @@ void affichageEtatReseau(Reseau r) {
 			for (int k = 0 ; k < nbTrainReseau(r) ; k++ ){
 				if (trajetDansTrain(tr, g, t)){
 					trouve = 1;
+					general = 1;
 				}
 				t = trainNext(t);
 			}
@@ -418,6 +422,9 @@ void affichageEtatReseau(Reseau r) {
 			tr = trajetNext(tr);
 		}
 		g = gareNext(g);
+	}
+	if (general == 0){
+		printf("Tous les trajets ont au moins un train\n");
 	}
 }
 

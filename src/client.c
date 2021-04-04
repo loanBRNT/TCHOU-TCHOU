@@ -117,7 +117,7 @@ void modifAjtTrajetFin(Reseau r, Itineraire it){
 	}
 }
 
-void modifArv(Reseau r, Itineraire it){
+int modifArv(Reseau r, Itineraire it){
 	int cpt = 0;
 	char nom[30] = {0};
 	printf("\n");
@@ -146,13 +146,17 @@ void modifArv(Reseau r, Itineraire it){
 	} else {
 		while ( strcmp(nomDeGare(g),nomDeGare(gareArvDuTrajet(listeTrajetItineraire(it, cpt))))) {
 			cpt++;
+			if (cpt >= nbEtapeItineraire(it)){
+				printf("ERROR : la gare ne fait pas partie du trajet \n");
+				return 1;
+			}
 		}
 		changerArv(it, cpt);
-		printf("%s\n",nomDeGare(gareArvItineraire(it)));
 		printf("\n");
 		printf("################################################\n");
 		printf("#    La gare d'arivee a bien etait changee     #\n");
 		printf("################################################\n");	
 		printf("\n");
 	}	
+	return 0;
 }

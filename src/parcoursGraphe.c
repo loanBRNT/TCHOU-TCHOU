@@ -43,6 +43,7 @@ int ajoutSommet(Ensemble graphe, Trajet tr, Sommet sPere){
 	sommet->gare = gareArvDuTrajet(tr);
 	sommet->pere = sPere;
 	sommet->etat = 0;
+	sommet->next = NULL;
 	sommet->distance = tempsDuTrajet(tr) + sPere->distance;
 	sommet->previous = graphe->tail;
 	graphe->tail->next = sommet; 
@@ -244,8 +245,6 @@ int ajouteTrajetItineraire(Itineraire it, Gare g, Trajet tr){
 
 Itineraire changerArv(Itineraire it, int i){
 	it->nbEtape = i+1;
-	printf("%d\n",it->nbEtape );
-	printf("%s\n",nomDeGare(gareArvDuTrajet(it->liste[i])));
 	it->arrive = gareArvDuTrajet(it->liste[i]);
 	return it;
 }

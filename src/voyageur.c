@@ -429,8 +429,8 @@ Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire i
 		pDef->head = v;
 	} else {
 		pDef->tail->next = v;
-		pDef->tail = v;
 	}
+	pDef->tail = v;
 	v->next = NULL;
 	pDef->nbVoyageur++;
 	v->voyage = itPourPlace;
