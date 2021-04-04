@@ -147,6 +147,11 @@ Itineraire rechercheItineraire(Reseau r, Gare gDep, Gare gArv){
 		sTest = graphe->head;
 		compteur = 0;
 		while (sTest->etat == 1){ //on prend le premier sommet dont tous les voisins n'ont pas etait teste
+			if (sTest->next == NULL) {
+				printf("ERREUR AUCUN TRAJET N'A PU ETRE TROUVE ENTRE LES DEUX GARES\n");
+				freeGrapheRecherche(graphe);
+				return NULL;
+			}
 			sTest = sTest->next;
 			compteur++;
 		}
