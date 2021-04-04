@@ -207,9 +207,9 @@ int menuGestionTrajet(Reseau r){
 		printf("#            Que voulez vous faire ?           #\n");
 		printf("#                                              #\n");
 		printf("#       1- Ajouter une Gare                    #\n");
-		printf("#       2- Suprimer une Gare                   #\n");
+		printf("#       2- Suprrimer une Gare                  #\n");
 		printf("#       3- Ajouter un trajet aller-retour      #\n");
-		printf("#       4- Suprimer un trajet aller-retour     #\n");
+		printf("#       4- Supprimer un trajet aller-retour    #\n");
 		printf("#       5- Ajouter un Train                    #\n");
 		printf("#       6- Supprimer un Train                  #\n");
 		printf("#       7- Modifier un Train                   #\n");
@@ -391,7 +391,7 @@ int menuSupGare(Reseau r){
 	}
 	printf("\n\n");
 	printf("################################################\n");
-	printf("#      Tapez le nom de la Gare a Suprimer      #\n");
+	printf("#      Tapez le nom de la Gare a Supprimer     #\n");
 	printf("################################################\n");
 	printf("\n");
 	scanf("%s",nom);
