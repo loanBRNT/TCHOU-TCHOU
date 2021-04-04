@@ -576,7 +576,7 @@ Voyageur modifVoyageur(Reseau r, char* id){ //peut LARGEMENT etre simplifié (ma
 	Gare gDep, gArv;
 	printf("\n");
 	printf("################################################\n");
-	printf("#        Quel modif voulez vous faire ?        #\n");
+	printf("#        Quelle modif voulez vous faire ?      #\n");
 	printf("#          1- Changer la gare d'arrivee        #\n");
 	printf("#          2- Annuler la reservation           #\n");
 	printf("################################################\n");
@@ -586,7 +586,7 @@ Voyageur modifVoyageur(Reseau r, char* id){ //peut LARGEMENT etre simplifié (ma
 		char nomGEtape[30] = {0};
 		printf("\n\n");
 		printf("################################################\n");
-		printf("#    Indiquez le nom de la nouvelle arrive     #\n");
+		printf("#    Indiquez le nom de la nouvelle arrivee    #\n");
 		printf("################################################\n");
 		printf("\n");
 		scanf("%s",nomGEtape);
