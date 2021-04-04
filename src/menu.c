@@ -11,6 +11,7 @@
 #include "itineraireAccesseur.h"
 #include "trainVoyageurAccesseur.h"
 #include "client.h"
+#include "gestionjson.h"
 //########## FONCTIONS DE GESTION DES MENUS ###############
 //########## FONCTIONS D AFFICHAGE DES MENUS ##############
 void afficheMenuPrincipal(){
@@ -626,7 +627,42 @@ int menuSupTrajet(Reseau r){
 }
 
 int menuExportationJSON(){
-	return 0;
+	int event = 1;
+	while(event != -1){
+		printf("\n");
+		printf("################################################\n");
+		printf("#        choisissez donnees a exporter         #\n");
+		printf("#                                              #\n");
+		printf("#              1- Voyageurs                    #\n");
+		printf("#              2- Trains                       #\n");
+		printf("#              3- RETOUR                       #\n");
+		printf("################################################\n");
+		printf("\n");
+		int choixMenu = lireLong();
+		fflush(stdin);
+		switch(choixMenu) {
+			case 1:
+				voyageurJson();
+				printf("################################################\n");
+				printf("#            exportation terminee              #\n");
+				printf("################################################\n");
+				break;
+			case 2:
+				trajetJson();
+				printf("################################################\n");
+				printf("#            exportation terminee              #\n");
+				printf("################################################\n");
+				break;
+			case 3:
+				event = -1;
+				break;
+			default:
+				afficheErreurMenu();
+				break;
+		}
+	}
+	printf("\n");
+	return 0;	
 }
 
 int menuGestionAdministration(){
