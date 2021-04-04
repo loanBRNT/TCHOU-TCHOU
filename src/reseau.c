@@ -528,7 +528,6 @@ int retirerUneGare(Reseau r, Gare g){
 		return 1;
 	}
 	if (verifierTrain(r, g)) {
-		printf("OUI =======\n");
 		printf("SUPPRESSION IMPOSSIBLE\n");
 		return 1;
 	}

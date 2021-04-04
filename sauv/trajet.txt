@@ -18,14 +18,12 @@ Brive-60
 
 Paris-90
 
-Bidart-150
+Marseille-90
 /
 
 Limoges-60
 
 Montauban-60
-
-Biarritz-90
 /
 
 Paris-60
@@ -70,19 +68,12 @@ Marseille-60
 Montpellier-60
 
 Nice-150
+
+Lyon-90
 /
 
 Marseille-150
 /
 
 Bordeaux-90
-
-Bidart-150
-
-Brive-90
-/
-
-Lyon-150
-
-Biarritz-150
 /

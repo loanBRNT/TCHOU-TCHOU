@@ -256,6 +256,13 @@ int menuGestionTrajet(Reseau r){
 int menuAjouterTrain(Reseau r){
 	printf("\n");
 	printf("################################################\n");
+	printf("#            Voici une liste de Trajets        #\n");
+	printf("#            non parcouru par un train         #\n");
+	printf("################################################\n");
+	printf("\n");
+	affichageEtatReseau(r);
+	printf("\n");
+	printf("################################################\n");
 	printf("#            Le Train que vous ajoutez         #\n");
 	printf("#             n'est pas aller retour !         #\n");
 	printf("################################################\n");
@@ -288,14 +295,6 @@ int menuModifTrain(Reseau r){
 	printf("\n");
 	scanf("%s", nom);
 	fflush(stdin);
-	printf("\n");
-	printf("################################################\n");
-	printf("#        Comment voulez vous modifier ?        #\n");
-	printf("#     1- Ajouter des Trajets a la fin          #\n");
-	printf("#     2- Raccourcir le Trajet                  #\n");
-	printf("################################################\n");
-	printf("\n");
-	long cpt = lireLong();
 	Train t = rechercheTrain(r, nom);
 	if (t == NULL){
 	printf("\n");
@@ -305,6 +304,14 @@ int menuModifTrain(Reseau r){
 	printf("\n");
 	return 1;		
 	}
+	printf("\n");
+	printf("################################################\n");
+	printf("#        Comment voulez vous modifier ?        #\n");
+	printf("#     1- Ajouter des Trajets a la fin          #\n");
+	printf("#     2- Raccourcir le Trajet                  #\n");
+	printf("################################################\n");
+	printf("\n");
+	long cpt = lireLong();
 	if (cpt == 1){
 		modifAjtTrajetFin(r, cheminTrain(t));
 		return 0;

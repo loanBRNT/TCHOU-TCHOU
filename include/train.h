@@ -44,4 +44,6 @@ Itineraire modifItineraireTrainTrajet(Train t, int i);
 
 Itineraire modifItineraireTrain(Train t, int i);
 
+void affichageEtatReseau(Reseau r);
+
 #endif

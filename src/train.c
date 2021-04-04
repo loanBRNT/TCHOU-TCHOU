@@ -231,6 +231,7 @@ Train ajouterTrain(Reseau r){
 	t->previous = tailTrainReseau(r);
 	(tailTrainReseau(r))->next = t;
 	ajtTrain(r, t);
+	printf("Le train que vous venez de creer : %s \n",t->num );
 	return t;
 }
 
@@ -243,6 +244,7 @@ Train rechercheTrain(Reseau r, char* id){
 		if (!strcmp(t->num, id)){
 			tSauv = t;
 		}
+		t = t->next;
 	}
 	return tSauv;
 }
@@ -394,7 +396,30 @@ int suppTrajetDansTrain(Reseau r, Gare g, Trajet tr){
 	return 0;
 }
 
-
+void affichageEtatReseau(Reseau r) {
+	Train t;
+	Gare g = gareHead(r);
+	Trajet tr;
+	int trouve = 0;
+	for (int i = 0 ; i < tailleReseau(r) ; i++ ){
+		tr = trajetHeadDeLaGare(g);
+		for (int j = 0 ; j < nbTrajetDeLaGare(g) ; j++ ){
+			t = headTrainReseau(r);
+			trouve = 0;
+			for (int k = 0 ; k < nbTrainReseau(r) ; k++ ){
+				if (trajetDansTrain(tr, g, t)){
+					trouve = 1;
+				}
+				t = trainNext(t);
+			}
+			if (trouve == 0){
+				printf("Le trajet %s-%s\n",nomDeGare(g),nomDeGare(gareArvDuTrajet(tr)));
+			}
+			tr = trajetNext(tr);
+		}
+		g = gareNext(g);
+	}
+}
 
 
 
