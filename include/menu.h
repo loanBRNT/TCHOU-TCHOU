@@ -9,6 +9,7 @@ void afficheMenuControleur();
 void afficheMenuClient();
 void afficheErreurMenu();
 void afficheMessageQuitter();
+void afficheMessageBienvenue();
 
 
 

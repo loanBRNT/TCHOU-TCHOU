@@ -20,22 +20,6 @@
     Commande de compilation avec gcc :
     gcc src/* -o prog -I include -L lib -lmingw32
 */ 
-/*
-void testReseau(Reseau reseau){
-	Gare pt = gareHead(reseau);
-	Trajet tr;
-	for (int i=0; i<tailleReseau(reseau); i++){
-		printf("%s : ",nomDeGare(pt));
-		tr = trajetHeadDeLaGare(pt);
-		for (int j=0; j<nbTrajetDeLaGare(pt); j++){
-			printf("%s-",nomDeGare(gareArvDuTrajet(tr)));
-			tr = trajetNext(tr);
-		}
-		pt = gareNext(pt);
-		printf("\n");
-	}
-}
-*/
 
 
 int main(int argc, char const *argv[])
@@ -49,6 +33,7 @@ int main(int argc, char const *argv[])
 	  si le numero n'est pas bon on redemande un numero de menu
 	  le choix numero 4 modifie la valeur de la variable event afin de sortir de la boucle et pouvoir arreter le programme
 	*/
+	afficheMessageBienvenue();
 	int event = 1 ;
 	long choixMenu;
 	while(event != -1){

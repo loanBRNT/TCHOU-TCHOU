@@ -91,6 +91,15 @@ void afficheMessageQuitter(){
 	printf("#       A BIENTOT SUR NOTRE RESEAU        #\n");
 	printf("###########################################\n");
 }
+void afficheMessageBienvenue(){
+	printf("###########################################\n");
+	printf("#       BIENVENUE SUR LE RESEAU :         #\n");
+	printf("#             CUPGE EXPRESS               #\n");
+	printf("#      pour naviguer dans les menus       #\n");
+	printf("# il faut saisir le chiffre correspondant #\n");
+	printf("###########################################\n");
+	}
+
 
 //##########################################################
 //######### MENUS DE LA PARTIE ADMINISTRATEUR ##############
