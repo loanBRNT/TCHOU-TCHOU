@@ -1,0 +1,27 @@
+{
+ "Train" : [{
+"numero train": "A1","morceau de trajet n°1":  "Paris-Orleans","morceau de trajet n°2":  "Orleans-Limoges","morceau de trajet n°3":  "Limoges-Brive","morceau de trajet n°4":  "Brive-Montauban","morceau de trajet n°5":  "Montauban-Toulouse"
+ }, 
+{
+"numero train": "A2","morceau de trajet n°1":  "Bordeaux-Agen","morceau de trajet n°2":  "Agen-Montauban","morceau de trajet n°3":  "Montauban-Toulouse","morceau de trajet n°4":  "Toulouse-Narbonne","morceau de trajet n°5":  "Narbonne-Montpellier","morceau de trajet n°6":  "Montpellier-Marseille","morceau de trajet n°7":  "Marseille-Nice"
+ }, 
+{
+"numero train": "A3","morceau de trajet n°1":  "Paris-Lyon","morceau de trajet n°2":  "Lyon-Marseille"
+ }, 
+{
+"numero train": "A4","morceau de trajet n°1":  "Paris-Tours","morceau de trajet n°2":  "Tours-Bordeaux","morceau de trajet n°3":  "Bordeaux-Biarritz"
+ }, 
+{
+"numero train": "A5","morceau de trajet n°1":  "Toulouse-Montauban","morceau de trajet n°2":  "Montauban-Brive","morceau de trajet n°3":  "Brive-Limoges","morceau de trajet n°4":  "Limoges-Orleans","morceau de trajet n°5":  "Orleans-Paris"
+ }, 
+{
+"numero train": "A6","morceau de trajet n°1":  "Nice-Marseille","morceau de trajet n°2":  "Marseille-Montpellier","morceau de trajet n°3":  "Montpellier-Narbonne","morceau de trajet n°4":  "Narbonne-Toulouse","morceau de trajet n°5":  "Toulouse-Montauban","morceau de trajet n°6":  "Montauban-Agen","morceau de trajet n°7":  "Agen-Bordeaux"
+ }, 
+{
+"numero train": "A7","morceau de trajet n°1":  "Marseille-Lyon","morceau de trajet n°2":  "Lyon-Paris"
+ }, 
+{
+"numero train": "A8","morceau de trajet n°1":  "Biarritz-Bordeaux","morceau de trajet n°2":  "Bordeaux-Tours","morceau de trajet n°3":  "Tours-Paris"
+ } 
+]  
+ } 
