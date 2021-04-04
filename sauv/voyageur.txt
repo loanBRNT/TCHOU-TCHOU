@@ -1,15 +1,15 @@
-A101/BERNAT:LOAN:A001:Brive-Montauban:Montauban-Toulouse:/
+A101
 A102
 A103
 A104
 A105
 A106/GAUDILLAT:ELIOT:A002:Montauban-Toulouse://PARDO-PARGA:PAULINE:A003:Limoges-Brive:Brive-Montauban:/
 A107
-A108
+A108/QUINQUIS:HUGO:A016:Limoges-Brive:Brive-Montauban:Montauban-Toulouse:/
 A109/MONKEY-D:LUFFY:A007:Brive-Montauban:Montauban-Toulouse:/
 A110/TAMA:ZARM:A009:Orleans-Limoges:Limoges-Brive:Brive-Montauban:Montauban-Toulouse:/
 
-A201/BERNAT:LOAN:A001:Toulouse-Narbonne://HUGO:ANAL:A008:Bordeaux-Agen:Agen-Montauban:/
+A201/HUGO:ANAL:A008:Bordeaux-Agen:Agen-Montauban:/
 A202
 A203
 A204
@@ -51,7 +51,7 @@ A506
 A507
 A508
 A509
-A510
+A510/BERNAT:LOAN:A001:Brive-Limoges:/
 
 A601
 A602

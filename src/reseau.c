@@ -148,7 +148,7 @@ int initTrajet(Reseau r,Gare gareDepart, FILE* fichierTrajet){
 	int centaine;
 	int dizaine;
 	int unite;
-	char* nom;
+	char nom[30] = {0};
 	do {
 		caractere = fgetc(fichierTrajet);
 		if (caractere !='\n') {
@@ -499,12 +499,12 @@ int retirerUnTrajet(Reseau r, Gare gDep, Gare gArv){
 		}
 		sauv->next = tr->next;
 		if (tr->next == NULL){
-			gDep->tailListeTrajet == sauv;
+			gDep->tailListeTrajet = sauv;
 		}
 	} else {
 		if (gDep->nbTrajet == 1){
-			gDep->headListeTrajet == NULL;
-			gDep->tailListeTrajet == NULL;
+			gDep->headListeTrajet = NULL;
+			gDep->tailListeTrajet = NULL;
 		} else {
 			gDep->headListeTrajet = gDep->headListeTrajet->next;
 		}

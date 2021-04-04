@@ -87,7 +87,7 @@ int sauvRepertoire(Reseau r, FILE* fichierRepertoire){
 	Voyageur v = voyageurHead(r);
 	Voyageur vSauv;
 	for (int i = 0; i < nbDeVoyageur(r) ; ++i) {
-		fprintf(fichierRepertoire, "%s:%s:%s:%s:%s:\n",v->id,v->nom,v->prenom,gareDepItineraire(v->voyage), gareArvItineraire(v->voyage) );
+		fprintf(fichierRepertoire, "%s:%s:%s:%s:%s:\n",v->id,v->nom,v->prenom,nomDeGare(gareDepItineraire(v->voyage)), nomDeGare(gareArvItineraire(v->voyage)) );
 		vSauv = v;
 		v = v->next;
 		free(vSauv);
@@ -234,6 +234,7 @@ int sauvVoyageur(Train t, FILE* fichierVoyageur){
 		fprintf(fichierVoyageur, "\n");
 	}
 	fprintf(fichierVoyageur, "\n");
+	return 0;
 }
 
 int ensembleVoyageur(Reseau r){
@@ -266,7 +267,7 @@ int ensembleVoyageur(Reseau r){
 		printf("\n");
 		t = trainNext(t);
 	}
-	
+	return 0;
 }
 
 int rechercheVoyageur(Reseau r, char* idRecherche){
@@ -346,7 +347,6 @@ void suppVoyageur(Reseau r, char* idRecherche){
 		t = trainNext(t);
 	}
 	v = voyageurHead(r);
-	Voyageur v2;
 	if (!strcmp(v->id, idRecherche)) {
 		chgHeadVoy(r, v);
 	} else {
@@ -509,7 +509,7 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 void tirerNumVoyageur(Reseau r, Voyageur v){
 	int nbVoyageur = 0;
 	int ok = 0;
-	Train t, tTest;
+	Train tTest;
 	Voyageur vTest;
 	int nb, sauv;
 	Place p;
@@ -554,9 +554,6 @@ void tirerNumVoyageur(Reseau r, Voyageur v){
 }
 
 Voyageur modifVoyageur(Reseau r, char* id){
-	if (rechercheVoyageur(r, id) == 1 ){
-		return NULL;
-	}
 	Voyageur vNew = (Voyageur) malloc(sizeof(struct s_voyageur));
 	Gare gDep, gArv;
 	printf("\n");
@@ -660,6 +657,7 @@ Voyageur modifVoyageur(Reseau r, char* id){
 	voyageurTail(r)->next = vNew;
 	vNew->next = NULL;
 	ajtVoyMemoire(vNew,r);
+	printf("Votre voyage a bien ete modifie de %s a %s \n", nomDeGare(gareDepItineraire(vNew->voyage)),nomDeGare(gareArvItineraire(vNew->voyage)));
 	return vNew;
 }
 

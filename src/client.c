@@ -35,7 +35,7 @@ void affichageVoyage(Reseau r, Itineraire voyage){
 		}
 	}
 	if (t != NULL){
-		printf("Arrive a la gare %s en %d minutes\n",gareArvItineraire(voyage), tempsItineraire(voyage) );
+		printf("Arrive a la gare %s en %d minutes\n",nomDeGare(gareArvItineraire(voyage)), tempsItineraire(voyage) );
 	}
 }
 

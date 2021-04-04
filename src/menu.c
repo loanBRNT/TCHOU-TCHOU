@@ -1143,7 +1143,10 @@ int menuModificationVoyage(Reseau r){
 	printf("\n");
 	scanf("%s", numClient);
 	fflush(stdin);
-	rechercheVoyageur(r,numClient);
+	if (rechercheVoyageur(r, numClient) == 1 ){
+		printf("ERROR : PAS DE CLIENT AVEC CE NUMERO\n");
+		return 1;
+	}
 	int event = 1;
 	printf("\n");
 	printf("################################################\n");
