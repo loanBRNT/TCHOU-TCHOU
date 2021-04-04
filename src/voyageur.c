@@ -237,7 +237,7 @@ int sauvVoyageur(Train t, FILE* fichierVoyageur){
 	return 0;
 }
 
-int ensembleVoyageur(Reseau r){
+int ensembleVoyageur(Reseau r){ //permet d'afficher l'ensemble des voyageurs de l'ensemble des trains
 	Place p;
 	Gare g;
 	Trajet tr;
@@ -278,6 +278,7 @@ int rechercheVoyageur(Reseau r, char* idRecherche){
 	Place listeP[20];
 	int nb = 0;
 	Place p;
+	//on stocke toutes les bouts du voyageurs à travers les listes
 	for (int i = 0; i < nbTrainReseau(r); ++i) {
 		for (int j = 0; j < 10; ++j) {
 			p = placeDuTrain(t, j);
@@ -302,6 +303,7 @@ int rechercheVoyageur(Reseau r, char* idRecherche){
 	} else {
 		v = voyageurHead(r);
 		Gare gDep, gArv;
+		//puis on recupere ses informations personelles depuis le repertoire (liste du réseau)
 		for (int i = 0; i < nbDeVoyageur(r); ++i)
 		{
 			if (!strcmp(v->id, idRecherche)){
@@ -310,6 +312,7 @@ int rechercheVoyageur(Reseau r, char* idRecherche){
 			}
 			v = voyageurNext(v);
 		}
+		//on affiche
 		printf("LE VOYAGEUR %s %s AU NUMERO %s : \n il part de %s et arrivera a %s \n\n ", listeV[0]->prenom, listeV[0]->nom, idRecherche, nomDeGare(gDep), nomDeGare(gArv));
 		for (int i = 0; i < nb; ++i) {
 			printf("Prend le train %s, il sera assis \n a la place numero %s de %s a %s  \n",
@@ -329,6 +332,7 @@ void suppVoyageur(Reseau r, char* idRecherche){
 			if ( p->nbVoyageur > 0) {
 				v = p->head;
 				vSauv = v;
+				//si le voyageur a supp apparait sur cette place on raccorde correctement la liste de la place avant de le liberer
 				for (int k = 0; k < p->nbVoyageur; ++k) {
 					if (!strcmp(v->id, idRecherche)){
 						if ( k == 0){
@@ -346,6 +350,7 @@ void suppVoyageur(Reseau r, char* idRecherche){
 		}
 		t = trainNext(t);
 	}
+	//on libere aussi le voyageur de la liste générale
 	v = voyageurHead(r);
 	if (!strcmp(v->id, idRecherche)) {
 		chgHeadVoy(r, v);
@@ -373,6 +378,7 @@ Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire i
 	Itineraire voyageTest;
 	int commun, trouve = 0;
 	int j = 0;
+	//On parcourt l'ensemble des places du train
 	for (int l = 0; l < 10; ++l) {
 		Place p = placeDuTrain(t, l);
 		if (p->nbVoyageur == 0){
@@ -382,6 +388,7 @@ Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire i
 		} else {
 			vTest = p->head;
 			commun = 0;
+			//si la place n'est pas vide alors on va essayer de voir si l'itineraire de notre voyageur peut s'emboiter avec celui actuellement assis
 			for (int k = 0; k < p->nbVoyageur; ++k)
 			 {
 			 	voyageTest = vTest->voyage;
@@ -392,6 +399,7 @@ Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire i
 					trTest = listeTrajetItineraire(voyageTest, i);
 					while (strcmp(nomDeGare(gDepVoy),nomDeGare(gLim)))	{
 						trVoy = listeTrajetItineraire(it, j);
+						//si un des trajets du voyageur assis est le meme que celui du voyageur que l'on veut ajouter alors la place n'est pas bonee
 						if (!strcmp(nomDeGare(gareArvDuTrajet(trTest)), nomDeGare(gareArvDuTrajet(trVoy)))){
 							if (!strcmp(nomDeGare(gDepTest),nomDeGare(gDepVoy))){
 								commun = 1;
@@ -410,6 +418,7 @@ Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire i
 			}	
 		}
 	}
+	//on raccorde correctement le voyageur a sa place
 	Voyageur v = (Voyageur) malloc(sizeof(struct s_voyageur));
 	Itineraire itPourPlace = creerItineraireVide();
 	Gare g = gareDepItineraire(it);
@@ -460,6 +469,7 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 	Train listeT[20]; //contrainte max 20 trains differents
 	Gare listeG[20];
 	int cpt=1;
+	//on recupere tous les trains utilisé par l'itineraire et les gares de correspondances
 	for (int i = 0; i < nbEtapeItineraire(it); ++i)
 	{
 		tr = listeTrajetItineraire(it, i);
@@ -482,6 +492,7 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 	listeG[cpt-1]=g;
 	g = gareDepItineraire(it);
 	tirerNumVoyageur(r, v);
+	//pour chacque train, on cherche la place sur laquelle placer notre voyageur et son bout d'itineraire
 	for (int i = 0; i < cpt; ++i){
 		Voyageur vNouv = mettreSurUnePlace(r, listeT[i], listeG[i], g, it);
 		for (int j = 0; j < strlen(v->nom)+1; ++j)
@@ -498,6 +509,7 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 		}
 		g = listeG[i];
 	}
+	//o raccorde le voyageur global à la liste de voyageur reseau
 	v->voyage = it;
 	if (voyageurTail(r) != NULL){
 		voyageurTail(r)->next = v;
@@ -520,6 +532,7 @@ void tirerNumVoyageur(Reseau r, Voyageur v){
 		sauv = nbVoyageur;
 		itoa(nbVoyageur, v->id, 10);
 		v->id[4]='\0';
+		//on transforme notre int en char* astucieusement pour maintenir les 0
 		for (int i = strlen(v->id); i < 4; ++i) {
 			v->id[3]=v->id[2];
 			v->id[2]=v->id[1];
@@ -527,6 +540,7 @@ void tirerNumVoyageur(Reseau r, Voyageur v){
 			v->id[0]='0';
 		}
 		int cpt = 0;
+		//on regarde le nombre de millier, qui définira notre lettre via le code asci
 		do {
 			sauv = sauv - 1000;
 			cpt++;
@@ -534,6 +548,7 @@ void tirerNumVoyageur(Reseau r, Voyageur v){
 		v->id[0]=64 + cpt; //utilisation du code ascii
 		tTest = headTrainReseau(r);
 		nb = 0;
+		//on verifie qu'aucun voyageur ne porte le meme nombre
 		for (int i = 0; i < nbTrainReseau(r); ++i) {
 			for (int j = 0; j < 10; ++j) {
 				p = placeDuTrain(tTest, j);
@@ -549,13 +564,14 @@ void tirerNumVoyageur(Reseau r, Voyageur v){
 			}
 			tTest = trainNext(tTest);
 		}
+		//si 1 voyageur a le meme id, alors on recommence en conservant la valeur actuelle de l'id
 		if (nb == 0){
 			ok = 1;
 		}
 	}
 }
 
-Voyageur modifVoyageur(Reseau r, char* id){
+Voyageur modifVoyageur(Reseau r, char* id){ //peut LARGEMENT etre simplifié (mais manque de temps)
 	Voyageur vNew = (Voyageur) malloc(sizeof(struct s_voyageur));
 	Gare gDep, gArv;
 	printf("\n");

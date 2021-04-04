@@ -122,6 +122,51 @@ Gare gareArvDuTrajet(Trajet tr){
 Trajet trajetNext(Trajet tr){
 	return (tr->next);
 }
+
+//FONCTIONS MANIPULATION MEMOIRE
+
+void ajtTrain(Reseau r, Train t){
+	r->tailTrain = t;
+	r->nbTrain++;
+}
+
+Train enleverTrainHead(Reseau r, Train t){
+	r->headTrain = trainNext(t);
+	r->nbTrain--;
+	return t;
+}
+
+Train enleverTrainTail(Reseau r, Train t){
+	r->tailTrain = trainPrevious(t);
+	r->nbTrain--;
+	return t;
+}
+
+void enleverTrain(Reseau r){
+	r->nbTrain--;
+}
+
+void ajtVoyMemoire(Voyageur v, Reseau r){
+	if (r->nbVoyageur == 0){
+		r->headVoyageur = v;
+	}
+	r->nbVoyageur++;
+	r->tailVoyageur = v;
+}
+
+void supVoyMemoire(Reseau r){
+	r->nbVoyageur--;
+}
+
+void chgHeadVoy(Reseau r, Voyageur v){
+	r->headVoyageur = voyageurNext(v);
+}
+
+void chgTailVoy(Reseau r,Voyageur v){
+	r->tailVoyageur = v;
+}
+
+
 //Zone code gestion du reseau (reseau.h)
 
 
@@ -212,46 +257,6 @@ int initGare(Reseau ensembleGare, FILE* fichierReseau){
 	return 0;
 }
 
-void ajtTrain(Reseau r, Train t){
-	r->tailTrain = t;
-	r->nbTrain++;
-}
-
-Train enleverTrainHead(Reseau r, Train t){
-	r->headTrain = trainNext(t);
-	r->nbTrain--;
-	return t;
-}
-
-Train enleverTrainTail(Reseau r, Train t){
-	r->tailTrain = trainPrevious(t);
-	r->nbTrain--;
-	return t;
-}
-
-void enleverTrain(Reseau r){
-	r->nbTrain--;
-}
-
-void ajtVoyMemoire(Voyageur v, Reseau r){
-	if (r->nbVoyageur == 0){
-		r->headVoyageur = v;
-	}
-	r->nbVoyageur++;
-	r->tailVoyageur = v;
-}
-
-void supVoyMemoire(Reseau r){
-	r->nbVoyageur--;
-}
-
-void chgHeadVoy(Reseau r, Voyageur v){
-	r->headVoyageur = voyageurNext(v);
-}
-
-void chgTailVoy(Reseau r,Voyageur v){
-	r->tailVoyageur = v;
-}
 
 Reseau initReseau(){
 	//allocation memoire

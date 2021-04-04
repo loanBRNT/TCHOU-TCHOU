@@ -24,19 +24,19 @@ Voyageur mettreSurUnePlace(Reseau r, Train t, Gare gLim, Gare gDep, Itineraire i
 
 Place creerPlaceVide(Train t, int i);
 
-int ensembleVoyageur(Reseau r);
+int ensembleVoyageur(Reseau r); //a part
 
 Voyageur initRepertoire(Reseau, FILE*);
 
 int sauvRepertoire(Reseau r, FILE* fichierRepertoire);
 
-void ajtVoyMemoire(Voyageur v, Reseau r);
+void ajtVoyMemoire(Voyageur v, Reseau r); //manip
 
-void supVoyMemoire(Reseau r);
+void supVoyMemoire(Reseau r); //manip
 
-void chgHeadVoy(Reseau r, Voyageur v);
+void chgHeadVoy(Reseau r, Voyageur v); //manip
 
-void chgTailVoy(Reseau r,Voyageur v);
+void chgTailVoy(Reseau r,Voyageur v); //manip
 
 Voyageur modifVoyageur(Reseau r, char* id);
 

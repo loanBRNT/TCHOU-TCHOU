@@ -15,10 +15,12 @@ void affichageVoyage(Reseau r, Itineraire voyage){
 	Trajet tr;
 	Train t, tSauv;
 	Gare g = gareDepItineraire(voyage);
+	//on regarde 1 à  1 les trajets de notre itineraire
 	for (int i = 0; i < nbEtapeItineraire(voyage); ++i)
 	{
 		tr = listeTrajetItineraire(voyage, i);
 		t = rechercheTrainCorres(r,g, tr);
+		//si on a un train passant par le trajet
 		if (t != NULL) {
 			if (i == 0 ){
 				printf("Depart de la gare %s via le train %s direction %s\n", nomDeGare(g) ,idTrain(t), nomDeGare(gareArvDuTrajet(tr)) );
@@ -29,6 +31,7 @@ void affichageVoyage(Reseau r, Itineraire voyage){
 			}
 			g = gareArvDuTrajet(tr);
 			tSauv = t ;	
+			//sinon on arrete la fonction !
 		} else {
 			printf("ERROR : le trajet %s - %s n'a pas de train assigne !\n", nomDeGare(g), nomDeGare(gareArvDuTrajet(tr)) );
 			break;
@@ -45,12 +48,17 @@ Train rechercheTrainCorres(Reseau r,Gare gDepTr, Trajet tr){
 	Gare gTrain;
 	Gare gDepTrain;
 	int tempsTrajet;
+	//on parcourt chaque train du reseau
 	for (int i = 0; i < nbTrainReseau(r); ++i) {
 		gDepTrain = gareDepItineraire(cheminTrain(t));
+		//on parcourt chaque trajet de l'itineraire du train
 		for (int j = 0; j < nbEtapeItineraire(cheminTrain(t)); ++j) {
 			gTrain = gareArvDuTrajet(listeTrajetItineraire(cheminTrain(t), j ));
+			//pourchaque gare arv du trajet on la compare a notre gare a nous
 			if (!strcmp(nomDeGare(gTrain), nomDeGare(gareArvDuTrajet(tr)))) {
+				//si les deux arrivees sont egales, on verifie qu'elles aient le meme depart
 				if ( !strcmp(nomDeGare(gDepTr), nomDeGare(gDepTrain))) {
+					//si c'est le cas, on stocke le train pour le renvoyer a l'issu des boucles
 					if (tSauv == NULL){
 						tSauv = t;
 						tempsTrajet = tempsDuTrajet(listeTrajetItineraire(cheminTrain(t), j ));

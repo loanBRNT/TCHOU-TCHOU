@@ -233,12 +233,16 @@ Itineraire creerItineraireVide(){
 }
 
 int ajouteTrajetItineraire(Itineraire it, Gare g, Trajet tr){
+	//on regarde si c'est le premier trajet de l'itineraire
 	if (it->nbEtape == 0){
 		it->depart = g;
 	}
+	//on change l'arrivee
 	it->arrive = gareArvDuTrajet(tr);
+	//on place le trajet a la suite en memoire
 	it->liste[it->nbEtape] = tr;
 	it->nbEtape++;
+	//on met a jour le temps
 	it->temps = it->temps + tempsDuTrajet(tr);
 	return 0;
 }
@@ -256,20 +260,27 @@ Itineraire itineraireRep(Reseau r, Itineraire it, char* nomDep, char* nomArv){
 }
 
 Itineraire modifItineraireTrain(Train t, int i){
+	//on regarde si c'est la gare a enlever est au premier trajet
 	if (i == 0){
 		cheminTrain(t)->depart = gareArvDuTrajet(cheminTrain(t)->liste[0]);
+		//on decale de 1 tous les autres trajets
 		for (int j=0 ; j+1 < nbEtapeItineraire(cheminTrain(t)) ; j++) {
 			cheminTrain(t)->liste[j]=cheminTrain(t)->liste[j+1];
 		}
 		cheminTrain(t)->nbEtape--;
+	//on regarde si la gare a retirer est la derniere de l'itineraire, si oui on change l'arrivée en la ramenant à la gare précédente
 	} else if (i == cheminTrain(t)->nbEtape) {
 		cheminTrain(t)->arrive = gareArvDuTrajet(cheminTrain(t)->liste[cheminTrain(t)->nbEtape-2]);
 		cheminTrain(t)->nbEtape--;
+	//sinon, on regarde si on est plus proche du début ou de la fin
+		//si c'est la fin, on ramene juste l'arrivee à la gare précédente
 	} else if (i > (cheminTrain(t)->nbEtape / 2) - 1){
 		cheminTrain(t)->arrive = gareArvDuTrajet(cheminTrain(t)->liste[i-2]);
 		cheminTrain(t)->nbEtape = i-1;
+		//si c'est le début, on ramène le départ à la gare suivante
 	} else {
 		cheminTrain(t)->depart = gareArvDuTrajet(cheminTrain(t)->liste[i]);
+		//Et on décale tous les trajets de i+1 place
 		for (int j=0 ; j+i+1 < nbEtapeItineraire(cheminTrain(t)) ; j++) {
 			cheminTrain(t)->liste[j]=cheminTrain(t)->liste[j+i+1];
 		}
@@ -284,6 +295,7 @@ Itineraire modifItineraireTrain(Train t, int i){
 }
 	
 Itineraire modifItineraireTrainTrajet(Train t, int i){
+	//meme principe que la fonction précédente
 	if (i == 0){
 		cheminTrain(t)->depart = gareArvDuTrajet(cheminTrain(t)->liste[0]);
 		for (int j=0 ; j+1 < nbEtapeItineraire(cheminTrain(t)) ; j++) {

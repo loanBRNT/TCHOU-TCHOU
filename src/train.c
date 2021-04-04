@@ -109,12 +109,13 @@ int suppTrain(Reseau r, char* idIdentification){
 	{
 		if (!strcmp(t->num, idIdentification)){
 			trouve = 1;
-			if (!trainPasVide(t)) {
+			if (!trainPasVide(t)) { //on verifie bien que le train est vide
 				for (int i = 0; i < 10; ++i)
 				{
-					free(t->place[i]);
+					free(t->place[i]); //on libere les place
 				}
 				free(t->chemin);
+				//en fonction de la place du train on adapte la manire de decrocher le train dea liste
 				if (i == 0){
 					t->next->previous = NULL;
 					t=enleverTrainHead(r, t);
@@ -250,7 +251,7 @@ Train rechercheTrain(Reseau r, char* id){
 	Train tSauv = NULL;
 	for (int i = 0; i < nbTrainReseau(r); ++i)
 	{
-		if (!strcmp(t->num, id)){
+		if (!strcmp(t->num, id)){ //on compare les num d'identification
 			tSauv = t;
 		}
 		t = t->next;
@@ -261,7 +262,7 @@ Train rechercheTrain(Reseau r, char* id){
 int trainPasVide(Train t){
 	int pasVide = 0;
 	for (int i=0 ; i < 10; i++){
-		if (nbVoyageurSurLaPlace(t->place[i]) > 0) {
+		if (nbVoyageurSurLaPlace(t->place[i]) > 0) { //si au moins 1 des places a au moins 1 voyageurs alors c'est pas bon
 			pasVide = 1;
 		}
 	}
@@ -271,10 +272,10 @@ int trainPasVide(Train t){
 int gareDansTrain(Gare g, Train t){
 	int trouve = 0;
 	Gare gTest = gareDepItineraire(t->chemin);
-	if (!strcmp(nomDeGare(g), nomDeGare(gTest))) {
+	if (!strcmp(nomDeGare(g), nomDeGare(gTest))) { //on regarde la gare Dep du train
 			trouve = 1;
 		}
-	for (int i = 0; i < nbEtapeItineraire(t->chemin); ++i) {
+	for (int i = 0; i < nbEtapeItineraire(t->chemin); ++i) { //on regarde toutes les autres
 		gTest = gareArvDuTrajet(listeTrajetItineraire(cheminTrain(t),i));
 		if (!strcmp(nomDeGare(g), nomDeGare(gTest))) {
 			trouve = 1;
@@ -283,7 +284,7 @@ int gareDansTrain(Gare g, Train t){
 	return trouve;
 }
 
-int trajetDansTrain(Trajet tr, Gare g, Train t){
+int trajetDansTrain(Trajet tr, Gare g, Train t){ //meme principe qu'au dessus mais avec des trajets
 	int trouve = 0;
 	Gare gTest = gareDepItineraire(t->chemin);
 	Trajet trTest;
@@ -300,7 +301,7 @@ int trajetDansTrain(Trajet tr, Gare g, Train t){
 	return trouve;
 }
 
-int verifierTrainTrajet(Reseau r, Gare g, Trajet tr){
+int verifierTrainTrajet(Reseau r, Gare g, Trajet tr){ //on verifie l'etat d'un train
 	Train t = headTrainReseau(r);
 	int pb = 0;
 	while (t != NULL) {
@@ -315,7 +316,7 @@ int verifierTrainTrajet(Reseau r, Gare g, Trajet tr){
 	return pb;
 }
 
-int verifierTrain(Reseau r, Gare g){
+int verifierTrain(Reseau r, Gare g){ //on verifie l'etat d'un train
 	Train t = headTrainReseau(r);
 	int pb = 0;
 	while (t != NULL) {
@@ -338,6 +339,7 @@ int suppGareDansTrain(Reseau r,Gare g){
 		gTest = gareDepItineraire(tSauv->chemin);
 		t = tSauv;
 		if (gareDansTrain(g, t)) {
+			//si la gare est dans le train et qu'il y a moins de 4 etapes, alors on supprime le train
 			if (nbEtapeItineraire(t->chemin) < 4 ){
 				printf("\n");
 				printf("********************** WARNING *********************");
@@ -346,6 +348,7 @@ int suppGareDansTrain(Reseau r,Gare g){
 				printf("****************************************************\n");
 				printf("\n");
 				j--;
+			//s'il y en a + que 4, on manipule la liste de trajet du train
 			} else {
 				for (int i = 0 ; i < nbEtapeItineraire(t->chemin) ; i++ ){
 					if (!strcmp(nomDeGare(gTest),nomDeGare(g))) {
@@ -365,7 +368,7 @@ int suppGareDansTrain(Reseau r,Gare g){
 	return 0;
 }
 
-int suppTrajetDansTrain(Reseau r, Gare g, Trajet tr){
+int suppTrajetDansTrain(Reseau r, Gare g, Trajet tr){ //meme principe qu'au dessus
 	Train t;
 	Train tSauv = headTrainReseau(r);
 	Gare gDep;
