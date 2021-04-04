@@ -499,7 +499,9 @@ Voyageur creerVoyageur(Reseau r, Itineraire it){
 		g = listeG[i];
 	}
 	v->voyage = it;
-	voyageurTail(r)->next = v;
+	if (voyageurTail(r) != NULL){
+		voyageurTail(r)->next = v;
+	}
 	v->next = NULL;
 	ajtVoyMemoire(v,r);
 	return v;

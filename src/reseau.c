@@ -234,6 +234,9 @@ void enleverTrain(Reseau r){
 }
 
 void ajtVoyMemoire(Voyageur v, Reseau r){
+	if (r->nbVoyageur == 0){
+		r->headVoyageur = v;
+	}
 	r->nbVoyageur++;
 	r->tailVoyageur = v;
 }
@@ -340,6 +343,7 @@ Reseau initReseau(){
 	}
 	rewind(fichierRepertoire);
 	Voyageur v;
+	ensembleGare->nbVoyageur = nbVoy;
 	ensembleGare->tailVoyageur = NULL;
 	for (int i = 0; i < nbVoy ; i++){
 		v = initRepertoire(ensembleGare, fichierRepertoire);
@@ -348,7 +352,6 @@ Reseau initReseau(){
 		}
 		ensembleGare->tailVoyageur = v;
 	}
-	ensembleGare->nbVoyageur = nbVoy;
 	fclose(fichierRepertoire);
 	fclose(fichierTrain);
 	fclose(fichierVoyageur);
