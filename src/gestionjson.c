@@ -12,6 +12,7 @@
 #include "client.h"
 #include "gestionjson.h"
 
+//fonction qui convertir les données des voyages de repertoire.txt en JSON
 void voyageurJson(){
 	int nbrVoyageur=0;
 	int nbrtraite=1;
@@ -25,6 +26,7 @@ void voyageurJson(){
 	if (fichierJson == NULL) {
 		printf("Error 1 : PROBLEME OUVERTURE FICHIER \n");
 	}
+	//on va calculer le nombre de voyageur qu'on a 
 	char c= fgetc(id);
 	while (c != EOF){
 		if (c == '\n'){
@@ -34,11 +36,14 @@ void voyageurJson(){
 	}
 	rewind(id);
 
+// dans notre repertoire.txt les voyageurs sont chacun sur une ligne 
 	fprintf(fichierJson, "{\n \"voyageur\" : [");
 	c= fgetc(id);
 	while (c != EOF){
 		int n=0;
+		// dans notre repertoire.txt les voyageurs sont chacun sur une ligne donc une fait une boucle sur les donnees de chaque ligne
 		while(c != '\n'){
+			// dans repertoire.txt chaque données séparé par ':' donc a chaque fois qu'on croise : cela nous informe qu'on change de type de données
 			if(n==0){
 				fprintf(fichierJson, "{\n\"numero client\": \"");
 				while(c != ':'){
@@ -101,7 +106,7 @@ void voyageurJson(){
 }
 
 
-
+// meme principe que voyageurjson() mais sur le fichier train.txt
 void trajetJson(){
 	int nbrtrain=0;
 	int nbrtraite=1;
