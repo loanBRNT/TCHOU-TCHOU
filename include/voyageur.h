@@ -2,9 +2,9 @@
 #define VOYAGEUR_H
 
 
-typedef struct s_voyageur* Voyageur;
+typedef struct s_voyageur* Voyageur; //décla Opaque struct Voyageur
 
-typedef struct s_place* Place;
+typedef struct s_place* Place; //décla opaque Struct Place
 
 Voyageur initVoyageur(Reseau, Place, FILE*);
 

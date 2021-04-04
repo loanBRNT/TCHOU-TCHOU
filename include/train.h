@@ -2,29 +2,29 @@
 #define TRAIN_H
 
 
-typedef struct s_train* Train;
+typedef struct s_train* Train; //declaration Opaque de la structure Train
 
 
-Itineraire initItneraireTrain(Reseau r, FILE*);
+Itineraire initItneraireTrain(Reseau r, FILE*); 
 
 Train initTrain(Reseau r, FILE*, FILE*);
 
-int sauvTrain(Reseau r, FILE*, FILE*);
+int sauvTrain(Reseau r, FILE*, FILE*); 
 
 
 Train ajouterTrain(Reseau r);
 
-void ajtTrain(Reseau, Train);
+void ajtTrain(Reseau, Train); //MANIPULATION
 
 int suppTrain(Reseau r, char* idIdentification);
 
-void enleverTrain(Reseau r);
+void enleverTrain(Reseau r); //NANIP
 
-Train enleverTrainHead(Reseau r, Train t );
+Train enleverTrainHead(Reseau r, Train t ); //manip
 
-Train enleverTrainTail(Reseau r, Train t);
+Train enleverTrainTail(Reseau r, Train t); //manip
 
-Train rechercheTrain(Reseau r, char* id);
+Train rechercheTrain(Reseau r, char* id); 
 
 int trainPasVide(Train t);
 
@@ -40,10 +40,10 @@ int suppGareDansTrain(Reseau r,Gare g);
 
 int suppTrajetDansTrain(Reseau r, Gare g, Trajet tr);
 
-Itineraire modifItineraireTrainTrajet(Train t, int i);
+Itineraire modifItineraireTrainTrajet(Train t, int i); //manip
 
-Itineraire modifItineraireTrain(Train t, int i);
+Itineraire modifItineraireTrain(Train t, int i); //manip
 
-void affichageEtatReseau(Reseau r);
+void affichageEtatReseau(Reseau r); //A PART
 
 #endif

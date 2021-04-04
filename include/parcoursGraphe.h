@@ -30,10 +30,10 @@ void freeGrapheRecherche(Ensemble); //libere la memoire prise par le graphe et l
 
 Itineraire creerItineraireVide(); //creer un itineraire vide (init des trains)
 
-int ajouteTrajetItineraire(Itineraire, Gare, Trajet );
+int ajouteTrajetItineraire(Itineraire, Gare, Trajet ); //ajoute un trajet manuellement a l'itineraire
 
-Itineraire itineraireRep(Reseau, Itineraire, char*, char*);
+Itineraire itineraireRep(Reseau, Itineraire, char*, char*); //permet d'initialiser l'itineraire des voyageurs de la liste principale des voyageurs
 
-Itineraire changerArv(Itineraire it, int i);
+Itineraire changerArv(Itineraire it, int i); //permet de raccourcir l'itineraire et de changer l'arrivée de ce dernier
 
 #endif
