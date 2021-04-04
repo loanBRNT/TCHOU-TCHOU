@@ -12,6 +12,7 @@
 #include "main.h"
 #include "client.h"
 #include "trainVoyageurAccesseur.h"
+#include "gestionjson.h"
 
 #define EXIT_SUCESS 0
 #define EXIT_FAILURE 1

@@ -11,6 +11,7 @@
 #include "itineraireAccesseur.h"
 #include "trainVoyageurAccesseur.h"
 #include "client.h"
+#include "gestionjson.h"
 //########## FONCTIONS DE GESTION DES MENUS ###############
 //########## FONCTIONS D AFFICHAGE DES MENUS ##############
 void afficheMenuPrincipal(){
@@ -206,9 +207,9 @@ int menuGestionTrajet(Reseau r){
 		printf("#            Que voulez vous faire ?           #\n");
 		printf("#                                              #\n");
 		printf("#       1- Ajouter une Gare                    #\n");
-		printf("#       2- Suprimer une Gare                   #\n");
+		printf("#       2- Suprrimer une Gare                  #\n");
 		printf("#       3- Ajouter un trajet aller-retour      #\n");
-		printf("#       4- Suprimer un trajet aller-retour     #\n");
+		printf("#       4- Supprimer un trajet aller-retour    #\n");
 		printf("#       5- Ajouter un Train                    #\n");
 		printf("#       6- Supprimer un Train                  #\n");
 		printf("#       7- Modifier un Train                   #\n");
@@ -390,7 +391,7 @@ int menuSupGare(Reseau r){
 	}
 	printf("\n\n");
 	printf("################################################\n");
-	printf("#      Tapez le nom de la Gare a Suprimer      #\n");
+	printf("#      Tapez le nom de la Gare a Supprimer     #\n");
 	printf("################################################\n");
 	printf("\n");
 	scanf("%s",nom);
@@ -607,7 +608,42 @@ int menuSupTrajet(Reseau r){
 }
 
 int menuExportationJSON(){
-	return 0;
+	int event = 1;
+	while(event != -1){
+		printf("\n");
+		printf("################################################\n");
+		printf("#        choisissez donnees a exporter         #\n");
+		printf("#                                              #\n");
+		printf("#              1- Voyageurs                    #\n");
+		printf("#              2- Trains                       #\n");
+		printf("#              3- RETOUR                       #\n");
+		printf("################################################\n");
+		printf("\n");
+		int choixMenu = lireLong();
+		fflush(stdin);
+		switch(choixMenu) {
+			case 1:
+				voyageurJson();
+				printf("################################################\n");
+				printf("#            exportation terminee              #\n");
+				printf("################################################\n");
+				break;
+			case 2:
+				trajetJson();
+				printf("################################################\n");
+				printf("#            exportation terminee              #\n");
+				printf("################################################\n");
+				break;
+			case 3:
+				event = -1;
+				break;
+			default:
+				afficheErreurMenu();
+				break;
+		}
+	}
+	printf("\n");
+	return 0;	
 }
 
 int menuGestionAdministration(){
